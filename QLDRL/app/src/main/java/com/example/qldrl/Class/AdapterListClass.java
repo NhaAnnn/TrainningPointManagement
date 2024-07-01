@@ -61,6 +61,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
         int p = position;
 
         holder.txtNameClass.setText(list.getName());
+        holder.txtYear.setText(list.getYear());
         Query query = db.collection("hocSinh").whereEqualTo("LH_id", list.getId());
 
         query.get().addOnCompleteListener(task -> {
@@ -99,7 +100,6 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
         });
 
         holder.btnUpdateClass.setOnClickListener(v -> updateClass(list, p));
-
         holder.btnDeleteClass.setOnClickListener(v -> deleteClass(list, p));
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -248,7 +248,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout btnClassroom,btnViewClass,btnUpdateClass,btnDeleteClass;
-        private TextView txtNameClass, txtMount, txtNameTearcher;
+        private TextView txtNameClass, txtYear, txtMount, txtNameTearcher;
         private ImageButton btnClassDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -261,6 +261,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
             btnUpdateClass = itemView.findViewById(R.id.btnUpdateClass);
             btnDeleteClass = itemView.findViewById(R.id.btnDeleteClass);
             btnClassroom = itemView.findViewById(R.id.btnClassroom);
+            txtYear = itemView.findViewById(R.id.txtYear);
         }
     }
 }
