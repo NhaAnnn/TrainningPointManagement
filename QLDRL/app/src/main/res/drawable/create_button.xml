@@ -3,4 +3,25 @@
     android:shape="rectangle">
     <solid android:color="#BBFBFF" /> <!-- Màu nền của button -->
     <corners android:radius="17.5dp" /> <!-- Bán kính bo góc -->
+    <padding
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp" />
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#10000000" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+
+
+    <!-- Tạo hiệu ứng nổi bật khi click -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1E88E5" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
 </shape>
