@@ -162,7 +162,7 @@ public class student extends Fragment {
         layoutErrorPositionStudent = myStudentView.findViewById(R.id.layoutErrorPositionStudent);
 
 
-
+        txtDateStudent.setText(getTodayDate());
 
         getListYear(spYearStudent);
         //setText nameAcc
@@ -317,7 +317,7 @@ public class student extends Fragment {
 
         return myStudentView;
     }
-private void closeDialog() {
+    private void closeDialog() {
 
         if (currentDialog != null) {
             currentDialog.dismiss();

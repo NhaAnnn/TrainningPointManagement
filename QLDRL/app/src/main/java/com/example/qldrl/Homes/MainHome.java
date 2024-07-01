@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qldrl.Account.account_main;
 import com.example.qldrl.Class.ListClass;
+import com.example.qldrl.Conduct.ConductInformation;
 import com.example.qldrl.Conduct.ListConduct;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.Mistake.Mistake_Board;
@@ -27,6 +29,10 @@ public class MainHome extends AppCompatActivity {
     private Account account;
     private TextView txtNameAcc, txtPostion;
     private ImageView imgUpdate, imgUser, imgConduct, imgClass;
+    public static String gv = "giáo viên";
+    public static String bcs = "ban cán sự";
+    public static String hs = "học sinh";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +52,13 @@ public class MainHome extends AppCompatActivity {
         // Chuyen qua activity MainHome
         intentActivity();
 
+
+
+
         imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent1 = new Intent(MainHome.this, account_main.class);
                 intent1.putExtra("account", account);
                 startActivity(intent1);
@@ -56,13 +66,34 @@ public class MainHome extends AppCompatActivity {
         });
 
         imgConduct.setOnClickListener(v -> {
-            Intent intent = new Intent(MainHome.this, ListConduct.class);
-            startActivity(intent);
+            if(account.getTkChucVu().toLowerCase().trim().equals(gv)){
+                Intent intent = new Intent(MainHome.this, ListConduct.class);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            } else if (account.getTkChucVu().toLowerCase().trim().equals(bcs)
+                        || account.getTkChucVu().toLowerCase().trim().equals(hs)) {
+                Intent intent = new Intent(MainHome.this, ConductInformation.class);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(MainHome.this, ListConduct.class);
+                startActivity(intent);
+            }
+
         });
 
         imgClass.setOnClickListener(v -> {
-            Intent intent = new Intent(MainHome.this, ListClass.class);
-            startActivity(intent);
+            if(account.getTkChucVu().toLowerCase().trim().equals(gv)){
+                Intent intent = new Intent(MainHome.this, ListClass.class);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            } else if (account.getTkChucVu().toLowerCase().trim().equals(bcs)
+                    || account.getTkChucVu().toLowerCase().trim().equals(hs)) {
+                Toast.makeText(this, "Tài khoản không có quyền truy cập lớp học", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(MainHome.this, ListClass.class);
+                startActivity(intent);
+            }
         });
 
         getDataSpinner();
@@ -71,9 +102,23 @@ public class MainHome extends AppCompatActivity {
         imgUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainHome.this, Mistake_Board.class);
-                intent1.putExtra("account", account);
-                startActivity(intent1);
+                if(account.getTkChucVu().toLowerCase().trim().equals(gv) || account.getTkChucVu().toLowerCase().trim().equals(bcs)){
+                    Intent intent = new Intent(MainHome.this, Mistake_Board.class);
+                    intent.putExtra("account", account);
+                    startActivity(intent);
+                } else if (account.getTkChucVu().toLowerCase().trim().equals(hs)) {
+                    Toast.makeText(MainHome.this, "Tài khoản không có quyền truy cập lớp học", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(MainHome.this, Mistake_Board.class);
+                    intent.putExtra("account", account);
+                    startActivity(intent);
+                }
+
+
+//
+//                Intent intent1 = new Intent(MainHome.this, Mistake_Board.class);
+//                intent1.putExtra("account", account);
+//                startActivity(intent1);
             }
         });
     }
@@ -86,7 +131,7 @@ public class MainHome extends AppCompatActivity {
         txtNameAcc.setText(account.getTkHoTen());
         txtPostion.setText(account.getTkChucVu());
     }
-    public static String[] yearOptions = {"Tất cả"};
+    public static String[] yearOptions = {"Năm học"};
     public void getDataSpinner() {
         List<String> nienKhoaList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();

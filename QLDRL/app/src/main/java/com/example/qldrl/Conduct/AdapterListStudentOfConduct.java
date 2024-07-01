@@ -56,18 +56,17 @@ public class AdapterListStudentOfConduct extends RecyclerView.Adapter<AdapterLis
         String StudentTrainningPoint = new String();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Query query = db.collection("hanhKiem").whereEqualTo("HS_id", listOClass.getId()).whereEqualTo("HK_HocKy",semester);
-        Log.d(TAG, "onComplete: queryyyyy "+query);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
-
+                        String idConduct = (String) queryDocumentSnapshot.getString("HKM_id");
                         String idStudent = (String) queryDocumentSnapshot.getString("HS_id");
                         String trainingPoint = (String) queryDocumentSnapshot.getString("HKM_DiemRenLuyen");
                         String conduct = (String) queryDocumentSnapshot.getString("HKM_HanhKiem");
                         String term = (String) queryDocumentSnapshot.getString("HK_HocKi");
-                        listOConduct = new ListStudentOfConduct(idStudent, trainingPoint, conduct, term);
+                        listOConduct = new ListStudentOfConduct(idConduct, idStudent, trainingPoint, conduct, term);
 
 
                         holder.txtTrainingPointStudent.setText(trainingPoint);
@@ -88,7 +87,6 @@ public class AdapterListStudentOfConduct extends RecyclerView.Adapter<AdapterLis
                 intent.putExtra("StudentId", listOClass.getId());
                 intent.putExtra("StudentTrainningPoint", listOConduct.getTrainingPoint());
                 intent.putExtra("StudentConduct",listOConduct.getConduct());
-                intent.putExtra("account", account);
                 intent.putExtra("semester",semester);
                 context.startActivity(intent);
             }

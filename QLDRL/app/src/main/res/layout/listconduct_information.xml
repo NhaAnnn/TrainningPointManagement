@@ -228,12 +228,11 @@
 
         <ImageButton
             android:id="@+id/btnConductDetail"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="85dp"
+            android:layout_width="50dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="25dp"
             android:background="@color/white"
-            android:rotation="-90"
-            android:src="@drawable/vecto"
+            android:src="@drawable/baseline_chevron_right_36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.904"
             app:layout_constraintStart_toEndOf="@+id/txtMount"

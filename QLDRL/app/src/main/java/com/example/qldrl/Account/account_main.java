@@ -2,6 +2,7 @@ package com.example.qldrl.Account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qldrl.General.Account;
+import com.example.qldrl.Homes.MainHome;
 import com.example.qldrl.Login.Login;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +49,9 @@ public class account_main extends AppCompatActivity {
         account = (Account) intent.getSerializableExtra("account");
         tkID = account.getTkID();
 
+        if(!account.getTkChucVu().toLowerCase().equals("ban giám hiệu")) {
+            btnListAcc.setVisibility(View.GONE);
+        }
 
         getDataPersonal();
 

@@ -28,14 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStudentOfConduct extends AppCompatActivity implements Serializable {
-    private String trainingPoint, conduct, term, idStudent; //Vi Phạm
+    private String idConduct,trainingPoint, conduct, term, idStudent; //Hạnh Kiểm
     public List<ListStudentOfClass> listStudentOfClass;
     private Account account;
     private AdapterListStudentOfConduct adapterListStudentOfConduct;
     public ListStudentOfConduct() {
     }
 
-    public ListStudentOfConduct( String idStudent, String trainingPoint, String conduct, String term) {
+    public ListStudentOfConduct(String idConduct, String idStudent, String trainingPoint, String conduct, String term) {
+       this.idConduct = idConduct;
         this.trainingPoint = trainingPoint;
         this.conduct = conduct;
         this.term = term;

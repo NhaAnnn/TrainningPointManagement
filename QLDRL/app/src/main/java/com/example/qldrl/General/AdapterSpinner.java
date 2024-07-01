@@ -10,10 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterSpinner {
-    private Spinner spinnerGrade, spinnerYear;
+    private Spinner spinnerGrade, spinnerSemester, spinnerYear;
     private List<String> list = new ArrayList<>();
     private String[] yearOptions = {"Năm học"};
 
+    public AdapterSpinner(Spinner spinnerSemester) {
+        this.spinnerSemester = spinnerSemester;
+    }
+
+    public AdapterSpinner(Spinner spinnerGrade, Spinner spinnerSemester, Spinner spinnerYear) {
+        this.spinnerGrade = spinnerGrade;
+        this.spinnerSemester = spinnerSemester;
+        this.spinnerYear = spinnerYear;
+    }
 
     public AdapterSpinner(Spinner spinnerGrade, Spinner spinnerYear) {
         this.spinnerGrade = spinnerGrade;
@@ -33,7 +42,19 @@ public class AdapterSpinner {
         spinnerGrade.setSelection(0);
 
     }
+    public void setupSpinnerSemester(Context context) {
+        // Tạo danh sách các lựa chọn cho Spinner
+        String[] gradeOptions = {"Học kỳ 1", "Học kỳ 2"};
 
+        // Tạo ArrayAdapter với các lựa chọn
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, gradeOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Gán adapter cho Spinner
+        spinnerSemester.setAdapter(adapter);
+        spinnerSemester.setSelection(0);
+
+    }
     public void setupSpinnerYear(Context context) {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, MainHome.yearOptions);

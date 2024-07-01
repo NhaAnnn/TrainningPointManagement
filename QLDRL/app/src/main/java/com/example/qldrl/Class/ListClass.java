@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,7 +28,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterSpinner;
+import com.example.qldrl.Homes.MainHome;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,6 +56,7 @@ public class ListClass extends AppCompatActivity implements Serializable {
     private LinearLayout btnCreateClasses,btnCreateOneClass;
     private List<ListClass> listClasses = new ArrayList<>();
     public static Dialog dialog;
+    private Account account;
     private AdapterSpinner adapterSpinnerHelper;
     public ListClass() {
     }
@@ -79,8 +83,26 @@ public class ListClass extends AppCompatActivity implements Serializable {
         adapterSpinnerHelper.setupSpinnerYear(this);
 //        adapterSpinnerHelper.setupSpinnerYear(this);
 
+        Intent intent = getIntent();
+        account = (Account) intent.getSerializableExtra("account");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("giaoVien").whereEqualTo("TK_id",account.getTkID())
+                .get().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String id = (String) document.getString("LH_id");
+
+                            if(account.getTkChucVu().toLowerCase().trim().equals(MainHome.gv)){
+                                getDataClassForTeacher(id);
+                            }else {
+                                getData();
+                            }
+                        }
+                    }
+                });
+
         EventBus.getDefault().register(this);
-        getData();
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -119,7 +141,7 @@ public class ListClass extends AppCompatActivity implements Serializable {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedOption = (String) parent.getItemAtPosition(position);
-                String all = "Tất cả";
+                String all = "Khối";
                 int spaceIndex = selectedOption.indexOf(" ");
                 String afterSpace = selectedOption.substring(spaceIndex + 1);
                 Log.d(TAG, "onItemSelected: "+afterSpace);
@@ -145,7 +167,7 @@ public class ListClass extends AppCompatActivity implements Serializable {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedOption = (String) parent.getItemAtPosition(position);
-                String all = "Tất cả";
+                String all = "Năm học";
                 List<ListClass> filteredData = new ArrayList<>();
                 for (ListClass item : listClasses) {
                     if (item.getYear().toLowerCase().contains(selectedOption.toLowerCase())
@@ -191,6 +213,28 @@ public class ListClass extends AppCompatActivity implements Serializable {
                     String term = (String) document.getString("HK_HocKi");
                     ListClass data = new ListClass(id, classroomName, teacherName, year);
                     List.add(data);
+                }
+                Log.d(TAG, "Success: " + List.size());
+                updateData(List);
+            }
+        });
+    }
+    public void getDataClassForTeacher(String idLH){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("lop").whereEqualTo("LH_id",idLH).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+//                    classroomList = new ArrayList<>();
+                List<ListClass> List = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String id = (String) document.getString("LH_id");
+                    String classroomName = (String) document.getString("LH_TenLop");
+                    String teacherName = (String) document.getString("LH_GVCN");
+                    String year = (String) document.getString("NK_NienKhoa");
+
+                    ListClass data = new ListClass(id, classroomName, teacherName, year);
+//                        Classlist data = document.toObject(Classlist.class);
+                    List.add(data);
+
                 }
                 Log.d(TAG, "Success: " + List.size());
                 updateData(List);

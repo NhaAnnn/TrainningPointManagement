@@ -78,19 +78,17 @@
             android:layout_marginBottom="10dp"
             android:text="Chức vụ:"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <ImageButton
             android:id="@+id/btnStudentDetail"
             android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="90dp"
+
             android:layout_marginEnd="4dp"
             android:background="@color/white"
-            android:rotation="-90"
-            android:src="@drawable/vecto"
+            android:src="@drawable/baseline_chevron_right_36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.896"
             app:layout_constraintStart_toEndOf="@+id/txtNameStudent"

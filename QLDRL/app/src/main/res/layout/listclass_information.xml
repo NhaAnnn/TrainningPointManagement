@@ -104,12 +104,12 @@
 
         <ImageButton
             android:id="@+id/btnClassDetail"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="4dp"
             android:background="@color/white"
-            android:src="@drawable/vecto"
+            android:src="@drawable/ic_expand_more_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.896"
             app:layout_constraintStart_toEndOf="@+id/txtMount"

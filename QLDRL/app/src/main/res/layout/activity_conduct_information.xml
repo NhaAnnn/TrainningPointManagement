@@ -60,9 +60,18 @@
             android:layout_marginTop="20dp"
             android:text="Thông tin học sinh:"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/view"/>
+
+        <Spinner
+            android:id="@+id/spinnerSemester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 
     <LinearLayout
