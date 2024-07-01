@@ -2,6 +2,7 @@ package com.example.qldrl.Account.FagmentCreate;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,13 +21,22 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.Account.listAcc;
+import com.example.qldrl.General.Account;
+import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Login.Login;
 import com.example.qldrl.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -39,8 +49,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +61,7 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class uploadListBoard extends Fragment {
+    private CreateManyAccountCallback callback;
     private static final int REQUEST_CODE = 123;
     private TextView txtNameFile;
     private Button btnExitAcc,btnUpload, btnChoiceFile;
@@ -97,6 +110,17 @@ public class uploadListBoard extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof
+                CreateManyAccountCallback) {
+            callback = (CreateManyAccountCallback) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement CreateManyAccountCallback");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -128,6 +152,11 @@ public class uploadListBoard extends Fragment {
 
             }
         });
+
+
+
+
+
 
         btnExitAcc.setOnClickListener(v -> {
             if (listAcc.currentDialog != null) {
@@ -202,6 +231,7 @@ public class uploadListBoard extends Fragment {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 // sheet.getLastRowNum()
+                List<Account>  accountList = new ArrayList<>();
                 for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Bắt đầu từ hàng thứ hai (giả sử hàng đầu tiên là tiêu đề)
                     Row row = sheet.getRow(i);
                     if (row != null) {
@@ -232,6 +262,10 @@ public class uploadListBoard extends Fragment {
                         tkData.put("TK_NgaySinh", hsNgaySinh);
                         tkData.put("TK_ChucVu", hsChucVu);
                         tkData.put("TK_MatKhau", hsMatKhau);
+
+
+                        Account account = new Account(hsId,hsId,hsNgaySinh, hsMatKhau, hsHoTen, hsChucVu);
+                        accountList.add(account);
 
                         // Lưu dữ liệu học sinh vào collection "hocSinh"
 //                        DocumentReference hsRef = db.collection("giaoVien").document(hsId);
@@ -264,6 +298,7 @@ public class uploadListBoard extends Fragment {
                         });
                     }
                 }
+                //Goi o day
             }
         }
     }

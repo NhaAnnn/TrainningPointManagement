@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
@@ -56,8 +57,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Use the {@link student#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class student extends Fragment  {
-    private CreateAccountCallback callback;
+public class student extends Fragment {
+
+    private CreateManyAccountCallback callback;
     Activity activity;
     private EditText editNameClassStudent, editNameStudent, editCodeStudent,editPassStudent, editPassAgainStudent;
     private ImageView imgBtnPickDate;
@@ -120,11 +122,21 @@ public class student extends Fragment  {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof CreateAccountCallback) {
-            callback = (CreateAccountCallback) context;
+        if (context instanceof CreateManyAccountCallback) {
+            callback = (CreateManyAccountCallback) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement CreateAccountCallback");
         }
+    }
+
+    // ...
+
+    private void onCreateAccount(List<Account> newAccounts) {
+        // Xử lý tại Fragment khi tài khoản mới được tạo
+        // Ví dụ: cập nhật dữ liệu, hiển thị thông báo, v.v.
+
+        // Sau đó gọi callback để thông báo cho Activity
+        callback.onManyAccountCreated(newAccounts);
     }
 
     @Override
@@ -282,6 +294,8 @@ public class student extends Fragment  {
                 });
 
             }
+
+
         });
 
 
@@ -303,13 +317,13 @@ public class student extends Fragment  {
 
         return myStudentView;
     }
+private void closeDialog() {
 
-    private void closeDialog() {
-        currentDialog.dismiss();
-    }
-    private void onCreateAccount(Account account) {
-        callback.onAccountCreated(account);
-    }
+        if (currentDialog != null) {
+            currentDialog.dismiss();
+        }
+
+}
     private void dismissDialog() {
         // Lấy tham chiếu đến dialog cha (có thể là Activity hoặc Fragment)
         DialogFragment parentDialog = (DialogFragment) getParentFragment();
@@ -502,11 +516,61 @@ public class student extends Fragment  {
                                 }
                             });
 
+
+                    DocumentReference HKiemHSRef = db.collection("hanhKiem").document("HKI"+maHS);
+                    Map<String, Object> HK1data = new HashMap<>();
+                    HK1data.put("HKM_DiemRenLuyen", "100");
+                    HK1data.put("HKM_id", "HKI"+maHS);
+                    HK1data.put("HKM_HanhKiem", "Tốt");
+                    HK1data.put("HK_HocKy", "Học kỳ 1");
+                    HK1data.put("HS_id", maHS);
+
+                    HKiemHSRef.set(HK1data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "success HK", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getContext(), "gg HK"+e, Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+
+                    DocumentReference HKiem2HSRef = db.collection("hanhKiem").document("HKII"+maHS);
+
+                    Map<String, Object> HK2data = new HashMap<>();
+                    HK2data.put("HKM_DiemRenLuyen", "100");
+                    HK2data.put("HKM_id", "HKII"+maHS);
+                    HK2data.put("HKM_HanhKiem", "Tốt");
+                    HK2data.put("HK_HocKy", "Học kỳ 2");
+                    HK2data.put("HS_id", maHS);
+
+                    HKiem2HSRef.set(HK2data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "success HK", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getContext(), "gg HK"+e, Toast.LENGTH_LONG).show();
+                                }
+                            });
                 });
 
 
-            Account account = new Account(maHS, maHS, ngaySinh,makhau, hoTen, chucVu);
-            onCreateAccount(account);
+            Account account = new Account(maHS, maHS,ngaySinh,makhau,hoTen,chucVu);
+            List<Account> listTest = new ArrayList<>();
+            listTest.add(account);
+            onCreateAccount(listTest);
+
+
 
     }
 }

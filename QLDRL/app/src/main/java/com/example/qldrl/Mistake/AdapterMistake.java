@@ -52,6 +52,7 @@ public class AdapterMistake extends RecyclerView.Adapter<AdapterMistake.mistakeV
                 public void onClick(View v) {
                     Intent intent = new Intent(context, mistake_edit.class);
                     intent.putExtra("mistakeName", mistake.getNameMistake());
+                    intent.putExtra("mistake", mistake);
                     intent.putExtra("namePersonl", namePersonl);
                     intent.putExtra("account", account);
                     intent.putExtra("student", student);

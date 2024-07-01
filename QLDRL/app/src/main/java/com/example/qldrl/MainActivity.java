@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish(); // Kết thúc MainActivity
             }
-        }, 40000); // Delay 2 giây
+        }, 4000); // Delay 2 giây
 
 
 

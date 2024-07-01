@@ -84,13 +84,17 @@ public class AdapterMistakeDetail extends RecyclerView.Adapter<AdapterMistakeDet
                        .addOnSuccessListener(queryDocumentSnapshots -> {
                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                String vpTenViPham = document.getString("VP_TenViPham");
-                               if (vpTenViPham != null) {
-                                   vpTenViPhams.add(new Mistake(vpTenViPham));
-                               }
+                               String vpID = document.getString("VP_id");
+                               String lvpid = document.getString("LVP_id");
+                               String vpdiemtru = document.getString("VP_DiemTru");
+                               Mistake mistake1 = new Mistake(vpTenViPham, lvpid,vpID,vpdiemtru);
+
+                                   vpTenViPhams.add(mistake1);
+
                            }
 
                            // Xử lý vpTenViPhams ở đây
-                           Log.d("TAG", String.valueOf(vpTenViPhams.size()));
+                       //    Log.d("TAG", String.valueOf(vpTenViPhams.size()));
 
                            AdapterMistake adapterMistake = new AdapterMistake(vpTenViPhams, context, namePersonl, account, student);
                            holder.recycMistakeDetail.setAdapter(adapterMistake);

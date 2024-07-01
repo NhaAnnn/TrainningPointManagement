@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.qldrl.General.Account;
 import com.example.qldrl.General.Student;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +25,7 @@ public class Mistake_See extends AppCompatActivity {
     private TextView txtNamePersonlMistake;
     private AdapterMistakeSee adapterMistakeSee;
     private Student student;
+    private Account account;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -36,19 +38,20 @@ public class Mistake_See extends AppCompatActivity {
 
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("student");
+        account = (Account) intent.getSerializableExtra("account");
 
         assert student != null;
         txtNamePersonlMistake.setText("Vi phạm của "+student.getHsHoTen());
 
         getListMistakes(student.getHsID());
 
-        List<Mistakes> mistakesList = new ArrayList<>();
-        mistakesList.add(new Mistakes("12A101","HT01", "LTVP0","tk01","Hóa  Friday, 21/06/2024"));
-
-        adapterMistakeSee = new AdapterMistakeSee(mistakesList, this);
-        recycMistakeSee.setAdapter(adapterMistakeSee);
-
-        recycMistakeSee.setLayoutManager(new GridLayoutManager(Mistake_See.this, 1));
+//        List<Mistakes> mistakesList = new ArrayList<>();
+//        mistakesList.add(new Mistakes("12A101","HT01", "LTVP0","tk01","Hóa  Friday, 21/06/2024"));
+//
+//        adapterMistakeSee = new AdapterMistakeSee(mistakesList, this);
+//        recycMistakeSee.setAdapter(adapterMistakeSee);
+//
+//        recycMistakeSee.setLayoutManager(new GridLayoutManager(Mistake_See.this, 1));
     }
 
     private void getListMistakes(String hsID) {
@@ -70,7 +73,7 @@ public class Mistake_See extends AppCompatActivity {
                             Mistakes mistakes = new Mistakes( hsIDd , vpID, lvpID, tkID,lvpTime);
                             mistakesList.add(mistakes);
                         }
-                        adapterMistakeSee = new AdapterMistakeSee(mistakesList, Mistake_See.this); //truyen vao tuy tung list
+                        adapterMistakeSee = new AdapterMistakeSee(mistakesList, Mistake_See.this, account, student); //truyen vao tuy tung list
                         recycMistakeSee.setAdapter(adapterMistakeSee);
 
                         recycMistakeSee.setLayoutManager(new GridLayoutManager(Mistake_See.this, 1));

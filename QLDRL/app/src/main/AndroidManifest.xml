@@ -35,6 +35,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Mistake.MistakeUpdateMistake"
+            android:exported="false" />
+        <activity
             android:name=".Conduct.ConductInformation"
             android:exported="false" />
         <activity

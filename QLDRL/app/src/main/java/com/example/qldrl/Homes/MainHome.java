@@ -28,7 +28,6 @@ public class MainHome extends AppCompatActivity {
     private TextView txtNameAcc, txtPostion;
     private ImageView imgUpdate, imgUser, imgConduct, imgClass;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,7 @@ public class MainHome extends AppCompatActivity {
 
         // Nhan du lieu tu Login
         getIntentData();
-        // Chuyen qua activity Mistake_Board
+        // Chuyen qua activity MainHome
         intentActivity();
 
         imgUser.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +57,13 @@ public class MainHome extends AppCompatActivity {
 
         imgConduct.setOnClickListener(v -> {
             Intent intent = new Intent(MainHome.this, ListConduct.class);
-            intent.putExtra("account", account);
             startActivity(intent);
         });
 
         imgClass.setOnClickListener(v -> {
             Intent intent = new Intent(MainHome.this, ListClass.class);
-            intent.putExtra("account", account);
             startActivity(intent);
         });
-
-        getDataSpinner();
     }
     private void intentActivity() {
         imgUpdate.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +84,6 @@ public class MainHome extends AppCompatActivity {
         txtNameAcc.setText(account.getTkHoTen());
         txtPostion.setText(account.getTkChucVu());
     }
-
-
     public static String[] yearOptions = {"Tất cả"};
     public void getDataSpinner() {
         List<String> nienKhoaList = new ArrayList<>();

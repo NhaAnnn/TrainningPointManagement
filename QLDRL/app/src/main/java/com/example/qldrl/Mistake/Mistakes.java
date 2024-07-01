@@ -1,6 +1,8 @@
 package com.example.qldrl.Mistake;
 
-public class Mistakes {
+import java.io.Serializable;
+
+public class Mistakes implements Serializable {
     String hsID, vpID, ltvpID, tkID, ltvpThoiGian;
 
     public Mistakes(String hsID, String vpID, String ltvpID, String tkID, String ltvpThoiGian) {

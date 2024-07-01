@@ -1,9 +1,6 @@
 package com.example.qldrl.Account.FagmentCreate;
 
-import static com.example.qldrl.Account.listAcc.currentDialog;
-
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,7 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.qldrl.General.Account;
+import com.example.qldrl.Account.listAcc;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,7 +44,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * create an instance of this fragment.
  */
 public class board_school extends Fragment {
-    private CreateAccountCallback callback;
 
     private EditText editNameBoard, editCodeBoard, editPassBoard,editPassAgianBoard;
     private Button btnCreateBoard, btnExitBoard;
@@ -100,18 +96,7 @@ public class board_school extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof CreateAccountCallback) {
-            callback = (CreateAccountCallback) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement CreateAccountCallback");
-        }
-    }
-    private void onCreateAccount(Account account) {
-        callback.onAccountCreated(account);
-    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -232,7 +217,6 @@ public class board_school extends Fragment {
                                 // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
                                 if (isValid) {
                                     saveBoard();
-                                    closeDialog();
                                 }
 
                             }
@@ -255,15 +239,13 @@ public class board_school extends Fragment {
         initDataPicker();
 
         btnExitBoard.setOnClickListener(v -> {
-            if (currentDialog != null) {
-                currentDialog.dismiss();
+            if (listAcc.currentDialog != null) {
+                listAcc.currentDialog.dismiss();
             }
         });
         return myBoardView;
     }
-    private void closeDialog() {
-        currentDialog.dismiss();
-    }
+
     private String getTodayDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -371,8 +353,7 @@ public class board_school extends Fragment {
 //                            });
 
                 });
-        Account account = new Account(maBGH, maBGH, ngaySinh,makhau, hoTen, chucVu);
-        onCreateAccount(account);
+
 
 
 

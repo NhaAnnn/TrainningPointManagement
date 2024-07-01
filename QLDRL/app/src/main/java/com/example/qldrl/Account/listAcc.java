@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.qldrl.Account.FagmentCreate.CreateAccountCallback;
 import com.example.qldrl.Account.FagmentCreate.FagAdapter;
 import com.example.qldrl.Account.FagmentCreate.FragAdapterCreateAcc;
 import com.example.qldrl.General.Account;
@@ -33,12 +32,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listAcc extends AppCompatActivity implements CreateAccountCallback {
-    List<Account> accountListMain = new ArrayList<>();
+public class listAcc extends AppCompatActivity implements CreateManyAccountCallback {
     private RecyclerView recycAcc;
     private LinearLayout layoutManyAcc,layoutAcc;
     private SearchView searchAcc;
     private AdapterAccount adapterAccount;
+    List<Account> accountListsss = new ArrayList<>();
+
 
     public static Dialog currentDialog;
     FragmentActivity fragmentActivity = (FragmentActivity) this;
@@ -74,6 +74,8 @@ public class listAcc extends AppCompatActivity implements CreateAccountCallback 
                 openDinalogCreatAcc(Gravity.CENTER);
             }
         });
+
+
 
     }
 
@@ -189,8 +191,13 @@ public class listAcc extends AppCompatActivity implements CreateAccountCallback 
                     accountList.add(account);
                 }
                 // Log.d("helllo" ,classRomList.size() + "");
-                updateRecyc(accountList);
 
+
+                updateRecyclerView(accountList);
+//                adapterAccount = new AdapterAccount(listAcc.this, accountListsss); //truyen vao tuy tung list
+//                recycAcc.setAdapter(adapterAccount);
+//
+//                recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
             } else {
                 //Toast.makeText(getApplicationContext(), "Error retrieving accounts", Toast.LENGTH_SHORT).show();
             }
@@ -199,19 +206,26 @@ public class listAcc extends AppCompatActivity implements CreateAccountCallback 
 
 
     }
-
-    private void updateRecyc(List<Account> accountList) {
-        accountListMain.addAll(accountList);
-        adapterAccount = new AdapterAccount(listAcc.this, accountListMain); //truyen vao tuy tung list
+    private void updateRecyclerView(List<Account> accountLists) {
+        accountListsss.addAll(accountLists);
+        adapterAccount = new AdapterAccount(listAcc.this, accountListsss);
         recycAcc.setAdapter(adapterAccount);
-
         recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
-
     }
+//    private List<Account> getList(List<Account> accountLists) {
+//        accountListsss.addAll(accountLists);
+//        adapterAccount = new AdapterAccount(listAcc.this, accountListsss);
+//        recycAcc.setAdapter(adapterAccount);
+//        recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
+//    }
+
 
     @Override
-    public void onAccountCreated(Account account) {
-        accountListMain.add(account);
-        adapterAccount.notifyItemInserted(accountListMain.size() - 1);
+    public void onManyAccountCreated(List<Account> newAccounts) {
+        // Xử lý tài khoản mới được tạo ở đây
+        // Ví dụ: lưu trữ tài khoản, cập nhật giao diện, v.v.
+        accountListsss.addAll(newAccounts);
+        adapterAccount.notifyDataSetChanged();
+
     }
 }

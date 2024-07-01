@@ -239,6 +239,20 @@ public class uploadListStudent extends Fragment {
                         tkData.put("TK_ChucVu", hsChucVu);
                         tkData.put("TK_MatKhau", hsMatKhau);
 
+                        Map<String, Object> HK1data = new HashMap<>();
+                        HK1data.put("HKM_DiemRenLuyen", "100");
+                        HK1data.put("HKM_id", "HKI"+hsId);
+                        HK1data.put("HKM_HanhKiem", "Tốt");
+                        HK1data.put("HK_HocKy", "Học kỳ 1");
+                        HK1data.put("HS_id", hsId);
+
+                        Map<String, Object> HK2data = new HashMap<>();
+                        HK2data.put("HKM_DiemRenLuyen", "100");
+                        HK2data.put("HKM_id", "HKII"+hsId);
+                        HK2data.put("HKM_HanhKiem", "Tốt");
+                        HK2data.put("HK_HocKy", "Học kỳ 2");
+                        HK2data.put("HS_id", hsId);
+
                         // Lưu dữ liệu học sinh vào collection "hocSinh"
                         DocumentReference hsRef = db.collection("hocSinh").document(hsId);
                         Task<Void> hsWriteResult = hsRef.set(hsData);
@@ -255,6 +269,9 @@ public class uploadListStudent extends Fragment {
                             }
                         });
 
+
+
+
                         DocumentReference tkRef = db.collection("taiKhoan").document(hsId);
                         Task<Void> tkWriteResult = tkRef.set(tkData);
                         tkWriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -266,6 +283,38 @@ public class uploadListStudent extends Fragment {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // Xử lý lỗi khi lưu dữ liệu tài khoản
+                            }
+                        });
+
+
+
+                        DocumentReference hkiem1Ref = db.collection("hanhKiem").document("HKI"+hsId);
+                        Task<Void> hKiemWriteResult = hkiem1Ref.set(HK1data);
+                        hKiemWriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Xử lý lỗi khi lưu dữ liệu học sinh
+                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                        DocumentReference hkiem2Ref = db.collection("hanhKiem").document("HKII"+hsId);
+                        Task<Void> hKiem2WriteResult = hkiem2Ref.set(HK1data);
+                        hKiem2WriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Xử lý lỗi khi lưu dữ liệu học sinh
+                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
                             }
                         });
                     }

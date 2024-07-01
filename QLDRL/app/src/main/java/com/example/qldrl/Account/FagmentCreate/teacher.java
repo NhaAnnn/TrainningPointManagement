@@ -1,9 +1,6 @@
 package com.example.qldrl.Account.FagmentCreate;
 
-import static com.example.qldrl.Account.listAcc.currentDialog;
-
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.qldrl.Account.listAcc;
-import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
 import com.example.qldrl.R;
@@ -56,7 +52,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * create an instance of this fragment.
  */
 public class teacher extends Fragment {
-    private CreateAccountCallback callback;
     private EditText editNameTeacher, editCodeTeacher, editPassTeacher,editPassAgianAccTeacher, editClassTeacher;
     private Button btnCreateTeacher, btnExitFragTeacher;
     private TextView txtNameAccTeacher, txtDatePick;
@@ -102,9 +97,7 @@ public class teacher extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    private void onCreateAccount(Account account) {
-        callback.onAccountCreated(account);
-    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,15 +106,7 @@ public class teacher extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof CreateAccountCallback) {
-            callback = (CreateAccountCallback) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement CreateAccountCallback");
-        }
-    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -315,7 +300,6 @@ public class teacher extends Fragment {
                                 // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
                                 if (isValid) {
                                     saveTeacher();
-                                    closeDialog();
                                 }
 
                             }
@@ -509,13 +493,9 @@ public class teacher extends Fragment {
 
 
 
-        Account account = new Account(maGV, maGV, ngaySinh,makhau, hoTen, chucVu);
-        onCreateAccount(account);
 
     }
-    private void closeDialog() {
-        currentDialog.dismiss();
-    }
+
     private void openDatePicker() {
         datePickerDialog.show();
     }

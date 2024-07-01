@@ -138,6 +138,7 @@ public class AdaperPersonal extends RecyclerView.Adapter<AdaperPersonal.MyViewHo
             holder.imgViewMistake.setOnClickListener(v -> {
                 Intent intent = new Intent(context, Mistake_See.class);
                 intent.putExtra("student", student1);
+                intent.putExtra("account", account);
                 context.startActivity(intent);
 
             });

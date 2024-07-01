@@ -82,7 +82,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, "ban lick thanh caong", Toast.LENGTH_LONG).show();
-                        openDinalogDelete(Gravity.CENTER, account.getTkID(), holder.getAdapterPosition());
+                        openDinalogDelete(Gravity.CENTER, account, holder.getAdapterPosition());
 
                     }
                 });
@@ -211,7 +211,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
         }
     }
 
-    private void openDinalogDelete(int gravity, String idAccount, int position) {
+    private void openDinalogDelete(int gravity, Account account, int position) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_account_dinalog_delete);
@@ -248,7 +248,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
                 // Tạo truy vấn để tìm document có TK_id = "111"
                 Query query = db.collection("taiKhoan")
-                        .whereEqualTo("TK_id", idAccount);
+                        .whereEqualTo("TK_id", account.getTkID());
 
                 // Thực hiện truy vấn và lấy snapshot
                 query.get().addOnCompleteListener(task -> {
@@ -268,27 +268,77 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                     }
                 });
 
+                if(account.getTkChucVu().toLowerCase().equals("giáo viên")) {
+                    Query query1 = db.collection("giaoVien")
+                            .whereEqualTo("TK_id", account.getTkID());
 
-                Query query1 = db.collection("giaoVien")
-                        .whereEqualTo("TK_id", idAccount);
-
-                // Thực hiện truy vấn và lấy snapshot
-                query1.get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot snapshot = task.getResult();
-                        if (!snapshot.isEmpty()) {
-                            // Xóa document
-                            for (DocumentSnapshot document : snapshot.getDocuments()) {
-                                document.getReference().delete();
+                    // Thực hiện truy vấn và lấy snapshot
+                    query1.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot snapshot = task.getResult();
+                            if (!snapshot.isEmpty()) {
+                                // Xóa document
+                                for (DocumentSnapshot document : snapshot.getDocuments()) {
+                                    document.getReference().delete();
+                                }
+                                // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                            } else {
+                                // System.out.println("Không tìm thấy document nào có TK_id = 111.");
                             }
-                            // System.out.println("Đã xóa document có TK_id = 111 thành công!");
                         } else {
-                            // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                            // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
                         }
-                    } else {
-                        // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
-                    }
-                });
+                    });
+                    Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
+
+                } else if(account.getTkChucVu().toLowerCase().equals("học sinh") || account.getTkChucVu().toLowerCase().equals("ban cán sự") ) {
+                    Query query1 = db.collection("hocSinh")
+                            .whereEqualTo("TK_id", account.getTkID());
+
+                    // Thực hiện truy vấn và lấy snapshot
+                    query1.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot snapshot = task.getResult();
+                            if (!snapshot.isEmpty()) {
+                                // Xóa document
+                                for (DocumentSnapshot document : snapshot.getDocuments()) {
+                                    document.getReference().delete();
+                                }
+                                // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                            } else {
+                                // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                            }
+                        } else {
+                            // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
+                        }
+                    });
+
+
+                    Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
+
+                    Query query2 = db.collection("hanhKiem")
+                            .whereEqualTo("HS_id", account.getTkID());
+
+                    // Thực hiện truy vấn và lấy snapshot
+                    query2.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot snapshot = task.getResult();
+                            if (!snapshot.isEmpty()) {
+                                // Xóa document
+                                for (DocumentSnapshot document : snapshot.getDocuments()) {
+                                    document.getReference().delete();
+                                }
+                                // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                            } else {
+                                // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                            }
+                        } else {
+                            // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
+                        }
+                    });
+
+                }
+
                 Toast.makeText(context, "Xóa tài khoản thành công!", Toast.LENGTH_SHORT).show();
                 accountList.remove(position);
                 notifyItemRemoved(position);

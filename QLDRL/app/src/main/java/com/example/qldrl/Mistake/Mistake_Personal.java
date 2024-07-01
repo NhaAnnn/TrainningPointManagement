@@ -3,7 +3,6 @@ package com.example.qldrl.Mistake;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -73,27 +72,27 @@ public class Mistake_Personal extends AppCompatActivity {
 
 
 
-        searchPersonal = findViewById(R.id.searchPersonal);
-        searchPersonal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recycPersonal.setVisibility(View.VISIBLE);
-
-            }
-        });
-        searchPersonal.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adaperPersonal.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adaperPersonal.getFilter().filter(newText);
-                return false;
-            }
-        });
+//        searchPersonal = findViewById(R.id.searchPersonal);
+//        searchPersonal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recycPersonal.setVisibility(View.VISIBLE);
+//
+//            }
+//        });
+//        searchPersonal.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                adaperPersonal.getFilter().filter(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adaperPersonal.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
 
 
 
