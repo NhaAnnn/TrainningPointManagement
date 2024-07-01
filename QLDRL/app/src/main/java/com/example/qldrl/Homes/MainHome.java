@@ -64,6 +64,8 @@ public class MainHome extends AppCompatActivity {
             Intent intent = new Intent(MainHome.this, ListClass.class);
             startActivity(intent);
         });
+
+        getDataSpinner();
     }
     private void intentActivity() {
         imgUpdate.setOnClickListener(new View.OnClickListener() {
