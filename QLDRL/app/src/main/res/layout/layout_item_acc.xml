@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardVItemAcc"
+    style="@style/CustomButtonStyle"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="10dp"
+    android:background="#151515"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <TextView
+            android:id="@+id/txtNameAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="6dp"
+            android:gravity="left"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtAccPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/txtNameAcc"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameAcc" />
+
+        <TextView
+            android:id="@+id/txtAccType"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="31dp"
+            android:gravity="left"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/txtAccNameClass"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="@+id/txtAccPass" />
+
+        <TextView
+            android:id="@+id/txtAccNameClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:gravity="left"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtAccType" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:text="Tên tài khoản:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:text="Mật khẩu:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="31dp"
+            android:text="Loại tài khoản:"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="4dp"
+            android:text="Lớp:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgBtnDelete"
+            android:layout_width="28dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/imgBtnEditAcc"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgBtnDelete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_edit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

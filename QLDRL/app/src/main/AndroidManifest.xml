@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:theme="@style/Base.Theme.Qldrl"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_logo"
+        android:supportsRtl="true">
+
+<!--        <activity-->
+<!--            android:name=".Home"-->
+<!--            android:theme="@style/Theme.MySplashScreen"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+        <activity
+            android:name=".Login.Login"
+            android:theme="@style/Theme.MySplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Conduct.ConductInformation"
+            android:exported="false" />
+        <activity
+            android:name=".Conduct.ListStudentOfConduct"
+            android:exported="false" />
+        <activity
+            android:name=".Conduct.ListConduct"
+            android:exported="false" />
+        <activity
+            android:name=".Class.StudentInformation"
+            android:exported="false" />
+        <activity
+            android:name=".Class.DialogCreateClass"
+            android:exported="false" />
+        <activity
+            android:name=".Class.ListStudentOfClass"
+            android:exported="false" />
+        <activity
+            android:name=".Class.ListClass"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.Mistake_See"
+            android:exported="false" />
+
+        <activity
+            android:name=".Account.changePass"
+            android:exported="false" />
+        <activity
+            android:name=".Account.listAcc"
+            android:exported="false" />
+        <activity
+            android:name=".Account.account_main"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.mistake_edit"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.Mistake_Board"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.mistake_detail"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.Mistake_Teach_Student"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Homes.MainHome"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.Mistake_Personal"
+            android:exported="false" />
+
+
+</application>
+
+</manifest>

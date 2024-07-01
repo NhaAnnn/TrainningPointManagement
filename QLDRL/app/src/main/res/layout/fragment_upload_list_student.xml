@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Account.FagmentCreate.uploadListBoard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_create" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Tải lên DS Tài khoản"
+                android:textSize="24sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtNameStudentFile"
+                android:layout_width="171dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/general_border"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnChoiceStudetFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="#76ABAE"
+                android:text="Chọn File" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnUploadStudent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="#38B6FF"
+                android:text="Tải lên" />
+
+            <Button
+                android:id="@+id/btnExitStudentAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="#FF0000"
+                android:text="Thoát" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "423348268171",
+    "firebase_url": "https://miniapptest-705a9-default-rtdb.firebaseio.com",
+    "project_id": "miniapptest-705a9",
+    "storage_bucket": "miniapptest-705a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423348268171:android:7c51b2cfb1373fd085f88e",
+        "android_client_info": {
+          "package_name": "com.app.DRL"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHOy2OHjcYVHLE9oRfJkL6LhBJ_dP0OxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423348268171:android:ed76524ce2b072b985f88e",
+        "android_client_info": {
+          "package_name": "com.example.qldrl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHOy2OHjcYVHLE9oRfJkL6LhBJ_dP0OxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423348268171:android:779d096b245a017785f88e",
+        "android_client_info": {
+          "package_name": "com.example.stud"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHOy2OHjcYVHLE9oRfJkL6LhBJ_dP0OxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

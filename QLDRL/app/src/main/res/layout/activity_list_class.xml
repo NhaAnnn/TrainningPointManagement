@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Class.ListClass"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#38B5FE"
+            android:paddingLeft="8dp"
+            android:src="@drawable/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.021"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pageTitle"
+            android:layout_width="338dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:text="Danh sách các lớp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/btn_return_class"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+        <LinearLayout
+            android:id="@+id/btnCreateOneClass"
+            android:layout_width="153dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/create_button"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCreateClasses"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/create_button"
+                android:paddingLeft="8dp"
+                android:src="@drawable/add" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Tạo lớp học"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnCreateClasses"
+            android:layout_width="194dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/create_button"
+            android:gravity="center_vertical"
+
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/create_button"
+                android:paddingLeft="8dp"
+                android:src="@drawable/add" />
+
+            <TextView
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+                android:text="Tạo nhiều lớp học"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+        <Spinner
+            android:id="@+id/spinner_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateClasses">
+
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/spinner_year"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinner_grade"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateClasses">
+
+        </Spinner>
+    </LinearLayout>
+
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/general_border_radius"
+        android:iconifiedByDefault="false"
+        android:queryHint="Tìm kiếm nhanh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"></SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclViewClass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+
+</LinearLayout>

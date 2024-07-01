@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardVItemClass"
+    style="@style/CustomButtonStyle"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="10dp"
+    android:background="#151515"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtNoMistake"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="STT"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtNameMistakeSee"
+                android:layout_width="253dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgBtnSeeDetail"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/drop_more_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Được cập nhật bởi:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtPersonalEdit"
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Thời gian:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtTimeEdit"
+                    android:layout_width="189dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEditMistakeSee"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Chỉnh sửa" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

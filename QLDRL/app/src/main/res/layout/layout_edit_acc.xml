@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/account_bg_white"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layoutEDIT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="55dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <LinearLayout
+                android:id="@+id/layoutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="110dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView23"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_edit" />
+
+                <TextView
+                    android:id="@+id/textView399"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Chỉnh sửa thông tin tài khoản"
+                    android:textSize="24sp"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutClass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/textView42"
+                    android:layout_width="129dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lớp:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editClassED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ví dụ: 10a1"
+                    android:inputType="text"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSpiner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Năm học:"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spYearED"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/general_border" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Tên người dùng:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editNameUserED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ví dụ: Trần Thị Xuân Mai"
+                    android:inputType="text" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView49"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Mã người dùng:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editCodeUserED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ví dụ: GV2103561"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="113dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Ngày sinh:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtDateED"
+                    android:layout_width="138dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="01/06/2003"
+                    android:textColor="@color/black"
+
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/btnDateED"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_calendar" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView50"
+                    android:layout_width="109dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="4dp"
+                    android:text="Giới tính:"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/rdGenderED"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdMale"
+                        android:layout_width="115dp"
+                        android:layout_height="match_parent"
+                        android:text="Nam" />
+
+                    <RadioButton
+                        android:id="@+id/rdFemale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nữ" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutErrorGender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="2dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imageView24"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/iconerror" />
+
+                <TextView
+                    android:id="@+id/textView45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Vui lòng chọn giới tính!"
+                    android:textColor="#FF0000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutPosition"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tcv"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="4dp"
+                    android:text="Chức vụ:"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/rdPositionED"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/rdBoard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Ban giám hiệu" />
+
+                    <RadioButton
+                        android:id="@+id/rdTeacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Giáo viên" />
+
+                    <RadioButton
+                        android:id="@+id/rdMonitor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Ban cán sự" />
+
+                    <RadioButton
+                        android:id="@+id/rdNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Học sinh" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="195dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Tên tài khoản:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtNameAccED"
+                    android:layout_width="277dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:hint="Ví dụ: GV2103561"
+                    android:padding="4dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Mật khẩu:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editPassED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ví dụ: Ttxm0123@"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:text="Nhập lại mật khẩu:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editPassAgianAccED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ví dụ: Ttxm0123@"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnUpdateAcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#38B6FF"
+                    android:text="Chỉnh sửa" />
+
+                <Button
+                    android:id="@+id/btnExitED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF0000"
+                    android:text="Thoát" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
