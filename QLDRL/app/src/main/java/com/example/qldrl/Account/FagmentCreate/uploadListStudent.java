@@ -42,6 +42,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -114,7 +115,6 @@ public class uploadListStudent extends Fragment {
             throw new RuntimeException(context.toString() + " must implement CreateManyAccountCallback");
         }
     }
-
     private void onCreateAccount(List<Account> newAccounts) {
         // Xử lý tại Fragment khi tài khoản mới được tạo
         // Ví dụ: cập nhật dữ liệu, hiển thị thông báo, v.v.
@@ -260,6 +260,11 @@ public class uploadListStudent extends Fragment {
                         tkData.put("TK_NgaySinh", hsNgaySinh);
                         tkData.put("TK_ChucVu", hsChucVu);
                         tkData.put("TK_MatKhau", hsMatKhau);
+
+                        Account account = new Account(hsId,hsId,hsNgaySinh, hsMatKhau, hsHoTen, hsChucVu);
+                        List<Account> accountList = new ArrayList<>();
+                        accountList.add(account);
+                        onCreateAccount(accountList);
 
                         Map<String, Object> HK1data = new HashMap<>();
                         HK1data.put("HKM_DiemRenLuyen", "100");

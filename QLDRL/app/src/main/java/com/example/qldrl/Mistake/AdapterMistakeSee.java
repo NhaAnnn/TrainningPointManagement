@@ -176,7 +176,9 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
             });
 
 
-
+            listMistakes.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, listMistakes.size());
 
         });
     }
@@ -274,7 +276,7 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
     private void getDRL(int drl) {
         drlhk = drl;
     }
-    private void updateHK(String hky) {
+    private void updateHK(@NonNull String hky) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if(hky.toLowerCase().equals("học kỳ 1")) {
 

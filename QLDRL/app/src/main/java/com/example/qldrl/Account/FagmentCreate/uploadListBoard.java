@@ -221,7 +221,7 @@ public class uploadListBoard extends Fragment {
 
     private void uploadExcelDataToFirestore(Uri fileUri) throws IOException {
 
-        Log.d("hhhhhhh", "jhhhhhhhhhhh");
+
 
         try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
             if (inputStream != null) {
@@ -231,7 +231,7 @@ public class uploadListBoard extends Fragment {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 // sheet.getLastRowNum()
-                List<Account>  accountList = new ArrayList<>();
+
                 for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Bắt đầu từ hàng thứ hai (giả sử hàng đầu tiên là tiêu đề)
                     Row row = sheet.getRow(i);
                     if (row != null) {
@@ -263,26 +263,11 @@ public class uploadListBoard extends Fragment {
                         tkData.put("TK_ChucVu", hsChucVu);
                         tkData.put("TK_MatKhau", hsMatKhau);
 
-
+                        List<Account>  accountList = new ArrayList<>();
                         Account account = new Account(hsId,hsId,hsNgaySinh, hsMatKhau, hsHoTen, hsChucVu);
                         accountList.add(account);
                         onCreateAccount(accountList);
 
-                        // Lưu dữ liệu học sinh vào collection "hocSinh"
-//                        DocumentReference hsRef = db.collection("giaoVien").document(hsId);
-//                        Task<Void> hsWriteResult = hsRef.set(hsData);
-//                        hsWriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                // Xử lý lỗi khi lưu dữ liệu học sinh
-//                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
-//                            }
-//                        });
 
                         DocumentReference tkRef = db.collection("taiKhoan").document(hsId);
                         Task<Void> tkWriteResult = tkRef.set(tkData);
