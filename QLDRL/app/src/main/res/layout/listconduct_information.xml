@@ -226,12 +226,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnConductDetail"
-            android:layout_width="50dp"
+            android:layout_width="70dp"
             android:layout_height="150dp"
             android:layout_marginTop="25dp"
-            android:background="@color/white"
             android:src="@drawable/baseline_chevron_right_36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.904"

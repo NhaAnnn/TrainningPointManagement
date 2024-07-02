@@ -102,13 +102,11 @@
             app:layout_constraintTop_toTopOf="@+id/textView7" />
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnClassDetail"
             android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="4dp"
-            android:background="@color/white"
             android:src="@drawable/ic_expand_more_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.896"
@@ -121,82 +119,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
+            android:weightSum="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNameTeacher">
 
                 <LinearLayout
                     android:id="@+id/btnViewClass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_weight="1">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/white"
                         android:paddingLeft="8dp"
                         android:src="@drawable/view" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xem thông tin"
+                        android:text="Xem"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/btnUpdateClass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
                     android:orientation="horizontal"
-
-                    app:layout_constraintStart_toEndOf="@+id/btnViewClass"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_weight="1">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/white"
                         android:paddingLeft="8dp"
                         android:src="@drawable/update" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chỉnh sửa"
+                        android:text="Sửa"
                         android:textColor="#00A1FF"
-                        android:textSize="15sp"
-                        tools:layout_editor_absoluteX="154dp"
-                        tools:layout_editor_absoluteY="92dp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnDeleteClass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnUpdateClass"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -211,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:text="Xóa"
                     android:textColor="#FF0000"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     tools:layout_editor_absoluteX="383dp"
                     tools:layout_editor_absoluteY="92dp" />
             </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -88,6 +89,7 @@ public class AdapterListStudentOfConduct extends RecyclerView.Adapter<AdapterLis
                 intent.putExtra("StudentTrainningPoint", listOConduct.getTrainingPoint());
                 intent.putExtra("StudentConduct",listOConduct.getConduct());
                 intent.putExtra("semester",semester);
+                intent.putExtra("account", account);
                 context.startActivity(intent);
             }
         });
@@ -100,7 +102,7 @@ public class AdapterListStudentOfConduct extends RecyclerView.Adapter<AdapterLis
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView txtIdStudent, txtNameStudent, txtTrainingPointStudent, txtConductStudent;
-        private ImageButton btnConductDetail;
+        private ImageView btnConductDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

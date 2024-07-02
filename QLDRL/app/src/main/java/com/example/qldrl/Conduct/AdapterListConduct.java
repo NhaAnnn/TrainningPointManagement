@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -138,7 +139,7 @@ public class AdapterListConduct extends RecyclerView.Adapter<AdapterListConduct.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private ImageButton btnConductDetail;
+        private ImageView btnConductDetail;
         private TextView txtNameClass, txtMount, txtNameTeacher, txtYear, txtSemester, txtConductGood, txtConductQuite, txtConductAvage, txtConductWeak;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
