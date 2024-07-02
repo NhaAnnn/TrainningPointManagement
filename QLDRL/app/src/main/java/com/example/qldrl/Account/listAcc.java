@@ -76,10 +76,7 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
             }
         });
 
-
-
     }
-
 
     private void openDinalogCreat(int gravity) {
         currentDialog = new Dialog(listAcc.this);

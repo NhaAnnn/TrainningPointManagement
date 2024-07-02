@@ -45,13 +45,7 @@ public class Mistake_See extends AppCompatActivity {
 
         getListMistakes(student.getHsID());
 
-//        List<Mistakes> mistakesList = new ArrayList<>();
-//        mistakesList.add(new Mistakes("12A101","HT01", "LTVP0","tk01","Hóa  Friday, 21/06/2024"));
-//
-//        adapterMistakeSee = new AdapterMistakeSee(mistakesList, this);
-//        recycMistakeSee.setAdapter(adapterMistakeSee);
-//
-//        recycMistakeSee.setLayoutManager(new GridLayoutManager(Mistake_See.this, 1));
+
     }
 
     private void getListMistakes(String hsID) {
