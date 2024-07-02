@@ -1,6 +1,7 @@
 package com.example.qldrl.Account.FagmentCreate;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.Account.listAcc;
+import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,8 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,7 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * create an instance of this fragment.
  */
 public class board_school extends Fragment {
-
+    private CreateManyAccountCallback callback;
     private EditText editNameBoard, editCodeBoard, editPassBoard,editPassAgianBoard;
     private Button btnCreateBoard, btnExitBoard;
     private TextView txtNameAccBoard, txtDatePickBoard;
@@ -96,6 +101,21 @@ public class board_school extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof CreateManyAccountCallback) {
+            callback = (CreateManyAccountCallback) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement CreateAccountCallback");
+        }
+    }
+    private void onCreateAccount(List<Account> newAccounts) {
+
+        callback.onManyAccountCreated(newAccounts);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -354,8 +374,10 @@ public class board_school extends Fragment {
 
                 });
 
-
-
+        Account account = new Account(maBGH, maBGH,ngaySinh,makhau,hoTen,chucVu);
+        List<Account> listTest = new ArrayList<>();
+        listTest.add(account);
+        onCreateAccount(listTest);
 
     }
 

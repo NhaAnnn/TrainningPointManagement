@@ -1,6 +1,7 @@
 package com.example.qldrl.Account.FagmentCreate;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,7 +24,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.Account.listAcc;
+import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
 import com.example.qldrl.R;
@@ -52,6 +55,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * create an instance of this fragment.
  */
 public class teacher extends Fragment {
+    private CreateManyAccountCallback callback;
     private EditText editNameTeacher, editCodeTeacher, editPassTeacher,editPassAgianAccTeacher, editClassTeacher;
     private Button btnCreateTeacher, btnExitFragTeacher;
     private TextView txtNameAccTeacher, txtDatePick;
@@ -493,9 +497,30 @@ public class teacher extends Fragment {
 
 
 
+        Account account = new Account(maGV, maGV,ngaySinh,makhau,hoTen,chucVu);
+        List<Account> listTest = new ArrayList<>();
+        listTest.add(account);
+        onCreateAccount(listTest);
 
     }
 
+
+    private void onCreateAccount(List<Account> newAccounts) {
+        // Xử lý tại Fragment khi tài khoản mới được tạo
+        // Ví dụ: cập nhật dữ liệu, hiển thị thông báo, v.v.
+
+        // Sau đó gọi callback để thông báo cho Activity
+        callback.onManyAccountCreated(newAccounts);
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof CreateManyAccountCallback) {
+            callback = (CreateManyAccountCallback) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement CreateAccountCallback");
+        }
+    }
     private void openDatePicker() {
         datePickerDialog.show();
     }

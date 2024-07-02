@@ -2,6 +2,7 @@ package com.example.qldrl.Account.FagmentCreate;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,7 +21,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.Account.listAcc;
+import com.example.qldrl.General.Account;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +44,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,6 +54,7 @@ import java.util.Map;
  */
 public class uploadListStudent extends Fragment {
 
+    private CreateManyAccountCallback callback;
 
     private static final int REQUEST_CODE = 123;
     private TextView txtNameStudentFile;
@@ -99,7 +104,24 @@ public class uploadListStudent extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof
+                CreateManyAccountCallback) {
+            callback = (CreateManyAccountCallback) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement CreateManyAccountCallback");
+        }
+    }
 
+    private void onCreateAccount(List<Account> newAccounts) {
+        // Xử lý tại Fragment khi tài khoản mới được tạo
+        // Ví dụ: cập nhật dữ liệu, hiển thị thông báo, v.v.
+
+        // Sau đó gọi callback để thông báo cho Activity
+        callback.onManyAccountCreated(newAccounts);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -212,12 +213,6 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
         recycAcc.setAdapter(adapterAccount);
         recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
     }
-//    private List<Account> getList(List<Account> accountLists) {
-//        accountListsss.addAll(accountLists);
-//        adapterAccount = new AdapterAccount(listAcc.this, accountListsss);
-//        recycAcc.setAdapter(adapterAccount);
-//        recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
-//    }
 
 
     @Override
@@ -225,6 +220,7 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
         // Xử lý tài khoản mới được tạo ở đây
         // Ví dụ: lưu trữ tài khoản, cập nhật giao diện, v.v.
         accountListsss.addAll(newAccounts);
+        Toast.makeText(listAcc.this, "hekko size"+ newAccounts.size(), Toast.LENGTH_LONG).show();
         adapterAccount.notifyDataSetChanged();
 
     }

@@ -266,6 +266,7 @@ public class uploadListBoard extends Fragment {
 
                         Account account = new Account(hsId,hsId,hsNgaySinh, hsMatKhau, hsHoTen, hsChucVu);
                         accountList.add(account);
+                        onCreateAccount(accountList);
 
                         // Lưu dữ liệu học sinh vào collection "hocSinh"
 //                        DocumentReference hsRef = db.collection("giaoVien").document(hsId);
@@ -322,6 +323,13 @@ public class uploadListBoard extends Fragment {
         } else {
             return "";
         }
+    }
+    private void onCreateAccount(List<Account> newAccounts) {
+        // Xử lý tại Fragment khi tài khoản mới được tạo
+        // Ví dụ: cập nhật dữ liệu, hiển thị thông báo, v.v.
+
+        // Sau đó gọi callback để thông báo cho Activity
+        callback.onManyAccountCreated(newAccounts);
     }
 
 }

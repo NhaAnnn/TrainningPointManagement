@@ -77,6 +77,8 @@ public class MainHome extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(MainHome.this, ListConduct.class);
+                intent.putExtra("account", account);
+
                 startActivity(intent);
             }
 
@@ -92,6 +94,8 @@ public class MainHome extends AppCompatActivity {
                 Toast.makeText(this, "Tài khoản không có quyền truy cập lớp học", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(MainHome.this, ListClass.class);
+                intent.putExtra("account", account);
+
                 startActivity(intent);
             }
         });
