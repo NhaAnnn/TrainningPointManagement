@@ -95,7 +95,7 @@ public class MainHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+//hello
         getDataSpinner();
     }
     private void intentActivity() {
