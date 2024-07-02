@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -81,11 +82,11 @@ public class AdapterConductInformation extends RecyclerView.Adapter<AdapterCondu
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (clickCount == 0) {
-                        holder.btnMistakeDetail.setRotation(180f);
+                        holder.btnExpand.setRotation(180f);
                         holder.mistakeView.setVisibility(View.VISIBLE);
                         clickCount++;
                     } else {
-                        holder.btnMistakeDetail.setRotation(0f);
+                        holder.btnExpand.setRotation(0f);
                         holder.mistakeView.setVisibility(View.GONE);
                         clickCount = 0;
                     }
@@ -103,8 +104,8 @@ public class AdapterConductInformation extends RecyclerView.Adapter<AdapterCondu
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textSTT, txtNameMistake, txtNameUpdate, txtTime;
-        private ImageView btnMistakeDetail;
-        private ConstraintLayout mistakeView;
+        private ImageView btnExpand;
+        private LinearLayout mistakeView, btnMistakeDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textSTT = itemView.findViewById(R.id.textSTT);
@@ -113,6 +114,7 @@ public class AdapterConductInformation extends RecyclerView.Adapter<AdapterCondu
             txtTime = itemView.findViewById(R.id.txtTime);
             btnMistakeDetail = itemView.findViewById(R.id.btnMistakeDetail);
             mistakeView = itemView.findViewById(R.id.mistakeView);
+            btnExpand = itemView.findViewById(R.id.btnExpand);
         }
     }
 }
