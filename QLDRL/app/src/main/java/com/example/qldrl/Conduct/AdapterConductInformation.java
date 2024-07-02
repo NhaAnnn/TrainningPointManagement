@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -102,7 +103,7 @@ public class AdapterConductInformation extends RecyclerView.Adapter<AdapterCondu
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textSTT, txtNameMistake, txtNameUpdate, txtTime;
-        private ImageButton btnMistakeDetail;
+        private ImageView btnMistakeDetail;
         private ConstraintLayout mistakeView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

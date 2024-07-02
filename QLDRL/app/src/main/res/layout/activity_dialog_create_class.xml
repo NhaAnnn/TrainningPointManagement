@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DialogCreateClass"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    tools:context=".Class.DialogCreateClass">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +24,7 @@
             android:layout_marginEnd="5dp"
             android:background="@color/white"
             android:paddingLeft="8dp"
-            android:src="@drawable/add4x" />
+            android:src="@drawable/ic_create" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,11 +39,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        android:layout_marginStart="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,11 +66,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        android:layout_marginStart="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,16 +90,11 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        android:layout_marginStart="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,31 +117,32 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/saveClass"
-        android:layout_width="120dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/blue"
-        android:text="Lưu"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></Button>
+        <Button
+            android:id="@+id/saveClass"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/blue"
+            android:text="Lưu"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/red"
-        android:text="Thoát"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/saveClass"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></Button>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/red"
+            android:text="Thoát"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

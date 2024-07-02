@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -249,7 +250,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout btnClassroom,btnViewClass,btnUpdateClass,btnDeleteClass;
         private TextView txtNameClass, txtYear, txtMount, txtNameTearcher;
-        private ImageButton btnClassDetail;
+        private ImageView btnClassDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

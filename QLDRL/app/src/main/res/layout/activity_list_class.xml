@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -60,7 +61,8 @@
             android:layout_margin="10dp"
             android:backgroundTint="#BBFBFF"
             android:background="@drawable/general_border_radius"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageView9"
@@ -88,7 +90,8 @@
             android:layout_margin="10dp"
             android:backgroundTint="#BBFBFF"
             android:background="@drawable/general_border_radius"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageView16"
