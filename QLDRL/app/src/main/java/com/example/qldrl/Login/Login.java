@@ -28,9 +28,7 @@ public class Login extends AppCompatActivity {
     private EditText editNameCount, editPasswd;
     private TextView txtForgetPass, txtErrorPass, txtErrorNameAccount;
     private ImageView btnLogin, imgTest, imgErroNameAccount, imgErroPass;
-
     private ConstraintLayout layoutTest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,54 +48,8 @@ public class Login extends AppCompatActivity {
 
         // Dang nhap
         logIn();
-
     }
 
-
-    private void checkLogin(String tenTK, String matKhau) {
-        CollectionReference taiKhoanRef = db.collection("taiKhoan");
-
-        Query query = taiKhoanRef.whereEqualTo("TK_TenTaiKhoan", tenTK)
-                .whereEqualTo("TK_MatKhau", matKhau);
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if(!querySnapshot.isEmpty()) {
-                        DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
-                        String id = documentSnapshot.getId();
-                        String tenTaiKhoan = documentSnapshot.getString("tenTaiKhoan");
-                        String hoTen = documentSnapshot.getString("hoTen");
-                        String chucVu = documentSnapshot.getString("chucVu");
-                        String matKhau = documentSnapshot.getString("matKhau");
-                        String ngaySinh = documentSnapshot.getString("ngaySinh");
-
-                        Account account = new Account(id,tenTaiKhoan,matKhau,hoTen,ngaySinh,chucVu);
-
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        MainHomeFrag mainHomeFrag = new MainHomeFrag();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("account_data", account);
-//                        mainHomeFrag.setArguments(bundle);
-//                        transaction.replace(R.id.fragment_container, mainHomeFrag).commit();
-
-
-
-                        Intent intent = new Intent(Login.this, MainHome.class);
-                        intent.putExtra("account",account);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(Login.this, "Tên tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(Login.this, "ERRR", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-    }
 
     private void checkLogin1(String tenTK, String matKhau) {
         CollectionReference taiKhoanRef = db.collection("taiKhoan");
@@ -124,13 +76,13 @@ public class Login extends AppCompatActivity {
                             intent.putExtra("account", account);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(Login.this, "Sai mật khẩu!", Toast.LENGTH_SHORT).show();
+                            editPasswd.setError("Mật khẩu không đúng!");
                         }
                     } else {
-                        Toast.makeText(Login.this, "Sai tên tài khoản!", Toast.LENGTH_SHORT).show();
+                            editNameCount.setError("Tên tài khoản không chính xác!");
                     }
                 } else {
-                    Toast.makeText(Login.this, "ERRR", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Lỗi đăng nhập", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -141,7 +93,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String tenTK = editNameCount.getText().toString();
                 String matKhau = editPasswd.getText().toString();
-
                 checkLogin1(tenTK, matKhau);
             }
         });

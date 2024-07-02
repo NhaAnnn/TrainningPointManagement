@@ -61,7 +61,7 @@ public class Mistake_Board extends AppCompatActivity {
         account = (Account) intent.getSerializableExtra("account");
         Toast.makeText(this, account.getTkChucVu(), Toast.LENGTH_LONG).show();
 
-        searchClass();
+      //  searchClass();
 
 //        sp(getListCategory(), spCategory);
 //        sp(getListYear(), spYear);
@@ -162,21 +162,21 @@ public class Mistake_Board extends AppCompatActivity {
 
     }
 
-    private void searchClass() {
-        searchClass.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapterClassRom.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapterClassRom.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }
+//    private void searchClass() {
+//        searchClass.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                adapterClassRom.getFilter().filter(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapterClassRom.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//    }
 
     private  void sp(List<Category> listCategory, Spinner spinner) {
         adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, listCategory);

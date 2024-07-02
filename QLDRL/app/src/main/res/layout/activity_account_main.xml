@@ -29,7 +29,8 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/general_border_radius"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:weightSum="100">
 
                 <TextView
                     android:id="@+id/textView27"
@@ -41,16 +42,18 @@
                     android:text="Thông tin tài khoản"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView55"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Họ và Tên:"
                         android:textSize="18sp" />
@@ -60,20 +63,23 @@
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView56"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Tên Tài Khoản:"
                         android:textSize="18sp" />
@@ -83,20 +89,23 @@
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView57"
-                        android:layout_width="wrap_content"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Lớp:"
                         android:textSize="18sp" />
@@ -106,20 +115,23 @@
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView58"
-                        android:layout_width="wrap_content"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Giới Tính:"
                         android:textSize="18sp" />
@@ -129,20 +141,23 @@
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView59"
-                        android:layout_width="wrap_content"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Ngày Sinh:"
                         android:textSize="18sp" />
@@ -152,20 +167,23 @@
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/textView61"
-                        android:layout_width="110dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Chức Vụ:"
                         android:textSize="18sp" />
@@ -174,7 +192,7 @@
                         android:id="@+id/txtVNamePosition"
                         android:layout_width="210dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
                         android:textSize="18sp" />
@@ -190,23 +208,24 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/general_border_radius"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:weightSum="100">
 
                 <TextView
                     android:id="@+id/textView31"
-                    android:layout_width="262dp"
+                    android:layout_width="347dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="85"
                     android:text="Điều khoản sử dụng"
                     android:textSize="22sp" />
 
                 <ImageView
                     android:id="@+id/imgBtnTerm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_right" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="10"
+                    app:srcCompat="@drawable/ic_chevron_right_24" />
             </LinearLayout>
 
             <LinearLayout
@@ -216,23 +235,24 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/general_border_radius"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:weightSum="100">
 
                 <TextView
                     android:id="@+id/textView34"
-                    android:layout_width="262dp"
+                    android:layout_width="349dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="85"
                     android:text="Chính sách quyền riêng tư"
                     android:textSize="22sp" />
 
                 <ImageView
                     android:id="@+id/imgBtnPcy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_right" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="10"
+                    app:srcCompat="@drawable/ic_chevron_right_24" />
 
 
             </LinearLayout>
@@ -245,37 +265,39 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/general_border_radius"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:weightSum="100">
 
                 <TextView
                     android:id="@+id/textView35"
-                    android:layout_width="262dp"
+                    android:layout_width="352dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="85"
                     android:text="Đổi mật khẩu"
                     android:textSize="22sp" />
 
                 <ImageView
                     android:id="@+id/imgBtnChagePass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_right" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="10"
+                    app:srcCompat="@drawable/ic_chevron_right_24" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="100">
 
                 <Button
                     android:id="@+id/btnListAcc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:layout_weight="1"
+                    android:layout_weight="50"
                     android:backgroundTint="#38B6FF"
                     android:padding="5dp"
                     android:text="DS tài khoản"
@@ -286,7 +308,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:layout_weight="1"
+                    android:layout_weight="50"
                     android:backgroundTint="#FF0000"
                     android:padding="5dp"
                     android:text="Đăng xuất" />

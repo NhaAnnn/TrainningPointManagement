@@ -252,7 +252,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
         public LinearLayout btnClassroom,btnViewClass,btnUpdateClass,btnDeleteClass;
         private TextView txtNameClass, txtYear, txtMount, txtNameTearcher;
         private ImageView btnExpand;
-        private ConstraintLayout btnClassDetail;
+        private LinearLayout btnClassDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

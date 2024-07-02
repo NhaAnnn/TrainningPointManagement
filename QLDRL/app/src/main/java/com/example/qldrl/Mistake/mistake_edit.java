@@ -51,7 +51,7 @@ public class mistake_edit extends AppCompatActivity {
     private AdapterCategory adapterCategory;
     private AdapterClassRom adapterClassRom;
     private Spinner spSubject;
-    private LinearLayout layoutTest;
+    private LinearLayout layoutTest, layoutErrorTerm;
     private RecyclerView recyctest;
     private Account account;
     private Student student;
@@ -71,7 +71,7 @@ public class mistake_edit extends AppCompatActivity {
 
         spSubject = findViewById(R.id.spSubject);
         setSpSubject();
-
+        layoutErrorTerm = findViewById(R.id.layoutErrorTerm);
         txtNameMistake = findViewById(R.id.txtNameMistake);
         txtNamePersonl = findViewById(R.id.txtNamePersonl);
         rdGTerm = findViewById(R.id.rdGTerm);
@@ -79,9 +79,6 @@ public class mistake_edit extends AppCompatActivity {
         btnExitEditMistake = findViewById(R.id.btnExitEditMistake);
 
         btnExitEditMistake.setOnClickListener(v -> {
-//            Intent intent1 = new Intent(this, Mistake_Personal.class);
-//            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent1);
             finish();
         });
 
@@ -103,7 +100,12 @@ public class mistake_edit extends AppCompatActivity {
 
         btnSaveMistake = findViewById(R.id.btnSavaMistake);
 
-
+        int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
+        if(selectedRadioButtonId == -1) {
+            layoutErrorTerm.setVisibility(View.VISIBLE);
+        } else {
+            layoutErrorTerm.setVisibility(View.GONE);
+        }
         btnSaveMistake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,23 +162,7 @@ public class mistake_edit extends AppCompatActivity {
             }
         });
     }
-    private void test() {
 
-
-        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, getListSubject());
-        spSubject.setAdapter(adapterCategory);
-        spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 
     private List<Category> getListSubject() {
         List <Category> listSubject = new ArrayList<>();
@@ -191,7 +177,7 @@ public class mistake_edit extends AppCompatActivity {
     }
 
     private void updateHK() {
-        Toast.makeText(this, "hkodjđ",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "hkodjđ",Toast.LENGTH_LONG).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
         if (selectedRadioButtonId != -1) {
@@ -404,11 +390,11 @@ public class mistake_edit extends AppCompatActivity {
                         VPid = document.getString("VP_id");
 
                         // Làm gì với lvpId và vpId ở đây
-                       Toast.makeText(this, LVPid, Toast.LENGTH_LONG).show();
+                     //  Toast.makeText(this, LVPid, Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(this, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 }

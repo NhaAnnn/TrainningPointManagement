@@ -264,12 +264,6 @@
                         android:layout_height="match_parent"
 
                         android:text="Học sinh" />
-                    <RadioButton
-                        android:id="@+id/rdfd4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:text="Ban cán sự" />
 
                 </RadioGroup>
             </LinearLayout>

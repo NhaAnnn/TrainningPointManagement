@@ -287,12 +287,6 @@
                         android:text="Giáo viên" />
 
                     <RadioButton
-                        android:id="@+id/rdMonitor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Ban cán sự" />
-
-                    <RadioButton
                         android:id="@+id/rdNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

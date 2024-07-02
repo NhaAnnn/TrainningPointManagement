@@ -382,7 +382,6 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
         rdBoard = dialog.findViewById(R.id.rdBoard);
         rdNormal = dialog.findViewById(R.id.rdNormal);
-        rdMonitor = dialog.findViewById(R.id.rdMonitor);
         rdTeacher = dialog.findViewById(R.id.rdTeacher);
         rdFemale = dialog.findViewById(R.id.rdFemale);
         rdMale = dialog.findViewById(R.id.rdMale);
@@ -618,7 +617,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                if( rdNormal.isChecked() == true || rdMonitor.isChecked() == true) {
+                if( rdNormal.isChecked() == true) {
 
                     boolean isValid = true;
 
