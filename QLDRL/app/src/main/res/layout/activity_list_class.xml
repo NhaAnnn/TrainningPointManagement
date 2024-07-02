@@ -13,36 +13,26 @@
         android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/blue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/general_shape_top"
+        android:orientation="horizontal">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnReturn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#38B5FE"
-            android:paddingLeft="8dp"
-            android:src="@drawable/back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.021"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_undo" />
 
         <TextView
             android:id="@+id/pageTitle"
-            android:layout_width="338dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
-            android:text="Danh sách các lớp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/btn_return_class"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Danh sách các lớp"
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -66,7 +56,7 @@
 
             <ImageView
                 android:id="@+id/imageView9"
-                android:layout_width="40dp"
+                android:layout_width="20dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_create" />
@@ -74,11 +64,12 @@
             <TextView
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Tạo DS tài khoản"
+                android:gravity="left"
+                android:text="Tạo DS lớp"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -95,18 +86,19 @@
 
             <ImageView
                 android:id="@+id/imageView16"
-                android:layout_width="40dp"
+                android:layout_width="20dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_create" />
 
             <TextView
                 android:id="@+id/textView29"
-                android:layout_width="140dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Tạo 1 tài khoản"
+                android:textColor="@color/black"
+                android:text="Tạo 1 lớp"
                 android:textSize="16sp" />
         </LinearLayout>
 

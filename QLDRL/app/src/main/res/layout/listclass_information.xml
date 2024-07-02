@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnClassDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -103,10 +104,10 @@
 
 
         <ImageView
-            android:id="@+id/btnClassDetail"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
+            android:id="@+id/btnExpand"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
             android:src="@drawable/ic_expand_more_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.896"

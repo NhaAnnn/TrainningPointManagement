@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,11 +81,11 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
         holder.btnClassDetail.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (clickCount == 0) {
-                    holder.btnClassDetail.setRotation(180f);
+                    holder.btnExpand.setRotation(180f);
                     holder.btnClassroom.setVisibility(View.VISIBLE);
                     clickCount++;
                 } else {
-                    holder.btnClassDetail.setRotation(0f);
+                    holder.btnExpand.setRotation(0f);
                     holder.btnClassroom.setVisibility(View.GONE);
                     clickCount = 0;
                 }
@@ -250,7 +251,8 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout btnClassroom,btnViewClass,btnUpdateClass,btnDeleteClass;
         private TextView txtNameClass, txtYear, txtMount, txtNameTearcher;
-        private ImageView btnClassDetail;
+        private ImageView btnExpand;
+        private ConstraintLayout btnClassDetail;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -263,6 +265,7 @@ public class AdapterListClass extends RecyclerView.Adapter<AdapterListClass.MyVi
             btnDeleteClass = itemView.findViewById(R.id.btnDeleteClass);
             btnClassroom = itemView.findViewById(R.id.btnClassroom);
             txtYear = itemView.findViewById(R.id.txtYear);
+            btnExpand = itemView.findViewById(R.id.btnExpand);
         }
     }
 }

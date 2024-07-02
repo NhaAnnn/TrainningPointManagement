@@ -50,7 +50,7 @@ public class ListStudentOfConduct extends AppCompatActivity implements Serializa
 
         Intent intent = getIntent();
         String semester = intent.getStringExtra("semester");
-        TextView classTitle = findViewById(R.id.classTitle);
+        TextView classTitle = findViewById(R.id.pageTitle);
         classTitle.setText("Hạnh kiểm lớp "+intent.getStringExtra("className")+" "+semester);
 
         TextView txtNameClass = findViewById(R.id.txtNameClass);

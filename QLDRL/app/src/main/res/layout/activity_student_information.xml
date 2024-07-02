@@ -9,36 +9,29 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout14"
+        android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-
         android:background="@drawable/general_shape_top"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnReturn"
             android:layout_width="65dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/back2x"
-            android:background="#38B5FE"
-            android:orientation="horizontal"/>
+            app:srcCompat="@drawable/ic_undo" />
 
         <TextView
             android:id="@+id/pageTitle"
-            android:layout_width="338dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Lớp học"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.609"
-            app:layout_constraintStart_toEndOf="@+id/btn_return_class"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Lớp"
+            android:textSize="22sp" />
 
     </LinearLayout>
 

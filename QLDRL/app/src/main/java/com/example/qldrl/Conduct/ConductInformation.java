@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -90,7 +91,6 @@ public class ConductInformation extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedOption = (String) parent.getItemAtPosition(position);
 
-                    getDataMistake(idHS,selectedOption);
                     getIdAndConduct(selectedOption);
 
                     AdapterConductInformation adapterConductInformation =
@@ -115,7 +115,7 @@ public class ConductInformation extends AppCompatActivity {
         }
 
 
-        ImageButton btnReturn = findViewById(R.id.btnReturn);
+        ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> onBackPressed());
     }
     public void getIdHS(String s){
@@ -148,10 +148,11 @@ public class ConductInformation extends AppCompatActivity {
                                                String trainingPoint = (String) queryDocumentSnapshot.getString("HKM_DiemRenLuyen");
                                                String conduct = (String) queryDocumentSnapshot.getString("HKM_HanhKiem");
                                                String term = (String) queryDocumentSnapshot.getString("HK_HocKi");
-
                                                txtSemester.setText(hk);
                                                txtTrainingPointStudent.setText(trainingPoint);
                                                txtConductStudent.setText(conduct);
+
+                                               getDataMistake(idStudent,hk);
                                            }
 
                                        }

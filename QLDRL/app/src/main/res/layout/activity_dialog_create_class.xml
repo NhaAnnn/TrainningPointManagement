@@ -12,11 +12,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="20dp">
 
         <ImageView
             android:layout_width="50dp"
@@ -37,7 +33,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp">
 
@@ -56,15 +52,16 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="10A1"
+            android:Hint="10A1"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp">
 
@@ -89,12 +86,12 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp">
+        android:layout_marginStart="20dp"
+       >
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,6 +108,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:text="2024-2025"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
@@ -128,21 +126,21 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/blue"
             android:text="Lưu"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/red"
             android:text="Thoát"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_weight="1" />
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

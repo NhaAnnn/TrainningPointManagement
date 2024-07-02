@@ -9,34 +9,29 @@
     tools:context=".Conduct.ListConduct">
 
     <LinearLayout
-        android:id="@+id/linearLayout14"
+        android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#38B6FF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/general_shape_top"
+        android:orientation="horizontal">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnReturn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:background="#38B5FE"
-            android:paddingLeft="8dp"
-            android:src="@drawable/back" />
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_undo" />
 
         <TextView
             android:id="@+id/pageTitle"
-            android:layout_width="338dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Hạnh kiểm các lớp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"
+            android:text="Lớp"
+            android:textSize="22sp" />
 
     </LinearLayout>
 

@@ -48,7 +48,7 @@ public class ListStudentOfClass extends AppCompatActivity implements Serializabl
         Intent intent = getIntent();
         String nameClass = intent.getStringExtra("className");
         String idClass = intent.getStringExtra("classId");
-        TextView txtCLassName = findViewById(R.id.classTitle);
+        TextView txtCLassName = findViewById(R.id.pageTitle);
         txtCLassName.setText(nameClass);
 
         getData(idClass, nameClass);
