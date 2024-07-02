@@ -3,6 +3,7 @@ package com.example.qldrl.Class;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -88,7 +89,7 @@ public class ListStudentOfClass extends AppCompatActivity implements Serializabl
 
         });
 
-        ImageButton btnReturn = findViewById(R.id.btnReturn);
+        ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> onBackPressed());
 
         EventBus.getDefault().register(this);

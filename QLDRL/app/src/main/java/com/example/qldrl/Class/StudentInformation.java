@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -85,7 +86,7 @@ public class StudentInformation extends AppCompatActivity {
             }
         });
 
-        ImageButton btnReturn = findViewById(R.id.btnReturn);
+        ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> {
             EventBus.getDefault().post(new StudentInformationUpdatedEvent(index, new ListStudentOfClass(student.getId(), student.getIdTK(), student.getIdLH(), student.getName(), student.getDate(), student.getGender(), newPosition)));
             onBackPressed();

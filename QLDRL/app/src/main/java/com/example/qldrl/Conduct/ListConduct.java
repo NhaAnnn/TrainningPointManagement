@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -192,7 +193,7 @@ public class ListConduct extends AppCompatActivity {
 
 
 
-        ImageButton btnReturn = findViewById(R.id.btnReturn);
+        ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> onBackPressed());
     }
     public void setList(List<ListClass> List){

@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -195,7 +196,7 @@ public class ListClass extends AppCompatActivity implements Serializable {
             createOneClass(this, listClasses);
         });
 
-        ImageButton btnReturn = findViewById(R.id.btnReturn);
+        ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> onBackPressed());
 
     }
