@@ -3,4 +3,20 @@
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">#FF000000</item>
     </style>
+
+    <style name="MyCardViewStyle" parent="CardView">
+        <item name="cardBackgroundColor">#FAFFAF</item>
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+    <style name="TextAppearance.App.Active" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Inactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

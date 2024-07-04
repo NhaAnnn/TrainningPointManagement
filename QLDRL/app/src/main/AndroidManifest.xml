@@ -15,17 +15,10 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true">
 
-<!--        <activity-->
-<!--            android:name=".Home"-->
-<!--            android:theme="@style/Theme.MySplashScreen"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+
         <activity
             android:name=".Login.Login"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MySplashScreen"
             android:exported="true">
             <intent-filter>
@@ -37,6 +30,12 @@
         <activity
             android:name=".Mistake.MistakeUpdateMistake"
             android:exported="false" />
+        <activity
+        android:name=".Homes.MainHome_Edited"
+        android:exported="false" />
+        <activity
+        android:name=".Login.Login_Edited"
+        android:exported="false" />
         <activity
             android:name=".Conduct.ConductInformation"
             android:exported="false" />

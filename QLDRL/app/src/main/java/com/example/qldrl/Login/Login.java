@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.qldrl.General.Account;
 import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,7 +73,7 @@ public class Login extends AppCompatActivity {
 
                         if (matKhauDB.equals(matKhau)) {
                             Account account = new Account(id, tenTaiKhoan, ngaySinh, matKhauDB, hoTen, chucVu);
-                            Intent intent = new Intent(Login.this, MainHome.class);
+                            Intent intent = new Intent(Login.this, MainHome_Edited.class);
                             intent.putExtra("account", account);
                             startActivity(intent);
                         } else {
