@@ -62,9 +62,10 @@ public class Mistake_See extends AppCompatActivity {
                             String hsIDd = documentSnapshot.getString("HS_id");
                             String tkID = documentSnapshot.getString("TK_id");
                             String lvpTime = documentSnapshot.getString("LTVP_ThoiGian");
+                            String lvpHK = documentSnapshot.getString("HK_HocKy");
 
 
-                            Mistakes mistakes = new Mistakes( hsIDd , vpID, lvpID, tkID,lvpTime);
+                            Mistakes mistakes = new Mistakes( hsIDd , vpID, lvpID, tkID,lvpTime,lvpHK);
                             mistakesList.add(mistakes);
                         }
                         adapterMistakeSee = new AdapterMistakeSee(mistakesList, Mistake_See.this, account, student); //truyen vao tuy tung list

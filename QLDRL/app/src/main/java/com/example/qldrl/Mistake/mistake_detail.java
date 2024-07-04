@@ -48,7 +48,7 @@ public class mistake_detail extends AppCompatActivity {
         account = (Account) intent.getSerializableExtra("account");
         student = (Student) intent.getSerializableExtra("student");
 
-        Toast.makeText(this, account.getTkID()+"11111",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, account.getTkID()+"11111",Toast.LENGTH_LONG).show();
 
 
         txtNamePersonl.setText(namePersonl);
@@ -62,32 +62,6 @@ public class mistake_detail extends AppCompatActivity {
 
 
 
-//    private void getCC(RecyclerView recycCC, String loaiVP) {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        CollectionReference collectionRef = db.collection("viPham");
-//        List<Mistake> vpTenViPhams = new ArrayList<>();
-//
-//        collectionRef.whereEqualTo("LVP_id", loaiVP)
-//                .get()
-//                .addOnSuccessListener(queryDocumentSnapshots -> {
-//                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                        String vpTenViPham = document.getString("VP_TenViPham");
-//                        if (vpTenViPham != null) {
-//                            vpTenViPhams.add(new Mistake(vpTenViPham));
-//                        }
-//                    }
-//
-//                    // Xử lý vpTenViPhams ở đây
-//                    Log.d("TAG", String.valueOf(vpTenViPhams.size()));
-//
-//                    AdapterMistake adapterMistake = new AdapterMistake(vpTenViPhams, mistake_detail.this, namePersonl, account, student);
-//                    recycCC.setAdapter(adapterMistake);
-//                    recycCC.setLayoutManager(new GridLayoutManager(this, 1));
-//                })
-//                .addOnFailureListener(e -> {
-//                    Toast.makeText(mistake_detail.this, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                });
-//    }
 
     private void getLoaiVP(RecyclerView recycDetail) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -118,57 +92,5 @@ public class mistake_detail extends AppCompatActivity {
                 });
     }
 
-//    public List<Mistake> getList() {
-//         List<Mistake> mistakeList = new ArrayList<>();
-//         CountDownLatch latch = new CountDownLatch(1);
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        CollectionReference viPhamRef = db.collection("viPham");
-//        viPhamRef.whereEqualTo("loaiVP", "t").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                String tenViPham = document.getString("tenViPham");
-//                                mistakeList.add(new Mistake(tenViPham));
-//                            }
-//                            Toast.makeText(mistake_detail.this, mistakeList.size(), Toast.LENGTH_LONG).show();
-//
-//                        } else {
-//                            // Handle the error, for example log it
-//                            System.err.println("Error getting documents: " + task.getException());
-//                        }
-//                        latch.countDown();
-//                    }
-//                });
-//
-//        try {
-//            // Wait for the Firebase query to complete
-//            latch.await(1, TimeUnit.SECONDS); // Adjust the timeout as needed
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return mistakeList;
-//    }
-    private List<Mistake> getTTList() {
-        List<Mistake> ttList = new ArrayList<>();
 
-
-        return ttList;
-    }
-
-    private List<Mistake> getHTList() {
-        List<Mistake> htList = new ArrayList<>();
-
-
-
-        return htList;
-    }
-
-    private List<Mistake> getNTList() {
-        List<Mistake> NTList = new ArrayList<>();
-
-        return NTList;
-    }
 }

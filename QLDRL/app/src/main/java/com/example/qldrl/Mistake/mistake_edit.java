@@ -93,28 +93,32 @@ public class mistake_edit extends AppCompatActivity {
 
         txtNameMistake.setText(mistakeName);
         txtNamePersonl.setText(namePersonl);
-
+        Toast.makeText(this,student.getHsID(),Toast.LENGTH_LONG).show();
 
       //  Toast.makeText(this, "hloo HK"+hkyd,Toast.LENGTH_LONG).show();
         getIDLVPVP();
 
         btnSaveMistake = findViewById(R.id.btnSavaMistake);
 
-        int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
-        if(selectedRadioButtonId == -1) {
-            layoutErrorTerm.setVisibility(View.VISIBLE);
-        } else {
-            layoutErrorTerm.setVisibility(View.GONE);
-        }
-        btnSaveMistake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        btnSaveMistake.setOnClickListener(v -> {
+            int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
+            boolean isValid = true;
+            if(selectedRadioButtonId == -1) {
+                layoutErrorTerm.setVisibility(View.VISIBLE);
+                isValid = false;
+
+            } else {
+                layoutErrorTerm.setVisibility(View.GONE);
+            }
+            if(isValid) {
                 updateHK();
                 saveMistake();
             }
+
         });
 
-        List <ClassRom> classList = new ArrayList<ClassRom>();
+
 
 
 
@@ -127,7 +131,7 @@ public class mistake_edit extends AppCompatActivity {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             String dayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
-            String dateString = dayOfWeekString + ", " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
+            String dateString = dayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
 
             txtDate.setText(dateString);
         };
@@ -139,9 +143,9 @@ public class mistake_edit extends AppCompatActivity {
                     calendar.get(Calendar.DAY_OF_MONTH)).show();
         });
 
-// Cập nhật TextViews với ngày và thứ hiện tại
+        // Cập nhật TextViews với ngày và thứ hiện tại
         String currentDayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
-        String currentDateString = currentDayOfWeekString + ", " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
+        String currentDateString = currentDayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
         txtDate.setText(currentDateString);
         date = currentDateString;
     }
@@ -152,7 +156,7 @@ public class mistake_edit extends AppCompatActivity {
         spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
                 subject = adapterCategory.getItem(position).getNameCategory();
             }
 
@@ -167,11 +171,22 @@ public class mistake_edit extends AppCompatActivity {
     private List<Category> getListSubject() {
         List <Category> listSubject = new ArrayList<>();
         listSubject.add(new Category(""));
+        listSubject.add(new Category("Ngữ văn"));
         listSubject.add(new Category("Toán"));
+        listSubject.add(new Category("Ngoại ngữ"));
+        listSubject.add(new Category("Giáo dục thể chất"));
+        listSubject.add(new Category("Giáo dục quốc phòng và an ninh"));
+        listSubject.add(new Category("Hoạt động trải nghiệm, hướng nghiệp"));
+        listSubject.add(new Category("Nội dung giáo dục của địa phương"));
         listSubject.add(new Category("Lý"));
         listSubject.add(new Category("Hóa"));
         listSubject.add(new Category("Sinh"));
-        listSubject.add(new Category("Tin"));
+        listSubject.add(new Category("Sử"));
+        listSubject.add(new Category("Địa"));
+        listSubject.add(new Category("Giáo dục kinh tế và pháp luật"));
+        listSubject.add(new Category("Tin học"));
+        listSubject.add(new Category("Công nghệ"));
+        listSubject.add(new Category("Nghệ thuật"));
         return listSubject;
 
     }
@@ -183,7 +198,8 @@ public class mistake_edit extends AppCompatActivity {
         if (selectedRadioButtonId != -1) {
             RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
             String selectedValue = selectedRadioButton.getText().toString();
-            if(selectedValue.toLowerCase().equals("học kỳ 1")) {
+            if(selectedValue.toLowerCase().equals("học kỳ 1"))
+            {
 
                 CollectionReference hanhKiemRef = db.collection("hanhKiem");
                 Query query = hanhKiemRef.whereEqualTo("HKM_id", "HKI"+student.getHsID());
@@ -223,10 +239,10 @@ public class mistake_edit extends AppCompatActivity {
                                                 updates.put("HKM_HanhKiem", hanhKiem);
                                                 docRef.update(updates)
                                                         .addOnSuccessListener(aVoid -> {
-                                                            Toast.makeText(mistake_edit.this, "Cập nhật hk thành công!", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(mistake_edit.this, "Cập nhật thành công!", Toast.LENGTH_LONG).show();
                                                         })
                                                         .addOnFailureListener(e -> {
-                                                            Toast.makeText(mistake_edit.this, "Cập nhật hk thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(mistake_edit.this, "Cập nhật thất bại, Vui lòng kiểm tra lại!" + e, Toast.LENGTH_LONG).show();
 
                                                         });
                                             } else {
@@ -251,7 +267,8 @@ public class mistake_edit extends AppCompatActivity {
                 Log.d("diem tru lay ra da ", diemTRu+"");
                 Log.d("diem ren luyen lay ra da xu ly", drlhk+"");
 
-            } else
+            }
+            else
             {
                 CollectionReference hanhKiemRef = db.collection("hanhKiem");
                 Query query = hanhKiemRef.whereEqualTo("HKM_id", "HKII"+student.getHsID());
@@ -265,6 +282,45 @@ public class mistake_edit extends AppCompatActivity {
                                 String hkDRl = documentSnapshot.getString("HKM_DiemRenLuyen");
                                 int drl = Integer.parseInt(hkDRl);
                                 getDRL(drl);
+                                diemTRu = Integer.parseInt(mistake.getVpDiemtru());
+
+                                drlhk -= diemTRu;
+
+                                if(drlhk >= 90 && drlhk <= 100) {
+                                    hanhKiem = "Tốt";
+                                } else if (drlhk >= 70 && drlhk <= 89) {
+                                    hanhKiem = "Khá";
+                                }else if(drlhk >= 50 && drlhk <= 69){
+                                    hanhKiem = "Trung bình";
+                                }else {
+                                    hanhKiem = "Yếu";
+                                }
+
+
+                                db.collection("hanhKiem")
+                                        .whereEqualTo("HKM_id", "HKII"+student.getHsID())
+                                        .get()
+                                        .addOnSuccessListener(querySnapshot1 -> {
+                                            if (!querySnapshot1.isEmpty()) {
+                                                DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                                Map<String, Object> updates = new HashMap<>();
+                                                updates.put("HKM_DiemRenLuyen", drlhk+"");
+                                                updates.put("HKM_HanhKiem", hanhKiem);
+                                                docRef.update(updates)
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            Toast.makeText(mistake_edit.this, "Cập nhật thành công!", Toast.LENGTH_LONG).show();
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(mistake_edit.this, "Cập nhật thất bại, Vui lòng kiểm tra lại!" + e, Toast.LENGTH_LONG).show();
+                                                        });
+                                            } else {
+                                                Toast.makeText(mistake_edit.this, "Không tìm thấy  để cập nhật", Toast.LENGTH_LONG).show();
+
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // Lỗi khi truy vấn Firestore
+                                        });
                             } else {
                                 //  Toast.makeText(Login.this, "Tên tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                             }
@@ -274,45 +330,7 @@ public class mistake_edit extends AppCompatActivity {
                     }
                 });
 
-                diemTRu = Integer.parseInt(mistake.getVpDiemtru());
 
-                drlhk -= diemTRu;
-
-                if(drlhk >= 90 && drlhk <= 100) {
-                    hanhKiem = "Tốt";
-                } else if (drlhk >= 70 && drlhk <= 89) {
-                    hanhKiem = "Khá";
-                }else if(drlhk >= 50 && drlhk <= 69){
-                    hanhKiem = "Trung bình";
-                }else {
-                    hanhKiem = "Yếu";
-                }
-
-
-                db.collection("hanhKiem")
-                        .whereEqualTo("HKM_id", "HKII"+student.getHsID())
-                        .get()
-                        .addOnSuccessListener(querySnapshot1 -> {
-                            if (!querySnapshot1.isEmpty()) {
-                                DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                Map<String, Object> updates = new HashMap<>();
-                                updates.put("HKM_DiemRenLuyen", drlhk+"");
-                                updates.put("HKM_HanhKiem", hanhKiem);
-                                docRef.update(updates)
-                                        .addOnSuccessListener(aVoid -> {
-                                            Toast.makeText(this, "Cập nhật hk thành công!", Toast.LENGTH_LONG).show();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Toast.makeText(this, "Cập nhật hk thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
-                                        });
-                            } else {
-                                Toast.makeText(this, "Không tìm thấy  để cập nhật", Toast.LENGTH_LONG).show();
-
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            // Lỗi khi truy vấn Firestore
-                        });
             }
         }
     }
@@ -330,7 +348,7 @@ public class mistake_edit extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     count.set(queryDocumentSnapshots.size());
                    int luotViPham = count.get();
-                    DocumentReference docRef = db.collection("luotViPham").document();
+                    DocumentReference docRef = db.collection("luotViPham").document("LTVP"+luotViPham);
                     String  hkyd ="";
                     int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
                     if (selectedRadioButtonId != -1) {
@@ -348,7 +366,7 @@ public class mistake_edit extends AppCompatActivity {
                     data.put("HS_id", student.getHsID());
                     data.put("VP_id", VPid);
                     data.put("TK_id", account.getTkID());
-                    data.put("LTVP_ThoiGian", subject+"  " +date);
+                    data.put("LTVP_ThoiGian", subject+"-" +date);
                     data.put("LTVP_id", "LTVP"+luotViPham);
                     data.put("HK_HocKy", hkyd);
 
@@ -357,19 +375,18 @@ public class mistake_edit extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("Firebase", "Dữ liệu đã được lưu thành công!");
+                                    Toast.makeText(mistake_edit.this, "Cập nhật vi phạm thành công!",Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("Firebase", "Lỗi khi lưu dữ liệu: ", e);
+                                    Toast.makeText(mistake_edit.this, "Cập nhật vi phạm thất bại!"+ e,Toast.LENGTH_LONG).show();
+
                                 }
                             });
 
                 });
-
-
 
         finish();
     }

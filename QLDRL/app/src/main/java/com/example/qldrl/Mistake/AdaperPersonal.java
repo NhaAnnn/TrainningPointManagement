@@ -128,7 +128,7 @@ public class AdaperPersonal extends RecyclerView.Adapter<AdaperPersonal.MyViewHo
                     Intent intent = new Intent(context, mistake_detail.class);
                     intent.putExtra("mistakePersonl", student1.getHsHoTen() );
                     intent.putExtra("account", account);
-                    intent.putExtra("student", student);
+                    intent.putExtra("student", student1);
 
                     context.startActivity(intent);
                     Toast.makeText(context, student1.getHsHoTen(), Toast.LENGTH_SHORT).show();

@@ -5,7 +5,7 @@
     </style>
 
     <style name="MyCardViewStyle" parent="CardView">
-        <item name="cardBackgroundColor">#FAFFAF</item>
+        <item name="cardBackgroundColor">#7BD3EA</item>
         <item name="cardCornerRadius">16dp</item>
     </style>
 

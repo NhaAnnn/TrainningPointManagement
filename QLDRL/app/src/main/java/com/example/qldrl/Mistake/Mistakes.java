@@ -3,14 +3,30 @@ package com.example.qldrl.Mistake;
 import java.io.Serializable;
 
 public class Mistakes implements Serializable {
-    String hsID, vpID, ltvpID, tkID, ltvpThoiGian;
+    String hsID;
+    String vpID;
+    String ltvpID;
+    String tkID;
+    String ltvpThoiGian;
 
-    public Mistakes(String hsID, String vpID, String ltvpID, String tkID, String ltvpThoiGian) {
+
+    public String getLtvpHK() {
+        return ltvpHK;
+    }
+
+    public void setLtvpHK(String ltvpHK) {
+        this.ltvpHK = ltvpHK;
+    }
+
+    String ltvpHK;
+
+    public Mistakes(String hsID, String vpID, String ltvpID, String tkID, String ltvpThoiGian,String ltvpHK) {
         this.hsID = hsID;
         this.vpID = vpID;
         this.ltvpID = ltvpID;
         this.tkID = tkID;
         this.ltvpThoiGian = ltvpThoiGian;
+        this.ltvpHK = ltvpHK;
     }
 
     public String getHsID() {

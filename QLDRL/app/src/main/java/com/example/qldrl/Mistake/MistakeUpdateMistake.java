@@ -52,7 +52,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
     Account account;
     Mistakes mistakes;
     Student student;
-    String date, hanhKiem = "";
+    String date, hanhKiem = "", subject;
     int hk, diemTru;
     RadioButton rdTerm2, rdTerm1;
     @Override
@@ -92,6 +92,8 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         date();
         setSpSubject();
 
+
+
     }
 
     private  void setDataMistakeUpdate() {
@@ -124,66 +126,46 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         });
 
         String tgvp = mistakes.getLtvpThoiGian();
-        int firstSpaceIndex = tgvp.indexOf(" ");
+        int firstSpaceIndex = tgvp.indexOf("-");
         String subject = tgvp.substring(0, firstSpaceIndex);
         setSpSubject(subject);
-
+        Toast.makeText(this, subject,Toast.LENGTH_LONG).show();
 
         String ngay = tgvp.substring(firstSpaceIndex+1);
         txtVDate.setText(ngay);
 
 
         Toast.makeText(this, "luot vi oham id: "+ mistakes.ltvpID, Toast.LENGTH_LONG).show();
-
-        CollectionReference luotVPRef = db.collection("luotViPham");
-        Query query1 = luotVPRef.whereEqualTo("LTVP_id", mistakes.getLtvpID());
-        query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if (!querySnapshot.isEmpty()) {
-                        DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
-
-                        String hkHocKy = documentSnapshot.getString("HK_HocKy");
-                        if(hkHocKy.toLowerCase().equals("học kỳ 1")) {
-                            rdTerm1.setChecked(true);
-                            hkybandau(1);
-                        } else {
-                            rdTerm2.setChecked(true);
-                            hkybandau(2);
-
-                        }
-
-
-                    } else {
-                        // Toast.makeText(context, "Sai tên tài khoản!", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    //Toast.makeText(context, "ERRR", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-
+        if(mistakes.getLtvpHK().toLowerCase().equals("học kỳ 1")) {
+            rdTerm1.setChecked(true);
+        } else {
+            rdTerm2.setChecked(true);
+        }
 
 
 
     }
 
-    public void hkybandau(int hki){
-        hk = hki;
 
-    }
     private List<Category> getListSubject() {
         List <Category> listSubject = new ArrayList<>();
         listSubject.add(new Category(""));
+        listSubject.add(new Category("Ngữ văn"));
         listSubject.add(new Category("Toán"));
+        listSubject.add(new Category("Ngoại ngữ"));
+        listSubject.add(new Category("Giáo dục thể chất"));
+        listSubject.add(new Category("Giáo dục quốc phòng và an ninh"));
+        listSubject.add(new Category("Hoạt động trải nghiệm, hướng nghiệp"));
+        listSubject.add(new Category("Nội dung giáo dục của địa phương"));
         listSubject.add(new Category("Lý"));
         listSubject.add(new Category("Hóa"));
         listSubject.add(new Category("Sinh"));
-        listSubject.add(new Category("Tin"));
+        listSubject.add(new Category("Sử"));
+        listSubject.add(new Category("Địa"));
+        listSubject.add(new Category("Giáo dục kinh tế và pháp luật"));
+        listSubject.add(new Category("Tin học"));
+        listSubject.add(new Category("Công nghệ"));
+        listSubject.add(new Category("Nghệ thuật"));
         return listSubject;
 
     }
@@ -226,7 +208,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             String dayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
-            String dateString = dayOfWeekString + ", " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
+            String dateString = dayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
 
             txtVDate.setText(dateString);
         };
@@ -240,7 +222,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
 
 // Cập nhật TextViews với ngày và thứ hiện tại
         String currentDayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
-        String currentDateString = currentDayOfWeekString + ", " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
+        String currentDateString = currentDayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
         txtVDate.setText(currentDateString);
         date = currentDateString;
     }
@@ -256,24 +238,18 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                         for (DocumentSnapshot document : task.getResult()) {
                             if (document.exists()) {
 
-                                String subject = (String) spSubject.getSelectedItem().toString();
                                 String time = txtVDate.getText().toString();
                                 int checkedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
                                 RadioButton checkedRadioButton = rdGTerm.findViewById(checkedRadioButtonId);
                                 String hocky = (String) checkedRadioButton.getText().toString();
-                                int currentTerm;
-                                if(hocky.equals("học kỳ 1")) {
-                                    currentTerm = 1;
-                                } else {
-                                    currentTerm = 2;
-                                }
 
-                                if(hk != currentTerm) {
+
+                                if(!hocky.equals(mistakes.ltvpHK.toString().toLowerCase())) {
                                     updateHK(hocky);
                                 }
 
                                 Map<String, Object> updates = new HashMap<>();
-                                updates.put("LTVP_ThoiGian", subject+" "+time);
+                                updates.put("LTVP_ThoiGian", subject+"-"+time);
                                 updates.put("HK_HocKy", hocky.trim());
 
                                 document.getReference().update(updates)
@@ -307,7 +283,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
-//                subject = adapterCategory.getItem(position).getNameCategory();
+                subject = adapterCategory.getItem(position).getNameCategory();
             }
 
             @Override
@@ -381,10 +357,11 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                     }
                 }
             });
-        }
-            CollectionReference hanhKiemRef = db.collection("hanhKiem");
-            Query query = hanhKiemRef.whereEqualTo("HKM_id", "HKII"+student.getHsID());
-            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
+            CollectionReference hanhKiem2Ref = db.collection("hanhKiem");
+            Query query1 = hanhKiem2Ref.whereEqualTo("HKM_id", "HKII"+student.getHsID());
+            query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()) {
@@ -440,6 +417,128 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                     }
                 }
             });
+        } else {
+            CollectionReference hanhKiemRef = db.collection("hanhKiem");
+            Query query = hanhKiemRef.whereEqualTo("HKM_id", "HKI"+student.getHsID());
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if(!querySnapshot.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                            String hkDRl = documentSnapshot.getString("HKM_DiemRenLuyen");
+                            int drl = Integer.parseInt(hkDRl);
+
+
+
+                            drl += diemTru;
+
+                            if(drl >= 90 && drl <= 100) {
+                                hanhKiem = "Tốt";
+                            } else if (drl >= 70 && drl <= 89) {
+                                hanhKiem = "Khá";
+                            }else if(drl >= 50 && drl <= 69){
+                                hanhKiem = "Trung bình";
+                            }else {
+                                hanhKiem = "Yếu";
+                            }
+
+
+                            int finalDrl = drl;
+                            db.collection("hanhKiem")
+                                    .whereEqualTo("HKM_id", "HKI"+student.getHsID())
+                                    .get()
+                                    .addOnSuccessListener(querySnapshot1 -> {
+                                        if (!querySnapshot1.isEmpty()) {
+                                            DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                            Map<String, Object> updates = new HashMap<>();
+                                            updates.put("HKM_DiemRenLuyen", finalDrl +"");
+                                            updates.put("HKM_HanhKiem", hanhKiem);
+                                            docRef.update(updates)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        //    Toast.makeText(mistake_edit.this, "Cập nhật hk thành công!", Toast.LENGTH_LONG).show();
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        //     Toast.makeText(mistake_edit.this, "Cập nhật hk thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+
+                                                    });
+                                        } else {
+                                            //  Toast.makeText(mistake_edit.this, "Không tìm thấy  để cập nhật", Toast.LENGTH_LONG).show();
+
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Lỗi khi truy vấn Firestore
+                                    });
+                        } else {
+                            //  Toast.makeText(Login.this, "Tên tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+
+
+            CollectionReference hanhKiem2Ref = db.collection("hanhKiem");
+            Query query1 = hanhKiem2Ref.whereEqualTo("HKM_id", "HKII"+student.getHsID());
+            query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if(!querySnapshot.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                            String hkDRl = documentSnapshot.getString("HKM_DiemRenLuyen");
+                            int drl = Integer.parseInt(hkDRl);
+                            drl -= diemTru;
+
+                            if(drl >= 90 && drl <= 100) {
+                                hanhKiem = "Tốt";
+                            } else if (drl >= 70 && drl <= 89) {
+                                hanhKiem = "Khá";
+                            }else if(drl >= 50 && drl <= 69){
+                                hanhKiem = "Trung bình";
+                            }else {
+                                hanhKiem = "Yếu";
+                            }
+
+
+                            int finalDrl = drl;
+                            db.collection("hanhKiem")
+                                    .whereEqualTo("HKM_id", "HKII"+student.getHsID())
+                                    .get()
+                                    .addOnSuccessListener(querySnapshot1 -> {
+                                        if (!querySnapshot1.isEmpty()) {
+                                            DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                            Map<String, Object> updates = new HashMap<>();
+                                            updates.put("HKM_DiemRenLuyen", finalDrl +"");
+                                            updates.put("HKM_HanhKiem", hanhKiem);
+                                            docRef.update(updates)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        // Toast.makeText(this, "Cập nhật hk thành công!", Toast.LENGTH_LONG).show();
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        //    Toast.makeText(this, "Cập nhật hk thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                                                    });
+                                        } else {
+                                            //  Toast.makeText(this, "Không tìm thấy  để cập nhật", Toast.LENGTH_LONG).show();
+
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Lỗi khi truy vấn Firestore
+                                    });
+
+                        } else {
+                            //  Toast.makeText(Login.this, "Tên tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Toast.makeText(Login.this, "ERRR", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
 
     }
 }
