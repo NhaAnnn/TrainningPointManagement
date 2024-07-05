@@ -28,7 +28,7 @@ public class mistake_detail extends AppCompatActivity {
     private RecyclerView recycCC, recycTT, recycHT, recycNT, recycDetail;
     private int clickCount = 0;
     private TextView txtNamePersonl;
-    private ImageView imgDropCC, imgDropTT, imgDropHT, imgDropNT;
+    private ImageView imgBackDetail;
     private LinearLayout layoutCC;
     String namePersonl;
     private Account account;
@@ -40,6 +40,8 @@ public class mistake_detail extends AppCompatActivity {
 
 
         txtNamePersonl = findViewById(R.id.txtNamePersonl);
+        imgBackDetail = findViewById(R.id.imgBackDetail);
+        imgBackDetail.setOnClickListener(v -> onBackPressed());
 
         recycDetail = findViewById(R.id.recycDetails);
 

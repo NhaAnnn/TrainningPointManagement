@@ -519,11 +519,8 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                             } else if(account.getTkChucVu().equals("Giáo viên") ){
                                 rdPosition.check(rdPosition.getChildAt(1).getId());
 
-                            } else if(account.getTkChucVu().equals("Ban cán sự") ){
-                                rdPosition.check(rdPosition.getChildAt(2).getId());
-
                             } else {
-                                rdPosition.check(rdPosition.getChildAt(3).getId());
+                                rdPosition.check(rdPosition.getChildAt(2).getId());
 
                             }
 

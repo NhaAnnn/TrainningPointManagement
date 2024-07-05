@@ -139,64 +139,9 @@ public class teacher extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                // Xóa dữ liệu từ collection "taiKhoan"
-//                CollectionReference taiKhoanRef = FirebaseFirestore.getInstance().collection("taiKhoan");
-//                taiKhoanRef.get().addOnSuccessListener(querySnapshot -> {
-//                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
-//                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-//                        batch.delete(document.getReference());
-//                    }
-//                    batch.commit().addOnSuccessListener(aVoid -> {
-//                        Log.d("FirebaseDelete", "Xóa dữ liệu từ collection 'taiKhoan' thành công!");
-//                    }).addOnFailureListener(e -> {
-//                        Log.e("FirebaseDelete", "Lỗi khi xóa dữ liệu từ collection 'taiKhoan': " + e.getMessage());
-//                    });
-//                }).addOnFailureListener(e -> {
-//                    Log.e("FirebaseDelete", "Lỗi khi lấy dữ liệu từ collection 'taiKhoan': " + e.getMessage());
-//                });
-//
-//                // Xóa dữ liệu từ collection "giaoVien"
-//                CollectionReference giaoVienRef = FirebaseFirestore.getInstance().collection("giaoVien");
-//                giaoVienRef.get().addOnSuccessListener(querySnapshot -> {
-//                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
-//                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-//                        batch.delete(document.getReference());
-//                    }
-//                    batch.commit().addOnSuccessListener(aVoid -> {
-//                        Log.d("FirebaseDelete", "Xóa dữ liệu từ collection 'giaoVien' thành công!");
-//                    }).addOnFailureListener(e -> {
-//                        Log.e("FirebaseDelete", "Lỗi khi xóa dữ liệu từ collection 'giaoVien': " + e.getMessage());
-//                    });
-//                }).addOnFailureListener(e -> {
-//                    Log.e("FirebaseDelete", "Lỗi khi lấy dữ liệu từ collection 'giaoVien': " + e.getMessage());
-//                });
             }
         });
 
-
-//        editPassAgianAccTeacher.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // Không cần xử lý
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // Không cần xử lý
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // Kiểm tra xem mật khẩu và nhập lại mật khẩu có khớp nhau không
-//                String password = editPassTeacher.getText().toString();
-//                String confirmPassword = editPassAgianAccTeacher.getText().toString();
-//                if (!password.equals(confirmPassword)) {
-//                    editPassAgianAccTeacher.setError("Mật khẩu không khớp");
-//                } else {
-//                    editPassAgianAccTeacher.setError(null);
-//                }
-//            }
-//        });
 
 
 

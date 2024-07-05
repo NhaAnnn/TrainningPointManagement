@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/main_home_top_border"
                 android:orientation="horizontal"
@@ -27,7 +27,7 @@
 
                 <LinearLayout
                     android:layout_width="325dp"
-                    android:layout_height="70dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="80"
@@ -112,11 +112,12 @@
 
                             <ImageView
                                 android:id="@+id/imageView15"
-                                android:layout_width="97dp"
-                                android:layout_height="68dp"
+                                android:layout_width="85dp"
+                                android:layout_height="82dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="10dp"
                                 android:layout_weight="20"
+                                android:background="@drawable/main_home_top_anounce"
                                 android:src="@drawable/ic_updat" />
 
                             <TextView

@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.qldrl.Account.CreateManyAccountCallback;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
@@ -46,7 +47,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class mistake_edit extends AppCompatActivity {
-    private ImageView imgCalen;
+
+    private ImageView imgCalen, imgBackED;
     private TextView txtDate, txtNameMistake, txtNamePersonl;
     private AdapterCategory adapterCategory;
     private AdapterClassRom adapterClassRom;
@@ -60,11 +62,16 @@ public class mistake_edit extends AppCompatActivity {
     String mistakeName, date, subject, LVPid, VPid, hanhKiem;
     Button btnSaveMistake, btnExitEditMistake;
     int drlhk,diemTRu;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mistake_edit);
         imgCalen = findViewById(R.id.imgCalend);
+        imgBackED = findViewById(R.id.imgBackED);
+        imgBackED.setOnClickListener(v -> onBackPressed());
 
         txtDate = findViewById(R.id.txtVDate);
         date();
@@ -107,13 +114,20 @@ public class mistake_edit extends AppCompatActivity {
             if(selectedRadioButtonId == -1) {
                 layoutErrorTerm.setVisibility(View.VISIBLE);
                 isValid = false;
+                rdGTerm.setOnCheckedChangeListener((group, checkedId) -> {
+                    layoutErrorTerm.setVisibility(View.GONE);
+                });
 
             } else {
                 layoutErrorTerm.setVisibility(View.GONE);
             }
+
             if(isValid) {
                 updateHK();
                 saveMistake();
+                Mistake_Board.adapterClassRom.notifyDataSetChanged();
+                Mistake_Personal.adaperPersonal.notifyDataSetChanged();
+                onBackPressed();
             }
 
         });
@@ -388,7 +402,7 @@ public class mistake_edit extends AppCompatActivity {
 
                 });
 
-        finish();
+
     }
     private void getDRL(int drl) {
         drlhk = drl;

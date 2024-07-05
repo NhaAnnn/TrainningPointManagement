@@ -3,6 +3,7 @@ package com.example.qldrl.Mistake;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -28,15 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mistake_Personal extends AppCompatActivity {
-    private RecyclerView recycPersonal;
+    public RecyclerView recycPersonal;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private AdaperPersonal adaperPersonal;
+    public static AdaperPersonal adaperPersonal;
     private SearchView searchPersonal;
     private String className, classID;
     TextView txtVEditMistakeClass;
    private Account account;
-    private ImageView imgViewMistake, imgEditMistake;
+    private ImageView imgViewMistake, imgEditMistake,imgBackMistakePersonl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,8 @@ public class Mistake_Personal extends AppCompatActivity {
         txtVEditMistakeClass = findViewById(R.id.txtVEditMistakeClass);
 
         txtVEditMistakeClass.setText("Cập nhật vi phạm lớp " + className);
+        imgBackMistakePersonl = findViewById(R.id.imgBackMistakePersonl);
+
 
         getAllStudents();
 //
@@ -72,27 +75,27 @@ public class Mistake_Personal extends AppCompatActivity {
 
 
 
-//        searchPersonal = findViewById(R.id.searchPersonal);
-//        searchPersonal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                recycPersonal.setVisibility(View.VISIBLE);
-//
-//            }
-//        });
-//        searchPersonal.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                adaperPersonal.getFilter().filter(query);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adaperPersonal.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
+        searchPersonal = findViewById(R.id.searchPersonal);
+        searchPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recycPersonal.setVisibility(View.VISIBLE);
+
+            }
+        });
+        searchPersonal.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adaperPersonal.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adaperPersonal.getFilter().filter(newText);
+                return false;
+            }
+        });
 
 
 
@@ -102,6 +105,8 @@ public class Mistake_Personal extends AppCompatActivity {
         // List <String> listbearNames = new arrayList<> ();
         //for(Bear bear : bearList) {listbearimgids.add(bear.getImgid())
         //listbearNames.add(bear.getName() }
+
+        imgBackMistakePersonl.setOnClickListener(v -> onBackPressed());
 
     }
 

@@ -3,6 +3,7 @@ package com.example.qldrl.Mistake;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,12 +27,16 @@ public class Mistake_See extends AppCompatActivity {
     private AdapterMistakeSee adapterMistakeSee;
     private Student student;
     private Account account;
+    private ImageView imgBackMistakeSee;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mistake_see);
+
+        imgBackMistakeSee = findViewById(R.id.imgBackMistakeSee);
+        imgBackMistakeSee.setOnClickListener(v -> onBackPressed());
 
         recycMistakeSee = findViewById(R.id.recycMistakeSee);
         txtNamePersonlMistake = findViewById(R.id.txtNamePersonlMistake);

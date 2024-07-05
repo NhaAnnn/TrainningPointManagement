@@ -1,14 +1,21 @@
 package com.example.qldrl.Mistake;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +73,7 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
         getPersonalEdit(mistakes.getTkID(), holder);
         holder.txtTimeEdit.setText(mistakes.ltvpThoiGian);
 
-        holder.imgBtnSeeDetail.setOnTouchListener(new View.OnTouchListener() {
+        holder.relativeDetail.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -85,9 +92,7 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
             }
         });
 
-        holder.imgBtnSeeDetail.setOnClickListener(v -> {
-            holder.layoutDetail.setVisibility(View.VISIBLE);
-        });
+
 
         holder.btnEditMistakeSee.setOnClickListener(v -> {
             Intent intent = new Intent(context, MistakeUpdateMistake.class);
@@ -125,62 +130,12 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
 
 
 
-
         holder.btnDeleteMistakeSee.setOnClickListener(v -> {
-
-
-            Query query12 = db.collection("luotViPham")
-                    .whereEqualTo("LTVP_id", mistakes.getLtvpID());
-
-            // Thực hiện truy vấn và lấy snapshot
-            query12.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    QuerySnapshot snapshot = task.getResult();
-                    if (!snapshot.isEmpty()) {
-                        // Xóa document
-                        for (DocumentSnapshot document : snapshot) {
-                            String hocky = document.getString("HK_HocKy");
-                            updateHK(hocky);
-                        }
-                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
-                    } else {
-                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
-                    }
-                } else {
-                    // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
-                }
-            });
-
-
-
-            // Tạo truy vấn để tìm document có TK_id = "111"
-            Query query1 = db.collection("luotViPham")
-                    .whereEqualTo("LTVP_id", mistakes.getLtvpID());
-
-            // Thực hiện truy vấn và lấy snapshot
-            query1.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    QuerySnapshot snapshot = task.getResult();
-                    if (!snapshot.isEmpty()) {
-                        // Xóa document
-                        for (DocumentSnapshot document : snapshot.getDocuments()) {
-                            document.getReference().delete();
-                        }
-                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
-                    } else {
-                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
-                    }
-                } else {
-                    // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
-                }
-            });
-
-
-            listMistakes.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, listMistakes.size());
-
+            openDinalogDelete(Gravity.CENTER, mistakes, position);
         });
+
+
+
     }
 
     private void getPersonalEdit(String tkID, myViewHolder holder) {
@@ -254,6 +209,7 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
         private ImageView imgBtnSeeDetail;
         private Button btnEditMistakeSee, btnDeleteMistakeSee;
         private LinearLayout layoutDetail;
+        private RelativeLayout relativeDetail;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -266,7 +222,7 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
             btnEditMistakeSee = itemView.findViewById(R.id.btnEditMistakeSee);
             layoutDetail = itemView.findViewById(R.id.layoutDetail);
             btnDeleteMistakeSee = itemView.findViewById(R.id.btnDeleteMistakeSee);
-
+            relativeDetail = itemView.findViewById(R.id.relativeDetail);
         }
     }
 
@@ -403,5 +359,100 @@ public class AdapterMistakeSee  extends RecyclerView.Adapter<AdapterMistakeSee.m
         }
 
 
+    }
+
+
+
+    private void openDinalogDelete(int gravity, Mistakes mistakes, int position) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_account_dinalog_delete);
+
+        Window window = dialog.getWindow();
+        if(window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribute = window.getAttributes();
+        windowAttribute.gravity = gravity;
+        window.setAttributes(windowAttribute);
+
+        dialog.setCancelable(true);
+
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+        Button btnDelete = dialog.findViewById(R.id.btnDelete);
+        TextView txtDialogXoa = dialog.findViewById(R.id.txtDialogXoa);
+        TextView txtNameDialog = dialog.findViewById(R.id.txtNameDialog);
+        txtNameDialog.setText("Xóa Vi Phạm");
+        txtDialogXoa.setText("Bạn có chắc muốn xóa lượt vi phạm này?");
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            Query query12 = db.collection("luotViPham")
+                    .whereEqualTo("LTVP_id", mistakes.getLtvpID());
+
+            // Thực hiện truy vấn và lấy snapshot
+            query12.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshot = task.getResult();
+                    if (!snapshot.isEmpty()) {
+                        // Xóa document
+                        for (DocumentSnapshot document : snapshot) {
+                            String hocky = document.getString("HK_HocKy");
+                            updateHK(hocky);
+                        }
+                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                    } else {
+                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                    }
+                } else {
+                    // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
+                }
+            });
+
+
+
+            // Tạo truy vấn để tìm document có TK_id = "111"
+            Query query1 = db.collection("luotViPham")
+                    .whereEqualTo("LTVP_id", mistakes.getLtvpID());
+
+            // Thực hiện truy vấn và lấy snapshot
+            query1.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshot = task.getResult();
+                    if (!snapshot.isEmpty()) {
+                        // Xóa document
+                        for (DocumentSnapshot document : snapshot.getDocuments()) {
+                            document.getReference().delete();
+                        }
+                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                    } else {
+                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                    }
+                } else {
+                    // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
+                }
+            });
+
+
+            listMistakes.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, listMistakes.size());
+            Mistake_Board.adapterClassRom.notifyDataSetChanged();
+            Mistake_Personal.adaperPersonal.notifyDataSetChanged();
+            dialog.dismiss();
+
+        });
+        dialog.show();
     }
 }

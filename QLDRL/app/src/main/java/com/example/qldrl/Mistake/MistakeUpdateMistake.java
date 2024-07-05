@@ -32,6 +32,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
     private AdapterCategory adapterCategory;
     private RadioGroup rdGTerm;
     private Button btnExitUpdateMistake, btnUpdateMistake;
-    private ImageView imgCalend;
+    private ImageView imgCalend, imgBackMistakeUpdate;
     private Spinner spSubject;
     Account account;
     Mistakes mistakes;
@@ -60,6 +61,8 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mistake_update_mistake);
 
+        imgBackMistakeUpdate = findViewById(R.id.imgBackMistakeUpdate);
+        imgBackMistakeUpdate.setOnClickListener(v -> onBackPressed());
 
         txtNameMistake = findViewById(R.id.txtNameMistake);
         txtVDate = findViewById(R.id.txtVDate);
@@ -78,6 +81,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         mistakes = (Mistakes) intent.getSerializableExtra("mistake");
         student = (Student) intent.getSerializableExtra("student");
 
+        setSpSubject();
         setDataMistakeUpdate();
 
         btnExitUpdateMistake.setOnClickListener(v -> {
@@ -90,7 +94,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
 
 
         date();
-        setSpSubject();
+
 
 
 
@@ -129,6 +133,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         int firstSpaceIndex = tgvp.indexOf("-");
         String subject = tgvp.substring(0, firstSpaceIndex);
         setSpSubject(subject);
+
         Toast.makeText(this, subject,Toast.LENGTH_LONG).show();
 
         String ngay = tgvp.substring(firstSpaceIndex+1);
@@ -170,7 +175,9 @@ public class MistakeUpdateMistake extends AppCompatActivity {
 
     }
     private void setSpSubject(String sj) {
-        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, getListSubject());
+        List<Category> subjectList = getListSubject();
+        Toast.makeText(MistakeUpdateMistake.this, "size"+subjectList.size(),Toast.LENGTH_LONG).show();
+        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, subjectList);
         spSubject.setAdapter(adapterCategory);
         spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -179,13 +186,12 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                // subject = adapterCategory.getItem(position).getNameCategory();
                 // Tìm vị trí của nienKhoa trong danh sách
                 int selectedPosition = -1;
-                for (int i = 0; i < getListSubject().size(); i++) {
-                    if (getListSubject().get(i).getNameCategory().equals(sj)) {
+                for (int i = 0; i < subjectList.size(); i++) {
+                    if (subjectList.get(i).getNameCategory().equals(sj)) {
                         selectedPosition = i;
                         break;
                     }
                 }
-
                 // Set giá trị mặc định cho Spinner
                 if (selectedPosition != -1) {
                     spSubject.setSelection(selectedPosition);
@@ -199,6 +205,10 @@ public class MistakeUpdateMistake extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 
     public void date(){
         Calendar calendar = Calendar.getInstance();
@@ -223,7 +233,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
 // Cập nhật TextViews với ngày và thứ hiện tại
         String currentDayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
         String currentDateString = currentDayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
-        txtVDate.setText(currentDateString);
+      //  txtVDate.setText(currentDateString);
         date = currentDateString;
     }
 

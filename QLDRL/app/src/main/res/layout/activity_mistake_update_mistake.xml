@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imgBackMistakeUpdate"
             android:layout_width="65dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -67,13 +67,20 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spSubject"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@android:color/transparent"
-            tools:background="@android:color/transparent" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/general_boder_search"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView33"
@@ -88,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:background="@drawable/general_boder_search"
             android:orientation="horizontal">
 
             <TextView
@@ -95,7 +103,6 @@
                 android:layout_width="244dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/general_border"
                 android:gravity="center|left"
                 android:padding="10dp"
                 android:text="TextView" />

@@ -2,11 +2,14 @@ package com.example.qldrl.Mistake;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -35,17 +38,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mistake_Board extends AppCompatActivity {
-
+    public static final int REQUEST_CODE_UPDATE = 123;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclVClass;
     private Spinner spCategory;
     private Spinner spYear;
     private SearchView searchClass;
     private AdapterCategory adapterCategory;
-    private AdapterClassRom adapterClassRom;
+
+    public static AdapterClassRom adapterClassRom;
     private List<ClassRom> classRomList = new ArrayList<>();
     private Account account;
+    private boolean isSearchViewFocused = false, isBackPressed = false;
+    private ImageView imgBackMistakeBoard;
+    @Override
+    public void onBackPressed() {
+        // Kiểm tra xem SearchView có focus không
+        if (isSearchViewFocused) {
+            // Nếu có, ẩn bàn phím ảo
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(searchClass.getWindowToken(), 0);
 
+            // Và bỏ focus khỏi SearchView
+            searchClass.clearFocus();
+            isSearchViewFocused = false;
+        } else {
+            // Nếu không, xử lý như bình thường
+
+                // Nếu đã nhấn nút back 2 lần, thì mới gọi super.onBackPressed()
+                if (isBackPressed) {
+                    super.onBackPressed();
+                } else {
+                    isBackPressed = true;
+                    finish();
+                }
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +85,15 @@ public class Mistake_Board extends AppCompatActivity {
         spCategory = findViewById(R.id.spClass);
         spYear = findViewById(R.id.spYear);
         recyclVClass = findViewById(R.id.recyclVClass);
+        imgBackMistakeBoard = findViewById(R.id.imgBackMistakeBoard);
 
         Intent intent = getIntent();
         account = (Account) intent.getSerializableExtra("account");
-        Toast.makeText(this, account.getTkChucVu(), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, account.getTkChucVu(), Toast.LENGTH_LONG).show();
 
-      //  searchClass();
+        searchClass();
+
+
 
 //        sp(getListCategory(), spCategory);
 //        sp(getListYear(), spYear);
@@ -69,7 +101,7 @@ public class Mistake_Board extends AppCompatActivity {
             List<ClassRom> classRomList = new ArrayList<>();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            Toast.makeText(this, account.getTkID(), Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, account.getTkID(), Toast.LENGTH_LONG).show();
             db.collection("giaoVien").whereEqualTo("TK_id", account.getTkID())
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -78,8 +110,7 @@ public class Mistake_Board extends AppCompatActivity {
                                 QuerySnapshot querySnapshot = task.getResult();
                                 for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
                                     String idLH = documentSnapshot.getString("LH_id");
-                                    Toast.makeText(Mistake_Board.this, idLH, Toast.LENGTH_LONG).show();
-
+                                //    Toast.makeText(Mistake_Board.this, idLH, Toast.LENGTH_LONG).show();
                                     getAllClassRoomsTeacher(idLH);
 
                                 }
@@ -92,9 +123,7 @@ public class Mistake_Board extends AppCompatActivity {
             getAllClassRooms();
         }
 
-        // Log.d("helllo" ,classRomList.size() + "");
-//                adapterClassRom = new AdapterClassRom(classRomList, Mistake_Board.this, account); //truyen vao tuy tung list
-//                recyclVClass.setAdapter(adapterClassRom);
+
         recyclVClass.setLayoutManager(new GridLayoutManager(Mistake_Board.this, 1));
 
         //Set Spinner
@@ -150,7 +179,9 @@ public class Mistake_Board extends AppCompatActivity {
 
 
 
-//        getAllClassRooms();
+        imgBackMistakeBoard.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void updataRecyc(List<ClassRom> classRomLists) {
@@ -162,21 +193,28 @@ public class Mistake_Board extends AppCompatActivity {
 
     }
 
-//    private void searchClass() {
-//        searchClass.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                adapterClassRom.getFilter().filter(query);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adapterClassRom.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//    }
+    private void searchClass() {
+        searchClass.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapterClassRom.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterClassRom.getFilter().filter(newText);
+                return false;
+            }
+
+
+        });
+
+        searchClass.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
+            isSearchViewFocused = hasFocus;
+            isBackPressed = false;
+        });
+    }
 
     private  void sp(List<Category> listCategory, Spinner spinner) {
         adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, listCategory);

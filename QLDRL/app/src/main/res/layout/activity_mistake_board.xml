@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imgBackMistakeBoard"
             android:layout_width="65dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/general_border" />
+                    android:background="@drawable/general_boder_search" />
 
 
                 <Spinner
@@ -69,17 +69,17 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/general_border" />
+                    android:background="@drawable/general_boder_search" />
             </LinearLayout>
 
             <SearchView
                 android:id="@+id/searchClass"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/general_border_radius"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/general_boder_search"
                 android:iconifiedByDefault="false"
                 android:queryHint="Tìm kiếm nhanh"
                 app:layout_constraintEnd_toEndOf="parent"
