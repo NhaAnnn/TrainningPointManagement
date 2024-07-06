@@ -19,6 +19,7 @@ import com.example.qldrl.Conduct.ListConduct;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.Mistake.Mistake_Board;
 import com.example.qldrl.R;
+import com.example.qldrl.Report.Report;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,7 +54,11 @@ public class MainHome_Edited extends AppCompatActivity {
         // Chuyen qua activity MainHome
         intentActivity();
 
-
+        cardReport.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Report.class);
+            intent.putExtra("account", account);
+            startActivity(intent);
+        });
 
         cardPoint.setOnClickListener(v -> {
             if(account.getTkChucVu().toLowerCase().trim().equals(gv)){

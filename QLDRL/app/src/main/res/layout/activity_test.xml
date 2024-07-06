@@ -27,7 +27,7 @@
                 android:src="@drawable/ic_create" />
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/txtDialogNameDownFile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
