@@ -62,19 +62,19 @@
                 android:layout_weight="2">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/rdBoard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ban giám hiệu" />
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/rdTeach"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Giáo viên" />
 
                 <RadioButton
-                    android:id="@+id/radioButton6"
+                    android:id="@+id/rdStud"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Học sinh" />
@@ -82,7 +82,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutErrorTerm"
+            android:id="@+id/layoutErrorType"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="130dp"

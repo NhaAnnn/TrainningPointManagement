@@ -1,6 +1,5 @@
 package com.example.qldrl.Report;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,12 +23,9 @@ import android.widget.Toast;
 
 import com.example.qldrl.General.Account;
 import com.example.qldrl.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -44,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Report extends AppCompatActivity {
 
@@ -113,6 +109,11 @@ public class Report extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btnExitDownLoad);
         Button btnDownLoad = dialog.findViewById(R.id.btnDownloadFile);
         TextView txtNameFile = dialog.findViewById(R.id.txtNameFileDown);
+        Button btnExportFile = dialog.findViewById(R.id.btnExportFile);
+        RadioButton rdStud = dialog.findViewById(R.id.rdStud);
+        RadioButton rdTeach = dialog.findViewById(R.id.rdTeach);
+        RadioButton rdBoard = dialog.findViewById(R.id.rdBoard);
+        LinearLayout layoutErrorType = dialog.findViewById(R.id.layoutErrorType);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("hocSinh")
@@ -140,6 +141,14 @@ public class Report extends AppCompatActivity {
                     // Handle error
                 });
 
+
+
+        btnExportFile.setOnClickListener( v -> {
+            
+        });
+
+
+
         btnCancel.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -150,7 +159,7 @@ public class Report extends AppCompatActivity {
     private void openDinalogDownLoadListMistakeAll(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_down_load_list_acc);
+        dialog.setContentView(R.layout.layout_down_load_file);
 
         Window window = dialog.getWindow();
         if (window == null) {
@@ -169,64 +178,25 @@ public class Report extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btnExitDownLoad);
         Button btnDownLoad = dialog.findViewById(R.id.btnDownloadFile);
         TextView txtNameFile = dialog.findViewById(R.id.txtNameFileDown);
+        Button btnExport = dialog.findViewById(R.id.btnExportFile);
+        RadioGroup rdGTermReport = dialog.findViewById(R.id.rdGTermReport);
+        // Lấy giá trị của radio button
+        // Lấy button được chọn trong RadioGroup
+        RadioButton rdT1 = dialog.findViewById(R.id.rdT1);
+        RadioButton rdT2 = dialog.findViewById(R.id.rdT2);
+        LinearLayout layoutErrorTermReport = dialog.findViewById(R.id.layoutErrorTermReport);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("lop")
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<Map<String, Object>> dataFromFirestore = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        Map<String, Object> data = new HashMap<>();
-                        data.put("LH_id", document.getString("LH_id"));
-                        data.put("LH_TenLop", document.getString("LH_TenLop"));
-                        data.put("NK_NienKhoa", document.getString("NK_NienKhoa"));
+        btnExport.setOnClickListener( v -> {
+            if(rdT1.isChecked() == false && rdT2.isChecked() == false) {
+                layoutErrorTermReport.setVisibility(View.VISIBLE);
+                rdGTermReport.setOnCheckedChangeListener((group, checkedId) -> {
+                    layoutErrorTermReport.setVisibility(View.GONE);
 
-                        // Count number of students in the class
-                        db.collection("hocSinh")
-                                .whereEqualTo("LH_id", document.getString("LH_id"))
-                                .get()
-                                .addOnSuccessListener(studentQuerySnapshot -> {
-                                    data.put("soLuongHocSinh", studentQuerySnapshot.size());
-
-                                    // Count violations for each student in the class
-                                    int totalViolations = 0;
-                                    int totalGoodBehaviors = 0;
-                                    int totalAverageBehaviors = 0;
-                                    int totalPoorBehaviors = 0;
-                                    for (QueryDocumentSnapshot studentDocument : studentQuerySnapshot) {
-                                        totalViolations += studentDocument.getLong("luotViPham").intValue();
-                                        String behavior = studentDocument.getString("HKM_HanhKiem");
-                                        if (behavior.equals("Tốt")) {
-                                            totalGoodBehaviors++;
-                                        } else if (behavior.equals("Khá")) {
-                                            totalAverageBehaviors++;
-                                        } else if (behavior.equals("Trung bình")) {
-                                            totalAverageBehaviors++;
-                                        } else if (behavior.equals("Yếu")) {
-                                            totalPoorBehaviors++;
-                                        }
-                                    }
-                                    data.put("soLuongLuotViPham", totalViolations);
-                                    data.put("soLuongHKMTot", totalGoodBehaviors);
-                                    data.put("soLuongHKMKha", totalAverageBehaviors);
-                                    data.put("soLuongHKMTrungBinh", totalAverageBehaviors);
-                                    data.put("soLuongHKMYeu", totalPoorBehaviors);
-
-                                    dataFromFirestore.add(data);
-                                });
-                    }
-
-                    String fileName = "lop.xlsx";
-                    createExcelFileAllClass(fileName, dataFromFirestore);
-                    txtNameFile.setText(fileName);
-
-                    btnDownLoad.setOnClickListener(v -> {
-                        saveExcelFileToDownloads(fileName, dataFromFirestore);
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    // Handle error
                 });
+            } else {
+                MsAll(rdT1,txtNameFile,btnDownLoad);
+            }
+        });
 
 
 
@@ -236,6 +206,7 @@ public class Report extends AppCompatActivity {
 
         dialog.show();
     }
+
 
     private void openDinalogDownLoadListMistakeClass(int gravity, String LHid) {
         final Dialog dialog = new Dialog(this);
@@ -270,30 +241,6 @@ public class Report extends AppCompatActivity {
         LinearLayout layoutErrorTermReport = dialog.findViewById(R.id.layoutErrorTermReport);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("hocSinh")
-//                .get()
-//                .addOnSuccessListener(querySnapshot -> {
-//                    List<Map<String, Object>> dataFromFirestore = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : querySnapshot) {
-//                        Map<String, Object> data = new HashMap<>();
-//                        data.put("HS_id", document.getString("HS_id"));
-//                        data.put("HS_HoTen", document.getString("HS_HoTen"));
-//                        data.put("HS_NgaySinh", document.getString("HS_NgaySinh"));
-//                        data.put("HS_GioiTinh", document.getString("HS_GioiTinh"));
-//                        dataFromFirestore.add(data);
-//                    }
-//
-//                    String fileName = "Danh_sach_tai_khoan.xlsx";
-//                    createExcelFile(fileName, dataFromFirestore);
-//                    txtNameFile.setText(fileName);
-//
-//                    btnDownLoad.setOnClickListener(v -> {
-//                        saveExcelFileToDownloads(fileName, dataFromFirestore);
-//                    });
-//                })
-//                .addOnFailureListener(e -> {
-//                    // Handle error
-//                });
 
         btnCancel.setOnClickListener(v -> {
             dialog.dismiss();
@@ -361,32 +308,33 @@ public class Report extends AppCompatActivity {
     }
     private void createExcelFileAllClass(String fileName, List<Map<String, Object>> data) {
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Học Sinh");
+        Sheet sheet = workbook.createSheet("Lớp");
 
+        // Tạo header
         Row headerRow = sheet.createRow(0);
         headerRow.createCell(0).setCellValue("LH_id");
         headerRow.createCell(1).setCellValue("LH_TenLop");
         headerRow.createCell(2).setCellValue("NK_NienKhoa");
-        headerRow.createCell(3).setCellValue("SoLuongHocSinh");
-        headerRow.createCell(4).setCellValue("SoLuongLuotViPham");
-        headerRow.createCell(5).setCellValue("soLuongHKMTot");
-        headerRow.createCell(6).setCellValue("soLuongHKMKha");
-        headerRow.createCell(7).setCellValue("soLuongHKMTrungBinh");
-        headerRow.createCell(8).setCellValue("soLuongHKMYeu");
+        headerRow.createCell(3).setCellValue("SoLuongHS");
+        headerRow.createCell(4).setCellValue("SoLuotViPham");
+        headerRow.createCell(5).setCellValue("SoHKMTot");
+        headerRow.createCell(6).setCellValue("SoHKMKha");
+        headerRow.createCell(7).setCellValue("SoHKMTrungBinh");
+        headerRow.createCell(8).setCellValue("SoHKMYeu");
 
-        // Populate the data rows
+        // Thêm dữ liệu vào sheet
         int rowNum = 1;
-        for (Map<String, Object> studentInfo : data) {
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue((String) studentInfo.get("LH_id"));
-            row.createCell(1).setCellValue((String) studentInfo.get("LH_TenLop"));
-            row.createCell(2).setCellValue((String) studentInfo.get("NK_NienKhoa"));
-            row.createCell(3).setCellValue((String) studentInfo.get("SoLuongHocSinh"));
-            row.createCell(4).setCellValue((int) studentInfo.get("SoLuongLuotViPham"));
-            row.createCell(5).setCellValue((String)studentInfo.get("SoLuongHanhKiemTot"));
-            row.createCell(6).setCellValue((String) studentInfo.get("SoLuongHanhKiemKha"));
-            row.createCell(7).setCellValue((String) studentInfo.get("SoLuongHanhKiemTrungBinh"));
-            row.createCell(8).setCellValue((String) studentInfo.get("SoLuongHanhKiemYeu"));
+        for (Map<String, Object> row : data) {
+            Row dataRow = sheet.createRow(rowNum++);
+            dataRow.createCell(0).setCellValue((String) row.get("LH_id"));
+            dataRow.createCell(1).setCellValue((String) row.get("LH_TenLop"));
+            dataRow.createCell(2).setCellValue((String) row.get("NK_NienKhoa"));
+            dataRow.createCell(3).setCellValue((String) row.get("SoLuongHS"));
+            dataRow.createCell(4).setCellValue((String) row.get("SoLuotViPham"));
+            dataRow.createCell(5).setCellValue((String) row.get("SoHKMTot"));
+            dataRow.createCell(6).setCellValue((String) row.get("SoHKMKha"));
+            dataRow.createCell(7).setCellValue((String) row.get("SoHKMTrungBinh"));
+            dataRow.createCell(8).setCellValue((String) row.get("SoHKMYeu"));
         }
 
         //  Auto-size the columns
@@ -401,6 +349,253 @@ public class Report extends AppCompatActivity {
         sheet.setColumnWidth(8, 5000); // HKM_HanhKiem
         // Return the created workbook, don't save it here
         this.workbook = workbook;
+    }
+    public void MsAll(RadioButton rdT1, TextView txtNameFile, Button btnDownLoad) {
+        if(rdT1.isChecked() == true) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+// Retrieve data from the "lop" collection
+            db.collection("lop")
+                    .get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        List<Map<String, Object>> dataFromFirestore = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("LH_id", document.getString("LH_id"));
+                            data.put("LH_TenLop", document.getString("LH_TenLop"));
+                            data.put("NK_NienKhoa", document.getString("NK_NienKhoa"));
+
+                            // Store the data temporarily
+                            dataFromFirestore.add(data);
+                        }
+                        AtomicInteger soHKMTot = new AtomicInteger();
+                        AtomicInteger soHKMKha = new AtomicInteger();
+                        AtomicInteger soHKMTrungBinh = new AtomicInteger();
+                        AtomicInteger soHKMYeu = new AtomicInteger();
+                        // Calculate the number of students and number of violations
+                        for (Map<String, Object> classData : dataFromFirestore) {
+                            String LH_id = (String) classData.get("LH_id");
+
+                            // Count the number of students in the class
+                            db.collection("hocSinh")
+                                    .whereEqualTo("LH_id", LH_id)
+                                    .get()
+                                    .addOnSuccessListener(querySnapshotHS -> {
+                                        classData.put("SoLuongHS", String.valueOf(querySnapshotHS.size()));
+                                        List<String> idHSList = new ArrayList<>();
+                                        for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshotHS) {
+                                            idHSList.add(queryDocumentSnapshot.getString("HS_id"));
+                                        }
+
+                                        if (!idHSList.isEmpty()) {
+                                            db.collection("luotViPham")
+                                                    .whereEqualTo("HK_HocKy", "Học kỳ 1")
+                                                    .whereIn("HS_id", idHSList)
+                                                    .get()
+                                                    .addOnSuccessListener(querySnapshot2 -> {
+                                                        int totalViolations = querySnapshot2.size();
+                                                        classData.put("SoLuotViPham", String.valueOf(totalViolations));
+                                                        Toast.makeText(Report.this, "" + totalViolations, Toast.LENGTH_LONG).show();
+
+                                                        for (String HS_id : idHSList) {
+                                                            db.collection("hanhKiem")
+                                                                    .whereEqualTo("HS_id", HS_id)
+                                                                    .whereEqualTo("HK_HocKy", "Học kỳ 1")
+                                                                    .get()
+                                                                    .addOnSuccessListener(querySnapshotHK -> {
+                                                                        for (QueryDocumentSnapshot documentHK : querySnapshotHK) {
+                                                                            String hanhKiem = documentHK.getString("HKM_HanhKiem");
+                                                                            switch (hanhKiem) {
+                                                                                case "Tốt":
+                                                                                    soHKMTot.getAndIncrement();
+                                                                                    break;
+                                                                                case "Khá":
+                                                                                    soHKMKha.getAndIncrement();
+                                                                                    break;
+                                                                                case "Trung bình":
+                                                                                    soHKMTrungBinh.getAndIncrement();
+                                                                                    break;
+                                                                                case "Yếu":
+                                                                                    soHKMYeu.getAndIncrement();
+                                                                                    break;
+                                                                            }
+                                                                        }
+
+                                                                        if (idHSList.size() == soHKMTot.get() + soHKMKha.get() + soHKMTrungBinh.get() + soHKMYeu.get()) {
+                                                                            classData.put("SoHKMTot", soHKMTot.get() + "");
+                                                                            classData.put("SoHKMKha", soHKMKha.get() + "");
+                                                                            classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
+                                                                            classData.put("SoHKMYeu", soHKMYeu.get() + "");
+
+                                                                            txtNameFile.setText("lop1.xlsx");
+                                                                            createExcelFileAllClass("lop1.xlsx", dataFromFirestore);
+                                                                            btnDownLoad.setOnClickListener(v1 -> {
+                                                                                saveExcelFileToDownloads("lop1.xlsx", dataFromFirestore);
+                                                                            });
+                                                                        }
+                                                                    });
+                                                        }
+
+
+
+
+
+
+                                                        // Create an Excel file and save it to Downloads
+
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Handle error
+                                                    });
+                                        } else {
+                                            classData.put("SoLuotViPham", "0");
+                                            classData.put("SoHKMTot", soHKMTot.get() + "");
+                                            classData.put("SoHKMKha", soHKMKha.get() + "");
+                                            classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
+                                            classData.put("SoHKMYeu", soHKMYeu.get() + "");
+
+                                            txtNameFile.setText("lop1.xlsx");
+                                            createExcelFileAllClass("lop1.xlsx", dataFromFirestore);
+                                            btnDownLoad.setOnClickListener(v1 -> {
+                                                saveExcelFileToDownloads("lop1.xlsx", dataFromFirestore);
+                                            });
+
+
+                                            // Create an Excel file and save it to Downloads
+
+                                        }
+
+
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle error
+                    });
+        } else {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+// Retrieve data from the "lop" collection
+            db.collection("lop")
+                    .get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        List<Map<String, Object>> dataFromFirestore = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("LH_id", document.getString("LH_id"));
+                            data.put("LH_TenLop", document.getString("LH_TenLop"));
+                            data.put("NK_NienKhoa", document.getString("NK_NienKhoa"));
+
+                            // Store the data temporarily
+                            dataFromFirestore.add(data);
+                        }
+                        AtomicInteger soHKMTot = new AtomicInteger();
+                        AtomicInteger soHKMKha = new AtomicInteger();
+                        AtomicInteger soHKMTrungBinh = new AtomicInteger();
+                        AtomicInteger soHKMYeu = new AtomicInteger();
+                        // Calculate the number of students and number of violations
+                        for (Map<String, Object> classData : dataFromFirestore) {
+                            String LH_id = (String) classData.get("LH_id");
+
+                            // Count the number of students in the class
+                            db.collection("hocSinh")
+                                    .whereEqualTo("LH_id", LH_id)
+                                    .get()
+                                    .addOnSuccessListener(querySnapshotHS -> {
+                                        classData.put("SoLuongHS", String.valueOf(querySnapshotHS.size()));
+                                        List<String> idHSList = new ArrayList<>();
+                                        for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshotHS) {
+                                            idHSList.add(queryDocumentSnapshot.getString("HS_id"));
+                                        }
+
+                                        if (!idHSList.isEmpty()) {
+                                            db.collection("luotViPham")
+                                                    .whereEqualTo("HK_HocKy", "Học kỳ 2")
+                                                    .whereIn("HS_id", idHSList)
+                                                    .get()
+                                                    .addOnSuccessListener(querySnapshot2 -> {
+                                                        int totalViolations = querySnapshot2.size();
+                                                        classData.put("SoLuotViPham", String.valueOf(totalViolations));
+                                                        Toast.makeText(Report.this, "" + totalViolations, Toast.LENGTH_LONG).show();
+
+                                                        for (String HS_id : idHSList) {
+                                                            db.collection("hanhKiem")
+                                                                    .whereEqualTo("HS_id", HS_id)
+                                                                    .whereEqualTo("HK_HocKy", "Học kỳ 1")
+                                                                    .get()
+                                                                    .addOnSuccessListener(querySnapshotHK -> {
+                                                                        for (QueryDocumentSnapshot documentHK : querySnapshotHK) {
+                                                                            String hanhKiem = documentHK.getString("HKM_HanhKiem");
+                                                                            switch (hanhKiem) {
+                                                                                case "Tốt":
+                                                                                    soHKMTot.getAndIncrement();
+                                                                                    break;
+                                                                                case "Khá":
+                                                                                    soHKMKha.getAndIncrement();
+                                                                                    break;
+                                                                                case "Trung bình":
+                                                                                    soHKMTrungBinh.getAndIncrement();
+                                                                                    break;
+                                                                                case "Yếu":
+                                                                                    soHKMYeu.getAndIncrement();
+                                                                                    break;
+                                                                            }
+                                                                        }
+
+                                                                        if (idHSList.size() == soHKMTot.get() + soHKMKha.get() + soHKMTrungBinh.get() + soHKMYeu.get()) {
+                                                                            classData.put("SoHKMTot", soHKMTot.get() + "");
+                                                                            classData.put("SoHKMKha", soHKMKha.get() + "");
+                                                                            classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
+                                                                            classData.put("SoHKMYeu", soHKMYeu.get() + "");
+
+                                                                            txtNameFile.setText("lop1.xlsx");
+                                                                            createExcelFileAllClass("lop1.xlsx", dataFromFirestore);
+                                                                            btnDownLoad.setOnClickListener(v1 -> {
+                                                                                saveExcelFileToDownloads("lop1.xlsx", dataFromFirestore);
+                                                                            });
+                                                                        }
+                                                                    });
+                                                        }
+
+
+
+
+
+
+                                                        // Create an Excel file and save it to Downloads
+
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Handle error
+                                                    });
+                                        } else {
+                                            classData.put("SoLuotViPham", "0");
+                                            classData.put("SoHKMTot", soHKMTot.get() + "");
+                                            classData.put("SoHKMKha", soHKMKha.get() + "");
+                                            classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
+                                            classData.put("SoHKMYeu", soHKMYeu.get() + "");
+
+                                            txtNameFile.setText("lop1.xlsx");
+                                            createExcelFileAllClass("lop1.xlsx", dataFromFirestore);
+                                            btnDownLoad.setOnClickListener(v1 -> {
+                                                saveExcelFileToDownloads("lop1.xlsx", dataFromFirestore);
+                                            });
+
+
+                                            // Create an Excel file and save it to Downloads
+
+                                        }
+
+
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle error
+                    });
+        }
     }
     public void Ms(RadioButton rdT1, TextView txtNameFile, Button btnDownLoad,String LHid) {
         FirebaseFirestore db =FirebaseFirestore.getInstance();
