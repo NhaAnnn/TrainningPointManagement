@@ -61,6 +61,7 @@ public class ListConduct extends AppCompatActivity {
         Spinner spinnerGrade = findViewById(R.id.spinnerGrade);
         Spinner spinnerSemester = findViewById(R.id.spinnerSemester);
         Spinner spinnerYear = findViewById(R.id.spinnerYear);
+        RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
 
         // Tạo instance của GradeSpinnerHelper và thiết lập Spinner
         adapterSpinnerHelper = new AdapterSpinner(spinnerGrade, spinnerSemester, spinnerYear);
@@ -101,7 +102,6 @@ public class ListConduct extends AppCompatActivity {
                     }
                 }
                 adapterListConduct = new AdapterListConduct(filteredData,ListConduct.this, account,semester);
-                RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
                 recyclerView.setAdapter(adapterListConduct);
                 return true;
             }
@@ -116,7 +116,6 @@ public class ListConduct extends AppCompatActivity {
                     }
                 }
                 adapterListConduct = new AdapterListConduct(filteredData,ListConduct.this, account, semester);
-                RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
                 recyclerView.setAdapter(adapterListConduct);
                 return true;
             }
@@ -139,7 +138,6 @@ public class ListConduct extends AppCompatActivity {
                     }
                 }
                 adapterListConduct = new AdapterListConduct(filteredData,ListConduct.this, account, semester);
-                RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
                 recyclerView.setAdapter(adapterListConduct);
             }
 
@@ -159,7 +157,6 @@ public class ListConduct extends AppCompatActivity {
 
                   }
                   adapterListConduct = new AdapterListConduct(filteredData, ListConduct.this, account, selectedOption);
-                  RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
                   recyclerView.setAdapter(adapterListConduct);
               }
 
@@ -181,7 +178,6 @@ public class ListConduct extends AppCompatActivity {
                     }
                 }
                 adapterListConduct = new AdapterListConduct(filteredData, ListConduct.this, account, semester);
-                RecyclerView recyclerView = findViewById(R.id.recyclViewConduct);
                 recyclerView.setAdapter(adapterListConduct);
             }
 

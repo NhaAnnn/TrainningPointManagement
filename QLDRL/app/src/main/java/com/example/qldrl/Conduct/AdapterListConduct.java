@@ -26,6 +26,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterListConduct extends RecyclerView.Adapter<AdapterListConduct.MyViewHolder> {
@@ -65,55 +66,57 @@ public class AdapterListConduct extends RecyclerView.Adapter<AdapterListConduct.
         holder.txtNameClass.setText(list.getName());
         holder.txtNameTeacher.setText(list.getNameTeacher());
         holder.txtYear.setText(list.getYear());
+        holder.txtSemester.setText(semester);
 
-        Query query1 = db.collection("hocSinh").whereEqualTo("LH_id", list.getId());
-        query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        db.collection("hocSinh").whereEqualTo("LH_id", list.getId())
+            .get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-//                    Log.d(TAG,"Test size "+task.getResult().size());
+
                     holder.txtMount.setText(task.getResult().size()+"");
 
-                    for (DocumentSnapshot documentSnapshot : task.getResult()){
+                    List<String> hsIdList = new ArrayList<>();
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
 
                         String id = (String) documentSnapshot.getString("HS_id");
-
-                        Query query2 = db.collection("hanhKiem").whereEqualTo("HS_id", id).whereEqualTo("HK_HocKy",semester);
-                        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                                    holder.txtSemester.setText(queryDocumentSnapshot.getString("HK_HocKy"));
-                                    if(queryDocumentSnapshot.getString("HKM_HanhKiem").equals(good)){
-                                        Log.d(TAG, "onComplete: HKM"+queryDocumentSnapshot.getString("HKM_HanhKiem"));
-                                        goodcnt++;
-                                        Log.d(TAG, "onComplete: "+goodcnt);
-                                    }
-                                    else if(queryDocumentSnapshot.getString("HKM_HanhKiem").equals(quite)){
-                                        quitecnt++;
-                                    }
-                                    else if(queryDocumentSnapshot.getString("HKM_HanhKiem").equals(avege)){
-                                        avegecnt++;
-                                    }
-                                    else {
-                                        weakcnt++;
-                                    }
-                                }
-                                Log.d(TAG, "onBindViewHolder: Tot "+goodcnt);
-                                holder.txtConductGood.setText(""+goodcnt);
-                                holder.txtConductQuite.setText(""+quitecnt);
-                                holder.txtConductAvage.setText(""+avegecnt);
-                                holder.txtConductWeak.setText(""+weakcnt);
-
-
-                            }
-                        });
+                        hsIdList.add(documentSnapshot.getString("HS_id"));
+                        Log.d(TAG, "onComplete: ID   " + id + " " + list.getName());
                     }
+                    if(task.getResult().size() != 0){
+                        db.collection("hanhKiem").whereIn("HS_id", hsIdList)
+                                .whereEqualTo("HK_HocKy", semester).whereEqualTo("HKM_HanhKiem",good)
+                                .get().addOnSuccessListener(queryDocumentSnapshots1 -> {
+                                    holder.txtConductGood.setText(""+queryDocumentSnapshots1.size());
+                                });
+                        db.collection("hanhKiem").whereIn("HS_id", hsIdList)
+                                .whereEqualTo("HK_HocKy", semester).whereEqualTo("HKM_HanhKiem",quite)
+                                .get().addOnSuccessListener(queryDocumentSnapshots2 -> {
+                                    holder.txtConductQuite.setText(""+queryDocumentSnapshots2.size());
+                                });
+                        db.collection("hanhKiem").whereIn("HS_id", hsIdList)
+                                .whereEqualTo("HK_HocKy", semester).whereEqualTo("HKM_HanhKiem",avege)
+                                .get().addOnSuccessListener(queryDocumentSnapshots3 -> {
+                                    holder.txtConductAvage.setText(""+queryDocumentSnapshots3.size());
+                                });
+                        db.collection("hanhKiem").whereIn("HS_id", hsIdList)
+                                .whereEqualTo("HK_HocKy", semester).whereEqualTo("HKM_HanhKiem",weak)
+                                .get().addOnSuccessListener(queryDocumentSnapshots4 -> {
+                                    holder.txtConductWeak.setText(""+queryDocumentSnapshots4.size());
+                                });
+                    }else{
+                        holder.txtConductGood.setText("0");
+                        holder.txtConductQuite.setText("0");
+                        holder.txtConductAvage.setText("0");
+                        holder.txtConductWeak.setText("0");
+                    }
+
+                    Log.d(TAG, "onComplete: ReSETTTT" + list.getName());
                 } else {
+
                     holder.txtMount.setText("0");
                 }
-            }
-        });
+                Log.d(TAG, "onComplete: ENDD "+list.getName());
+            });
+
 
         holder.btnConductDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +133,9 @@ public class AdapterListConduct extends RecyclerView.Adapter<AdapterListConduct.
 
             }
         });
+
     }
+
 
 
     @Override
