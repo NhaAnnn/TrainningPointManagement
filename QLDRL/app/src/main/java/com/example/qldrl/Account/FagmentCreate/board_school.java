@@ -237,6 +237,7 @@ public class board_school extends Fragment {
                                 // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
                                 if (isValid) {
                                     saveBoard();
+                                    listAcc.currentDialog.dismiss();
                                 }
 
                             }
@@ -317,7 +318,7 @@ public class board_school extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     count.set(queryDocumentSnapshots.size());
                     int slTK = count.get();
-                    DocumentReference docRef = db.collection("taiKhoan").document();
+                    DocumentReference docRef = db.collection("taiKhoan").document(maBGH);
 
 // Tạo một Map để lưu trữ dữ liệu
                     Map<String, Object> data = new HashMap<>();
@@ -333,44 +334,18 @@ public class board_school extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), "success tk", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Tạo tài khoản thành công!", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "g tk"+e, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Lỗi "+e, Toast.LENGTH_LONG).show();
 
                                 }
                             });
 
 
-//                    DocumentReference docgvRef = db.collection("giaoVien").document();
-//
-//// Tạo một Map để lưu trữ dữ liệu
-//                    Map<String, Object> dataGV = new HashMap<>();
-//                    dataGV.put("GV_GioiTinh", gioiTinh);
-//                    dataGV.put("GV_HoTen", hoTen);
-//                    dataGV.put("GV_NgaySinh", ngaySinh);
-//                    dataGV.put("GV_id", maGV);
-//                    dataGV.put("LH_id",editClassTeacher.getText().toString().trim()+ lhid);
-//                    dataGV.put("TK_id", "TK"+slTK);
-//
-//// Lưu dữ liệu vào Firestore
-//                    docgvRef.set(dataGV)
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Toast.makeText(getContext(), "success tk"+slTK +lhid, Toast.LENGTH_LONG).show();
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(getContext(), "gg tk"+e, Toast.LENGTH_LONG).show();
-//
-//                                }
-//                            });
 
                 });
 

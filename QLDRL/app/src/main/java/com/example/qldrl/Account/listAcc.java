@@ -1,6 +1,7 @@
 package com.example.qldrl.Account;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -39,10 +42,35 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
     private SearchView searchAcc;
     private AdapterAccount adapterAccount;
     List<Account> accountListsss = new ArrayList<>();
-
+    private ImageView imgBackListAcc;
 
     public static Dialog currentDialog;
     FragmentActivity fragmentActivity = (FragmentActivity) this;
+    private boolean isSearchViewFocused = false, isBackPressed = false;
+    @Override
+    public void onBackPressed() {
+        // Kiểm tra xem SearchView có focus không
+        if (isSearchViewFocused) {
+            // Nếu có, ẩn bàn phím ảo
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(searchAcc.getWindowToken(), 0);
+
+            // Và bỏ focus khỏi SearchView
+            searchAcc.clearFocus();
+            isSearchViewFocused = false;
+        } else {
+            // Nếu không, xử lý như bình thường
+
+            // Nếu đã nhấn nút back 2 lần, thì mới gọi super.onBackPressed()
+            if (isBackPressed) {
+                super.onBackPressed();
+            } else {
+                isBackPressed = true;
+                finish();
+            }
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +80,13 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
         layoutManyAcc = findViewById(R.id.layoutManyAcc);
         recycAcc = findViewById(R.id.recycAcc);
         searchAcc = findViewById(R.id.searchAcc);
-
+        imgBackListAcc = findViewById(R.id.imgBackListAcc);
         getAllAccounts();
-//        List<Account> accountList = new ArrayList<>();
-//        accountList.add(new Account("1", "do van suong","123","heelos","01/06/2003" ,"heelo"));
-//        Toast.makeText(this, accountList.get(0).getTkHoTen(), Toast.LENGTH_LONG).show();
-//        adapterAccount = new AdapterAccount(listAcc.this, accountList);
-//
-//        recycAcc.setAdapter(adapterAccount);
-//        recycAcc.setLayoutManager(new GridLayoutManager(listAcc.this, 1));
+
+        imgBackListAcc.setOnClickListener(v -> onBackPressed());
+
+        searchAcc();
+
 
         layoutManyAcc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +102,29 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
             }
         });
 
+    }
+
+    private void searchAcc() {
+        searchAcc.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapterAccount.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterAccount.getFilter().filter(newText);
+                return false;
+            }
+
+
+        });
+
+        searchAcc.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
+            isSearchViewFocused = hasFocus;
+            isBackPressed = false;
+        });
     }
 
     private void openDinalogCreat(int gravity) {
@@ -217,7 +266,7 @@ public class listAcc extends AppCompatActivity implements CreateManyAccountCallb
         // Xử lý tài khoản mới được tạo ở đây
         // Ví dụ: lưu trữ tài khoản, cập nhật giao diện, v.v.
         accountListsss.addAll(newAccounts);
-        Toast.makeText(listAcc.this, "hekko size"+ newAccounts.size(), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(listAcc.this, "hekko size"+ newAccounts.size(), Toast.LENGTH_LONG).show();
         adapterAccount.notifyDataSetChanged();
 
     }

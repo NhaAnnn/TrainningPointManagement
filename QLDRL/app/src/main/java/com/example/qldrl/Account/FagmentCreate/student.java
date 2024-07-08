@@ -363,7 +363,7 @@ public class student extends Fragment {
                         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                Toast.makeText(getContext(), adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getContext(), adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
                                 lhid =  adapterCategory.getItem(position).getNameCategory().toString() ;
                             }
 
@@ -461,7 +461,7 @@ public class student extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     count.set(queryDocumentSnapshots.size());
                     int slTK = count.get();
-                    DocumentReference docRef = db.collection("taiKhoan").document();
+                    DocumentReference docRef = db.collection("taiKhoan").document(maHS);
 
 // Tạo một Map để lưu trữ dữ liệu
                     Map<String, Object> data = new HashMap<>();
@@ -477,19 +477,19 @@ public class student extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), "success tk", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Tạo tài khoản thành công!", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "g tk"+e, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Lỗi "+e, Toast.LENGTH_LONG).show();
 
                                 }
                             });
 
 
-                    DocumentReference docHSRef = db.collection("hocSinh").document();
+                    DocumentReference docHSRef = db.collection("hocSinh").document(maHS);
 
 // Tạo một Map để lưu trữ dữ liệu
                     Map<String, Object> dataHS = new HashMap<>();
@@ -506,13 +506,13 @@ public class student extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), "success tk"+slTK +lhid, Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(getContext(), "success tk"+slTK +lhid, Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "gg tk"+e, Toast.LENGTH_LONG).show();
+                                 //  Toast.makeText(getContext(), "gg tk"+e, Toast.LENGTH_LONG).show();
                                 }
                             });
 
@@ -553,13 +553,13 @@ public class student extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), "success HK", Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(getContext(), "success HK", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "gg HK"+e, Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(getContext(), "gg HK"+e, Toast.LENGTH_LONG).show();
                                 }
                             });
                 });

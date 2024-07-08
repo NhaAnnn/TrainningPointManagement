@@ -117,8 +117,42 @@ public class Report extends AppCompatActivity {
         RadioButton rdStud = dialog.findViewById(R.id.rdStud);
         RadioButton rdTeach = dialog.findViewById(R.id.rdTeach);
         RadioButton rdBoard = dialog.findViewById(R.id.rdBoard);
+        RadioGroup rdGTypeAcc = dialog.findViewById(R.id.rdGTypeAcc);
         LinearLayout layoutErrorType = dialog.findViewById(R.id.layoutErrorType);
 
+
+
+
+
+        btnExportFile.setOnClickListener( v -> {
+            if(!rdBoard.isChecked() && !rdStud.isChecked() && !rdTeach.isChecked()) {
+                layoutErrorType.setVisibility(View.VISIBLE);
+                rdGTypeAcc.setOnCheckedChangeListener((group, checkedId) -> {
+                    layoutErrorType.setVisibility(View.GONE);
+
+                });
+            } else {
+                if(rdStud.isChecked()) {
+                    studentAccs(txtNameFile, btnDownLoad);
+                } else if(rdTeach.isChecked()) {
+                    TeachAccs(txtNameFile, btnDownLoad);
+                } else {
+                    boardAccs(txtNameFile,btnDownLoad);
+                }
+            }
+        });
+
+
+
+        btnCancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+
+    public void studentAccs(TextView txtNameFile, Button btnDownLoad) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("hocSinh")
@@ -161,8 +195,8 @@ public class Report extends AppCompatActivity {
                                 });
                     }
 
-                    String fileName = "Danh_sach_tai_khoan1.xlsx";
-                    createExcelFileListAcc(fileName, dataByClass);
+                    String fileName = "Danh_sach_tai_khoan_HS.xlsx";
+                  //  createExcelFileListAcc(fileName, dataByClass);
                     txtNameFile.setText(fileName);
 
                     btnDownLoad.setOnClickListener(v -> {
@@ -172,24 +206,183 @@ public class Report extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // Handle error
                 });
-
-
-
-        btnExportFile.setOnClickListener( v -> {
-            
-        });
-
-
-
-        btnCancel.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
-
-        dialog.show();
     }
 
+    public void TeachAccs(TextView txtNameFile, Button btnDownLoad) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("giaoVien")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+
+                   List< Map<String, Object>> data = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        String GV_id = document.getString("GV_id");
+                        String GV_HoTen = document.getString("GV_HoTen");
+                        String GV_GioiTinh = document.getString("GV_GioiTinh");
+                        String GV_NgaySinh = document.getString("GV_NgaySinh");
+                        String LH_id = document.getString("LH_id");
+                        String TK_id = document.getString("TK_id");
+
+                        db.collection("taiKhoan")
+                                .whereEqualTo("TK_id", TK_id)
+                                .get()
+                                .addOnSuccessListener(taiKhoanSnapshot -> {
+                                    for (QueryDocumentSnapshot taiKhoanDoc : taiKhoanSnapshot) {
+                                        String TK_TenTaiKhoan = taiKhoanDoc.getString("TK_TenTaiKhoan");
+                                        String TK_MatKhau = taiKhoanDoc.getString("TK_MatKhau");
+                                        Map<String, Object> dataGV = new HashMap<>();
 
 
+                                        dataGV.put("GV_id", GV_id);
+                                        dataGV.put("GV_HoTen", GV_HoTen);
+                                        dataGV.put("GV_GioiTinh", GV_GioiTinh);
+                                        dataGV.put("GV_NgaySinh", GV_NgaySinh);
+                                        dataGV.put("TK_TenTaiKhoan", TK_TenTaiKhoan);
+                                        dataGV.put("TK_MatKhau", TK_MatKhau);
+
+                                        data.add(dataGV);
+
+
+                                    }
+                                    String fileName = "Danh_sach_tai_khoan_GV.xlsx";
+                                      createExcelFileListAccTeach(fileName, data);
+                                    txtNameFile.setText(fileName);
+
+                                    btnDownLoad.setOnClickListener(v -> {
+                                        saveExcelFileToDownloads(fileName, data);
+                                    });
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Handle error
+                                });
+                    }
+
+
+                })
+                .addOnFailureListener(e -> {
+                    // Handle error
+                });
+    }
+    public void boardAccs(TextView txtNameFile, Button btnDownLoad) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("taiKhoan").whereEqualTo("TK_ChucVu", "Ban giám hiệu")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+
+                    List< Map<String, Object>> data = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        Map<String, Object> dataBGH = new HashMap<>();
+                        String TK_id = document.getString("TK_id");
+                        String TK_HoTen = document.getString("TK_HoTen");
+                        String TK_NgaySinh = document.getString("TK_NgaySinh");
+                        String TK_TenTaiKhoan = document.getString("TK_TenTaiKhoan");
+                        String TK_MatKhau = document.getString("TK_MatKhau");
+
+
+
+                        dataBGH.put("TK_id", TK_id);
+                        dataBGH.put("TK_HoTen", TK_HoTen);
+                        dataBGH.put("TK_NgaySinh", TK_NgaySinh);
+                        dataBGH.put("TK_TenTaiKhoan", TK_TenTaiKhoan);
+                        dataBGH.put("TK_MatKhau", TK_MatKhau);
+
+
+                        data.add(dataBGH);
+
+                    }
+                    String fileName = "Danh_sach_tai_khoan_BGH(Admin).xlsx";
+                    createExcelFileListAccBoard(fileName, data);
+                    txtNameFile.setText(fileName);
+
+                    btnDownLoad.setOnClickListener(v -> {
+                        saveExcelFileToDownloads(fileName, data);
+                    });
+
+
+                })
+                .addOnFailureListener(e -> {
+                    // Handle error
+                });
+    }
+
+    private void createExcelFileListAccBoard(String fileName, List<Map<String, Object>> data) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Ban Giam Hieu (Admin)");
+
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("TK_id");
+        headerRow.createCell(1).setCellValue("TK_HoTen");
+        headerRow.createCell(2).setCellValue("TK_NgaySinh");
+        headerRow.createCell(3).setCellValue("TK_TenTaiKhoan");
+        headerRow.createCell(4).setCellValue("TK_MatKhau");
+
+
+        // Populate the data rows
+        int rowNum = 1;
+        for (Map<String, Object> studentInfo : data) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue((String) studentInfo.get("TK_id"));
+            row.createCell(1).setCellValue((String) studentInfo.get("TK_HoTen"));
+            row.createCell(2).setCellValue((String) studentInfo.get("TK_NgaySinh"));
+            row.createCell(3).setCellValue((String) studentInfo.get("TK_TenTaiKhoan"));
+            row.createCell(4).setCellValue((String) studentInfo.get("TK_MatKhau"));
+
+
+        }
+
+        //  Auto-size the columns
+        sheet.setColumnWidth(0, 5000); // HS_id
+        sheet.setColumnWidth(1, 10000); // HS_HoTen
+        sheet.setColumnWidth(2, 5000); // HS_GioiTinh
+        sheet.setColumnWidth(3, 10000); // HS_NgaySinh
+        sheet.setColumnWidth(4, 5000); // violationCount
+
+
+        // Return the created workbook, don't save it here
+        this.workbook = workbook;
+    }
+
+    private void createExcelFileListAccTeach(String fileName, List<Map<String, Object>> data) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Giao Vien");
+
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("GV_id");
+        headerRow.createCell(1).setCellValue("GV_HoTen");
+        headerRow.createCell(2).setCellValue("GV_GioiTinh");
+        headerRow.createCell(3).setCellValue("GV_NgaySinh");
+        headerRow.createCell(4).setCellValue("TK_TenTaiKhoan");
+        headerRow.createCell(5).setCellValue("TK_MatKhau");
+
+
+        // Populate the data rows
+        int rowNum = 1;
+        for (Map<String, Object> studentInfo : data) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue((String) studentInfo.get("GV_id"));
+            row.createCell(1).setCellValue((String) studentInfo.get("GV_HoTen"));
+            row.createCell(2).setCellValue((String) studentInfo.get("GV_GioiTinh"));
+            row.createCell(3).setCellValue((String) studentInfo.get("GV_NgaySinh"));
+            row.createCell(4).setCellValue((String) studentInfo.get("TK_TenTaiKhoan"));
+            row.createCell(5).setCellValue((String) studentInfo.get("TK_MatKhau"));
+
+
+        }
+
+        //  Auto-size the columns
+        sheet.setColumnWidth(0, 5000); // HS_id
+        sheet.setColumnWidth(1, 10000); // HS_HoTen
+        sheet.setColumnWidth(2, 5000); // HS_GioiTinh
+        sheet.setColumnWidth(3, 10000); // HS_NgaySinh
+        sheet.setColumnWidth(4, 5000); // violationCount
+        sheet.setColumnWidth(5, 10000); // violationNames
+
+        // Return the created workbook, don't save it here
+        this.workbook = workbook;
+    }
 
     private void openDinalogDownLoadListMistakeAll(int gravity) {
         final Dialog dialog = new Dialog(this);
@@ -723,7 +916,7 @@ public class Report extends AppCompatActivity {
 
 
 
-    public static void createExcelFileListAcc(String fileName, Map<String, List<Map<String, Object>>> dataByClass) {
+    public static void createExcelFileListAcc12(String fileName, Map<String, List<Map<String, Object>>> dataByClass) {
         try {
             Workbook workbook = new XSSFWorkbook();
 

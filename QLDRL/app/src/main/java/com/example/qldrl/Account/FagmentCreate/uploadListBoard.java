@@ -148,8 +148,8 @@ public class uploadListBoard extends Fragment {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                Toast.makeText(getContext(), uri.getPath()+"", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getContext(), "Tải file lên thành công!", Toast.LENGTH_LONG).show();
+                listAcc.currentDialog.dismiss();
             }
         });
 

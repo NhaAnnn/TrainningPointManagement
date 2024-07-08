@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imgBackDetail"
+            android:id="@+id/imgBackListAcc"
             android:layout_width="65dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_weight="50"
-                    android:background="@drawable/general_border_radius"
+                    android:background="@drawable/general_boder_search"
                     android:orientation="horizontal"
                     android:weightSum="100">
 
@@ -87,7 +87,7 @@
                     android:layout_gravity="center|right"
                     android:layout_margin="10dp"
                     android:layout_weight="50"
-                    android:background="@drawable/general_border_radius"
+                    android:background="@drawable/general_boder_search"
                     android:orientation="horizontal"
                     android:weightSum="100">
 
@@ -113,11 +113,12 @@
             <SearchView
                 android:id="@+id/searchAcc"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="40dp"
                 android:layout_weight="100"
-                android:background="@drawable/general_border_radius"
+                android:background="@drawable/general_boder_search"
                 android:iconifiedByDefault="false"
                 android:padding="10dp"
                 android:queryHint="Tìm kiếm nhanh" />

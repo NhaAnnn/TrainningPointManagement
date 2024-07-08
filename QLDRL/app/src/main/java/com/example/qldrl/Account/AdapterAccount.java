@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -32,6 +34,7 @@ import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
 import com.example.qldrl.General.Student;
 import com.example.qldrl.General.Teacher;
+import com.example.qldrl.Mistake.ClassRom;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,15 +54,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHoder> {
+public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHoder> implements Filterable {
     private Context context;
     private  List<Account> accountList;
+    private  List<Account> oldAccountList;
 
     private DatePickerDialog datePickerDialog;
     public AdapterAccount(Context context, List<Account> accountList) {
 
         this.context = context;
         this.accountList = accountList;
+        this.oldAccountList = accountList;
     }
 
     @NonNull
@@ -191,6 +196,40 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
     @Override
     public int getItemCount() {
         return accountList.size();
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if(strSearch.isEmpty()) {
+                    accountList = oldAccountList;
+                } else {
+                    List<Account>  list = new ArrayList<>();
+                    for ( Account account : oldAccountList) {
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        if(account.getTkChucVu().toLowerCase().contains(strSearch.toLowerCase())
+                                || account.getTkTenTK().toLowerCase().contains(strSearch.toLowerCase())){
+                            list.add(account);
+                        }
+                    }
+                    accountList = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values   = accountList;
+
+                return filterResults;
+            }
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                accountList = (List<Account>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class MyViewHoder extends RecyclerView.ViewHolder {

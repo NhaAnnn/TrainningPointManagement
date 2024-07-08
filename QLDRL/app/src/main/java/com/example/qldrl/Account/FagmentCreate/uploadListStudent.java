@@ -151,7 +151,8 @@ public class uploadListStudent extends Fragment {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                Toast.makeText(getContext(), uri.getPath()+"", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Tải file lên thành công!", Toast.LENGTH_LONG).show();
+                listAcc.currentDialog.dismiss();
 
             }
         });
@@ -220,7 +221,7 @@ public class uploadListStudent extends Fragment {
 
     private void uploadExcelDataToFirestore(Uri fileUri) throws IOException {
 
-        Log.d("hhhhhhh", "jhhhhhhhhhhh");
+       // Log.d("hhhhhhh", "jhhhhhhhhhhh");
 
         try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
             if (inputStream != null) {
@@ -286,13 +287,13 @@ public class uploadListStudent extends Fragment {
                         hsWriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
+                            //    Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // Xử lý lỗi khi lưu dữ liệu học sinh
-                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -320,13 +321,13 @@ public class uploadListStudent extends Fragment {
                         hKiemWriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
+                          //      Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // Xử lý lỗi khi lưu dữ liệu học sinh
-                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
+                              //  Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -335,13 +336,13 @@ public class uploadListStudent extends Fragment {
                         hKiem2WriteResult.addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
+                             ///   Toast.makeText(getContext(),"ess",Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // Xử lý lỗi khi lưu dữ liệu học sinh
-                                Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getContext(),"effffss",Toast.LENGTH_LONG).show();
                             }
                         });
                     }

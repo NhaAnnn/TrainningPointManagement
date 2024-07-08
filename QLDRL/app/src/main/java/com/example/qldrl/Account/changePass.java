@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class changePass extends AppCompatActivity {
     private Button btnExitAcountMain, btnChangPassWd;
     private EditText editOldPass, editNewPass, editNewPassAgian;
     private LinearLayout layoutErrorPass, layoutErrorPassAgian;
+    private ImageView imgBackChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +46,15 @@ public class changePass extends AppCompatActivity {
         editNewPassAgian = findViewById(R.id.editNewPassAgian);
         layoutErrorPass = findViewById(R.id.layoutErrorPass);
         layoutErrorPassAgian = findViewById(R.id.layoutErrorPassAgian);
+        imgBackChange = findViewById(R.id.imgBackChange);
 
         Intent intent = getIntent();
         account = (Account) intent.getSerializableExtra("account");
 
 
-        btnExitAcountMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnExitAcountMain.setOnClickListener(v -> onBackPressed());
+
+        imgBackChange.setOnClickListener(v -> onBackPressed());
 
         btnChangPassWd.setOnClickListener(v -> {
             boolean ivalid = true;

@@ -130,96 +130,11 @@ public class AdapterClassRom extends RecyclerView.Adapter<AdapterClassRom.MyView
             });
 
 
-//            if(!querySnapshot.isEmpty()) {
-//                int  count = querySnapshot.size() ;
-//                holder.txtMistake.setText(count + "");
-//            } else {
-//                holder.txtMistake.setText( "0");
-//            }
+
 
             holder.txtNameTearcher.setText(classRom.getLhGVCN());
             holder.txtMistake.setText("0");
 
-// 1. Lấy danh sách các HS_id của lớp
-//            CollectionReference lopRef = db.collection("hocSinh");
-//            lopRef.whereEqualTo("LH_id", classRom.getLhID())
-//                    .get()
-//                    .addOnSuccessListener(querySnapshot -> {
-//                        List<String> hsIdList = new ArrayList<>();
-//                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-//                            hsIdList.add(document.getString("HS_id"));
-//                        }
-//
-//                        // 2. Đếm tổng số lượt vi phạm của lớp
-//                        if (!hsIdList.isEmpty()) {
-//                            CollectionReference luotViPhamRef = db.collection("luotViPham");
-//                            luotViPhamRef.whereIn("HS_id", hsIdList)
-//                                    .get()
-//                                    .addOnSuccessListener(querySnapshot2 -> {
-//                                        int tongSoLuotViPham = querySnapshot2.size();
-//                                        System.out.println("Tổng số lượt vi phạm của lớp: " + tongSoLuotViPham);
-//                                    })
-//                                    .addOnFailureListener(e -> {
-//                                        System.err.println("Lỗi: " + e.getMessage());
-//                                    });
-//                        } else {
-//                            System.out.println("Không có học sinh trong lớp.");
-//                        }
-//                    })
-//                    .addOnFailureListener(e -> {
-//                        System.err.println("Lỗi: " + e.getMessage());
-//                    });
-
-
-//            CollectionReference collectionRefHS = db.collection("hocSinh");
-//// Tạo query để lọc theo trường lopHoc = "10a1"
-//            Query queryViPham = collectionRefHS.whereEqualTo("LH_id", classRom.getLhID());
-//
-//// Sử dụng CompletableFuture để đợi tất cả các câu truy vấn hoàn thành
-//            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-//                queryViPham.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            QuerySnapshot querySnapshot = task.getResult();
-//
-//                            // Sử dụng CountDownLatch để đồng bộ hóa các câu truy vấn con
-//                            CountDownLatch latch = new CountDownLatch(querySnapshot.size());
-//
-//                            for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
-//                                String hsID = documentSnapshot.getString("HS_id");
-//                                CollectionReference luotViPhamRef = db.collection("luotViPham");
-//
-//                                luotViPhamRef.whereEqualTo("HS_id", hsID)
-//                                        .get()
-//                                        .addOnSuccessListener(queryDocumentSnapshots -> {
-//                                            mountMistake += queryDocumentSnapshots.size();
-//                                            latch.countDown();
-//                                        })
-//                                        .addOnFailureListener(e -> {
-//                                            Toast.makeText(context, "Error getting documents: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                            latch.countDown();
-//                                        });
-//                            }
-//
-//                            try {
-//                                // Đợi tất cả các câu truy vấn con hoàn thành
-//                                latch.await();
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        } else {
-//                            // Xử lý lỗi
-//                        }
-//                    }
-//                });
-//            });
-//
-//// Đợi đến khi tất cả các câu truy vấn hoàn thành
-//            future.join();
-//
-//// Cập nhật UI với giá trị mới của mountMistake
-//            holder.txtMistake.setText(String.valueOf(mountMistake));
 
 
             holder.btnDetail.setOnClickListener(new View.OnClickListener() {
