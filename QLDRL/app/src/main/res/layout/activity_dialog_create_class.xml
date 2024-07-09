@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Thêm lớp học"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
     </LinearLayout>
@@ -44,6 +45,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:text="Lớp Học:"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -72,6 +74,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="35dp"
             android:text="GVCN:"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -99,6 +102,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:text="Niên khóa:"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 

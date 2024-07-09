@@ -1,7 +1,10 @@
 package com.example.qldrl.Class;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +39,8 @@ public class StudentInformation extends AppCompatActivity {
         Intent intent = getIntent();
         ListStudentOfClass student = (ListStudentOfClass) intent.getSerializableExtra("Student");
         String nameClass = intent.getStringExtra("Class");
-          index = (Integer) intent.getIntExtra("Position",-1);
+        index = (Integer) intent.getIntExtra("Position",-1);
+        
 
         TextView txtPage = findViewById(R.id.pageTitle);
         TextView txtIdStudent = findViewById(R.id.idStudent);
@@ -48,6 +53,7 @@ public class StudentInformation extends AppCompatActivity {
         RadioButton po2 = findViewById(R.id.radioPo2);
         Button saveButton = findViewById(R.id.saveButton);
 
+        getNewPosition(student.getPosition());
         String bcs = "Ban cán sự";
         if(student.getPosition().equals(bcs)){
             po2.setChecked(true);
@@ -101,6 +107,16 @@ public class StudentInformation extends AppCompatActivity {
                         for (DocumentSnapshot document : task.getResult()) {
                             // Cập nhật giá trị cho document
                             document.getReference().update("HS_ChucVu", position);
+                            String idtk = document.getString("TK_id");
+                            db.collection("taiKhoan").whereEqualTo("TK_id",idtk)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                        documentSnapshot.getReference().update("TK_ChucVu", position);
+                                    }
+                                }
+                            });
                             getNewPosition(position);
                             Toast.makeText(StudentInformation.this, "Cập nhật chức vụ thành công", Toast.LENGTH_SHORT).show();
                         }

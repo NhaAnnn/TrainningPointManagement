@@ -29,6 +29,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Lớp:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/txtNameClass"
@@ -51,6 +52,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Niên khóa:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/txtYear"
@@ -72,6 +74,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Học kì:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -96,6 +99,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Sĩ số:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -119,6 +123,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="GVCN:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -141,6 +146,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Hạnh kiểm:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -150,7 +156,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-
+                android:textStyle="bold"
                 android:text="Tốt:"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -171,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Khá:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/txtConductGood"
                 app:layout_constraintTop_toBottomOf="@+id/txtNameTeacher" />
@@ -199,6 +206,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Trung bình:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -213,12 +221,14 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/txtConductGood" />
+
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="30dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:text="Yếu:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/txtConductAvege"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />

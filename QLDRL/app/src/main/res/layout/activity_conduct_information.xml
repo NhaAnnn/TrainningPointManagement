@@ -104,9 +104,10 @@
                             <TextView
                                 android:id="@+id/textView5"
                                 android:layout_width="100dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:text="Họ và tên:"
+                                android:textStyle="bold"
                                 android:textColor="@color/black"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -132,9 +133,10 @@
                             <TextView
                                 android:id="@+id/textView9"
                                 android:layout_width="100dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:text="Học kỳ:"
+                                android:textStyle="bold"
                                 android:textColor="@color/black"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -163,7 +165,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-
+                                android:textStyle="bold"
                                 android:text="Điểm rèn luyện:"
                                 android:textColor="@color/black"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +194,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-
+                                android:textStyle="bold"
                                 android:text="Hạnh kiểm:"
                                 android:textColor="@color/black"
                                 app:layout_constraintBottom_toBottomOf="parent"

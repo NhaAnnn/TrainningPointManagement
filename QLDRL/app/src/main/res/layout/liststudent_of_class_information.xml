@@ -29,10 +29,11 @@
 
                 <TextView
                     android:id="@+id/textView5"
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Mã học sinh:"
+                    android:textStyle="bold"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -51,10 +52,11 @@
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Họ và tên:"
+                    android:textStyle="bold"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -75,10 +77,11 @@
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Chức vụ:"
+                    android:textStyle="bold"
                     android:textColor="@color/black" />
 
                 <TextView

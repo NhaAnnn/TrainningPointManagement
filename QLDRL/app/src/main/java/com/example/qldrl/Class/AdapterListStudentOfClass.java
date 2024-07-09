@@ -45,18 +45,17 @@ public class AdapterListStudentOfClass extends RecyclerView.Adapter<AdapterListS
     @Override
     public void onBindViewHolder(@NonNull AdapterListStudentOfClass.MyViewHolder holder, int position) {
         ListStudentOfClass list = this.listStudentOfClass.get(position);
-        p = position;
         holder.txtIdStudent.setText(list.getId());
         holder.txtNameStudent.setText(list.getName());
         holder.txtPositionStudent.setText(list.getPosition());
-
+        holder.po = position;
         holder.btnStudentDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StudentInformation.class);
                 intent.putExtra("Student", list);
                 intent.putExtra("Class",className);
-                intent.putExtra("Position", p);
+                intent.putExtra("Position", holder.po);
                 context.startActivity(intent);
             }
         });
@@ -82,6 +81,7 @@ public class AdapterListStudentOfClass extends RecyclerView.Adapter<AdapterListS
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView btnStudentDetail;
         private TextView txtIdStudent, txtNameStudent, txtPositionStudent;
+        private int po;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

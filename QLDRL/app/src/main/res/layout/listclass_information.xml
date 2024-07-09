@@ -27,11 +27,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
+
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Lớp:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/txtNameClass"
@@ -54,6 +56,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Niên khóa:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/txtYear"
@@ -76,6 +79,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="Sĩ số:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -99,6 +103,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="GVCN:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
