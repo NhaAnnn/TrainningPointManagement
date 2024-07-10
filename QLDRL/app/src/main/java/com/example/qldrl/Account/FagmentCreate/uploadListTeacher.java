@@ -219,7 +219,7 @@ public class uploadListTeacher extends Fragment {
 
     private void uploadExcelDataToFirestore(Uri fileUri) throws IOException {
 
-        Log.d("hhhhhhh", "jhhhhhhhhhhh");
+    //    Log.d("hhhhhhh", "jhhhhhhhhhhh");
 
         try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
             if (inputStream != null) {

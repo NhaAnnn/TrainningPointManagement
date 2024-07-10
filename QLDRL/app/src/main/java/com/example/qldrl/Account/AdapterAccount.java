@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -50,6 +51,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -446,6 +448,8 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
         layoutEDIT = dialog.findViewById(R.id.layoutEDIT);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        rdPosition.setEnabled(false);
+
         if(account.getTkChucVu().equals("Giáo viên")) {
             CollectionReference taiKhoanRef = db.collection("giaoVien");
 
@@ -478,20 +482,20 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
 
 
-                            if(gioiTinh.equals("Nam")) {
+                            if(gioiTinh.toLowerCase().equals("nam")) {
                                 rdMale.setChecked(true);
 
                             } else {
                                 rdGoupGender.check(rdGoupGender.getChildAt(1).getId());
                             }
 
-                            if(account.getTkChucVu().equals("Ban giám hiệu")) {
+                            if(account.getTkChucVu().toLowerCase().equals("ban giám hiệu")) {
                                 rdPosition.check(rdPosition.getChildAt(0).getId());
 
-                            } else if(account.getTkChucVu().equals("Giáo viên") ){
+                            } else if(account.getTkChucVu().toLowerCase().equals("giáo viên") ){
                                 rdPosition.check(rdPosition.getChildAt(1).getId());
 
-                            } else if(account.getTkChucVu().equals("Ban cán sự") ){
+                            } else if(account.getTkChucVu().toLowerCase().equals("ban cán sự") || account.getTkChucVu().toLowerCase().equals("học sinh")  ){
                                 rdPosition.check(rdPosition.getChildAt(2).getId());
 
                             } else {
@@ -628,7 +632,23 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
         }
 
+        final String[] lhNK = new String[1];
 
+        spYearED.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //String selectedItem = (String) parent.getItemAtPosition(position);
+                Category selectedCategory = (Category) parent.getItemAtPosition(position);
+                // Sử dụng selectedCategory object thay vì cast nó thành String
+                String categoryName = selectedCategory.getNameCategory();
+              //  Toast.makeText(context, "g"+categoryName, Toast.LENGTH_LONG).show();
+                lhNK[0] = categoryName;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         initDataPicker(txtDateED);
         btnDatePickED.setOnClickListener(new View.OnClickListener() {
@@ -649,243 +669,327 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
 
 
-        btnUpdateAcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                if( rdNormal.isChecked() == true) {
+        btnUpdateAcc.setOnClickListener(v -> {
 
-                    boolean isValid = true;
+            if( rdNormal.isChecked() == true)
+            {
 
-                    // Kiểm tra trường "editClassTeacher"
-                    if (editClassED.getText().toString().isEmpty()) {
-                        editClassED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editClassED.setError(null);
-                    }
+                boolean isValid = true;
 
-                    // Kiểm tra trường "editNameTeacher"
-                    if (editNameUserED.getText().toString().isEmpty()) {
-                        editNameUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editNameUserED.setError(null);
-                    }
+                // Kiểm tra trường "editClassTeacher"
+                if (editClassED.getText().toString().isEmpty()) {
+                    editClassED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editClassED.setError(null);
+                }
 
-                    // Kiểm tra trường "editCodeTeacher"
-                    if (editCodeUserED.getText().toString().isEmpty()) {
-                        editCodeUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editCodeUserED.setError(null);
-                    }
+                // Kiểm tra trường "editNameTeacher"
+                if (editNameUserED.getText().toString().isEmpty()) {
+                    editNameUserED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editNameUserED.setError(null);
+                }
 
-                    // Kiểm tra trường "editPassAgianAccTeacher"
-                    if (editPassED.getText().toString().isEmpty()) {
-                        editPassED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassED.setError(null);
-                    }
-                    // kiem tra truong editPass
-                    if (editPassAccAgainED.getText().toString().isEmpty()) {
-                        editPassAccAgainED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
+                // Kiểm tra trường "editCodeTeacher"
+                if (editCodeUserED.getText().toString().isEmpty()) {
+                    editCodeUserED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editCodeUserED.setError(null);
+                }
 
-                    // Kiểm tra radio button "rdGenderTeacher"
+                // Kiểm tra trường "editPassAgianAccTeacher"
+                if (editPassED.getText().toString().isEmpty()) {
+                    editPassED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editPassED.setError(null);
+                }
+                // kiem tra truong editPass
+                if (editPassAccAgainED.getText().toString().isEmpty()) {
+                    editPassAccAgainED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editPassAccAgainED.setError(null);
+                }
+
+                // Kiểm tra radio button "rdGenderTeacher"
 
 
-                    if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
-                        editPassAccAgainED.setError("Mật khẩu không khớp");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
+                if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
+                    editPassAccAgainED.setError("Mật khẩu không khớp");
+                    isValid = false;
+                } else {
+                    editPassAccAgainED.setError(null);
+                }
 //                    Toast.makeText(context, "eeeee"+isValid, Toast.LENGTH_LONG).show();
 
-                    // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
-                    if (isValid) {
-                        //saveStudent();
+                // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
+                if (isValid) {
+                    //saveStudent();
 //                  oast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                        db.collection("hocSinh")
-                                .whereEqualTo("TK_id", editCodeUserED.getText().toString().trim())
-                                .get()
-                                .addOnSuccessListener(querySnapshot1 -> {
-                                    if (!querySnapshot1.isEmpty()) {
-                                        DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                        Map<String, Object> updates = new HashMap<>();
-                                        updates.put("HS_HoTen", editNameUserED.getText().toString().trim());
-                                        updates.put("HS_NgaySinh", txtDateED.getText().toString().trim());
-                                        updates.put("HS_ChucVu","" );
-                                        updates.put("HS_GioiTinh","" );
-                                        updates.put("LH_id", "");
-                                        docRef.update(updates)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                    db.collection("hocSinh")
+                            .whereEqualTo("TK_id",account.getTkID())
+                            .get()
+                            .addOnSuccessListener(querySnapshot1 -> {
+                                if (!querySnapshot1.isEmpty()) {
+                                    DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("HS_HoTen", editNameUserED.getText().toString().trim());
+                                    updates.put("HS_NgaySinh", txtDateED.getText().toString().trim());
 
-                                                });
-                                    } else {
-                                        Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                    int selectedPosi = rdPosition.getCheckedRadioButtonId();
+                                    if(selectedPosi != -1) {
+                                        RadioButton selecRadio = dialog.findViewById(selectedPosi);
+
+                                        updates.put("HS_ChucVu",selecRadio.getText().toString() );
 
                                     }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Lỗi khi truy vấn Firestore
-                                });
 
-                        db.collection("taiKhoan")
-                                .whereEqualTo("TK_TenTaiKhoan", editCodeUserED.getText().toString().trim())
-                                .get()
-                                .addOnSuccessListener(querySnapshot1 -> {
-                                    if (!querySnapshot1.isEmpty()) {
-                                        DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                        Map<String, Object> updates = new HashMap<>();
-                                        updates.put("TK_id", editCodeUserED.getText().toString().trim());
-                                        updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
-                                        updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
-                                        updates.put("TK_TenTaiKhoan",editCodeUserED.getText().toString().trim());
-                                        updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
-                                        docRef.update(updates)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                                    int selectedGender = rdGoupGender.getCheckedRadioButtonId();
+                                    if(selectedGender != -1) {
+                                        RadioButton selecRadio = dialog.findViewById(selectedGender);
 
-                                                });
-                                    } else {
-                                        Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                        updates.put("HS_GioiTinh",selecRadio.getText().toString() );
 
                                     }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Lỗi khi truy vấn Firestore
-                                });
-                    }
+
+                                    Object selectItem = spYearED.getSelectedItem();
+                                    String namHoc = selectItem.toString();
+
+                                    updates.put("LH_id", editClassED.getText().toString()+namHoc);
+
+                                    docRef.update(updates)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+
+                                            });
+                                } else {
+                                    Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                // Lỗi khi truy vấn Firestore
+                            });
+
+                    db.collection("taiKhoan")
+                            .whereEqualTo("TK_TenTaiKhoan", account.getTkTenTK())
+                            .get()
+                            .addOnSuccessListener(querySnapshot1 -> {
+                                if (!querySnapshot1.isEmpty()) {
+                                    DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                    Map<String, Object> updates = new HashMap<>();
+                                    //  updates.put("TK_id", editCodeUserED.getText().toString().trim());
+                                    updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
+                                    updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
+
+                                    int selectedPosi = rdPosition.getCheckedRadioButtonId();
+                                    if(selectedPosi != -1) {
+                                        RadioButton selecRadio = dialog.findViewById(selectedPosi);
+
+                                        updates.put("TK_ChucVu",selecRadio.getText().toString() );
+
+                                    }
+                                    updates.put("TK_TenTaiKhoan",editCodeUserED.getText().toString().trim());
+                                    updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
+                                    docRef.update(updates)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+
+                                            });
+                                } else {
+                                    Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                // Lỗi khi truy vấn Firestore
+                            });
 
 
                 }
-                else if(rdTeacher.isChecked() == true) {
+                dialog.dismiss();
 
-                    boolean isValid = true;
+            }
+            else if(rdTeacher.isChecked() == true)
+            {
 
-                    // Kiểm tra trường "editClassTeacher"
-                    if (editClassED.getText().toString().isEmpty()) {
-                        editClassED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editClassED.setError(null);
-                    }
+                CollectionReference teachersRef = db.collection("giaoVien");
 
-                    // Kiểm tra trường "editNameTeacher"
-                    if (editNameUserED.getText().toString().isEmpty()) {
-                        editNameUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editNameUserED.setError(null);
-                    }
-
-                    // Kiểm tra trường "editCodeTeacher"
-                    if (editCodeUserED.getText().toString().isEmpty()) {
-                        editCodeUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editCodeUserED.setError(null);
-                    }
-
-                    // Kiểm tra trường "editPassAgianAccTeacher"
-                    if (editPassED.getText().toString().isEmpty()) {
-                        editPassED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassED.setError(null);
-                    }
-                    // kiem tra truong editPass
-                    if (editPassAccAgainED.getText().toString().isEmpty()) {
-                        editPassAccAgainED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
-
-                    // Kiểm tra radio button "rdGenderTeacher"
-
-
-                    if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
-                        editPassAccAgainED.setError("Mật khẩu không khớp");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
-
-                    Toast.makeText(context, "eeeee"+isValid, Toast.LENGTH_LONG).show();
-
-                    // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
-                    if (isValid) {
-                        db.collection("giaoVien")
-                                .whereEqualTo("TK_id", editCodeUserED.getText().toString().trim())
-                                .get()
-                                .addOnSuccessListener(querySnapshot1 -> {
-                                    if (!querySnapshot1.isEmpty()) {
-                                        DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                        Map<String, Object> updates = new HashMap<>();
-                                        updates.put("GV_HoTen", editNameUserED.getText().toString().trim());
-                                        updates.put("GV_NgaySinh", txtDateED.getText().toString().trim());
-                                        updates.put("GV_ChucVu","" );
-                                        updates.put("GV_GioiTinh","" );
-                                        updates.put("LH_id","" );
-                                        docRef.update(updates)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
-                                                });
-                                    } else {
-                                        Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                teachersRef.whereEqualTo("LH_id", editClassED.getText().toString()+lhNK[0])
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                String tkid;
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                    tkid = document.getString("TK_id");
+                                    // Xử lý giáo viên được tìm thấy
+                                    if(!tkid.equals(account.getTkID())) {
+                                        //  Toast.makeText(context,"heeko co", Toast.LENGTH_LONG).show();
+                                        editClassED.setError("Lớp này đã có GVCN");
                                     }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Lỗi khi truy vấn Firestore
-                                });
+                                    else
+                                    {
+                                        editClassED.setError(null);
 
-                        db.collection("taiKhoan")
-                                .whereEqualTo("TK_TenTaiKhoan", editCodeUserED.getText().toString().trim())
-                                .get()
-                                .addOnSuccessListener(querySnapshot1 -> {
-                                    if (!querySnapshot1.isEmpty()) {
-                                        DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                        Map<String, Object> updates = new HashMap<>();
-                                        updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
-                                        updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
-                                        updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
-                                        docRef.update(updates)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
-                                                });
-                                    } else {
-                                        Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                        boolean isValid = true;
+
+                                        // Kiểm tra trường "editClassTeacher"
+                                        if (editClassED.getText().toString().isEmpty()) {
+                                            editClassED.setError("Không thể bỏ trống!");
+                                            isValid = false;
+                                        } else {
+                                            editClassED.setError(null);
+                                        }
+
+                                        // Kiểm tra trường "editNameTeacher"
+                                        if (editNameUserED.getText().toString().isEmpty()) {
+                                            editNameUserED.setError("Không thể bỏ trống!");
+                                            isValid = false;
+                                        } else {
+                                            editNameUserED.setError(null);
+                                        }
+
+                                        // Kiểm tra trường "editCodeTeacher"
+                                        if (editCodeUserED.getText().toString().isEmpty()) {
+                                            editCodeUserED.setError("Không thể bỏ trống!");
+                                            isValid = false;
+                                        } else {
+                                            editCodeUserED.setError(null);
+                                        }
+
+                                        // Kiểm tra trường "editPassAgianAccTeacher"
+                                        if (editPassED.getText().toString().isEmpty()) {
+                                            editPassED.setError("Không thể bỏ trống!");
+                                            isValid = false;
+                                        } else {
+                                            editPassED.setError(null);
+                                        }
+                                        // kiem tra truong editPass
+                                        if (editPassAccAgainED.getText().toString().isEmpty()) {
+                                            editPassAccAgainED.setError("Không thể bỏ trống!");
+                                            isValid = false;
+                                        } else {
+                                            editPassAccAgainED.setError(null);
+                                        }
+
+                                        // Kiểm tra radio button "rdGenderTeacher"
+
+
+                                        if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
+                                            editPassAccAgainED.setError("Mật khẩu không khớp");
+                                            isValid = false;
+                                        } else {
+                                            editPassAccAgainED.setError(null);
+                                        }
+
+                                        // Toast.makeText(context, "eeeee"+isValid, Toast.LENGTH_LONG).show();
+
+                                        // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
+                                        if (isValid) {
+                                            db.collection("giaoVien")
+                                                    .whereEqualTo("TK_id", account.getTkID())
+                                                    .get()
+                                                    .addOnSuccessListener(querySnapshot1 -> {
+                                                        if (!querySnapshot1.isEmpty()) {
+                                                            DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                                            Map<String, Object> updates = new HashMap<>();
+                                                            updates.put("GV_HoTen", editNameUserED.getText().toString().trim());
+                                                            updates.put("GV_NgaySinh", txtDateED.getText().toString().trim());
+
+                                                            int selectedPosi = rdPosition.getCheckedRadioButtonId();
+                                                            if(selectedPosi != -1) {
+                                                                RadioButton seRadio = dialog.findViewById(selectedPosi);
+
+                                                                updates.put("GV_ChucVu",seRadio.getText().toString() );
+                                                                //  Toast.makeText(context, "hellcv "+seRadio.getText().toString(), Toast.LENGTH_LONG).show();
+
+                                                            }
+
+                                                            int selectedGender = rdGoupGender.getCheckedRadioButtonId();
+                                                            if(selectedGender != -1) {
+                                                                RadioButton selecRadio = dialog.findViewById(selectedGender);
+                                                                // Toast.makeText(context, "gttu "+selecRadio.getText().toString(), Toast.LENGTH_LONG).show();
+
+                                                                updates.put("GV_GioiTinh",selecRadio.getText().toString() );
+
+                                                            }
+
+                                                            updates.put("LH_id",editClassED.getText().toString()+lhNK[0] );
+
+
+
+                                                            docRef.update(updates)
+                                                                    .addOnSuccessListener(aVoid -> {
+                                                                        Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                                                                    });
+                                                        } else {
+                                                            Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Lỗi khi truy vấn Firestore
+                                                    });
+
+                                            db.collection("taiKhoan")
+                                                    .whereEqualTo("TK_TenTaiKhoan", account.getTkTenTK())
+                                                    .get()
+                                                    .addOnSuccessListener(querySnapshot1 -> {
+                                                        if (!querySnapshot1.isEmpty()) {
+                                                            DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                                            Map<String, Object> updates = new HashMap<>();
+                                                            updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
+                                                            updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
+                                                            updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
+                                                            docRef.update(updates)
+                                                                    .addOnSuccessListener(aVoid -> {
+                                                                        Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                                                                    });
+                                                        } else {
+                                                            Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Lỗi khi truy vấn Firestore
+                                                    });
+                                            dialog.dismiss();
+                                        }
+
+
                                     }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Lỗi khi truy vấn Firestore
-                                });
-                    }
-                }
-                else {
-                    boolean isValid = true;
+                                }
 
-                    // Kiểm tra trường "editClassTeacher"
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Lỗi khi truy vấn
+                                Log.e("Teacher", "Error finding teacher: " + e.getMessage());
+                            }
+                        });
+            }
+            else
+            {
+                boolean isValid = true;
+
+                // Kiểm tra trường "editClassTeacher"
 //                                    if (editClassED.getText().toString().isEmpty()) {
 //                                        editClassED.setError("Không thể bỏ trống!");
 //                                        isValid = false;
@@ -893,85 +997,103 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 //                                        editClassED.setError(null);
 //                                    }
 
-                    // Kiểm tra trường "editNameTeacher"
-                    if (editNameUserED.getText().toString().isEmpty()) {
-                        editNameUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editNameUserED.setError(null);
-                    }
+                // Kiểm tra trường "editNameTeacher"
+                if (editNameUserED.getText().toString().isEmpty()) {
+                    editNameUserED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editNameUserED.setError(null);
+                }
 
-                    // Kiểm tra trường "editCodeTeacher"
-                    if (editCodeUserED.getText().toString().isEmpty()) {
-                        editCodeUserED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editCodeUserED.setError(null);
-                    }
+                // Kiểm tra trường "editCodeTeacher"
+                if (editCodeUserED.getText().toString().isEmpty()) {
+                    editCodeUserED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editCodeUserED.setError(null);
+                }
 
-                    // Kiểm tra trường "editPassAgianAccTeacher"
-                    if (editPassED.getText().toString().isEmpty()) {
-                        editPassED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassED.setError(null);
-                    }
-                    // kiem tra truong editPass
-                    if (editPassAccAgainED.getText().toString().isEmpty()) {
-                        editPassAccAgainED.setError("Không thể bỏ trống!");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
+                // Kiểm tra trường "editPassAgianAccTeacher"
+                if (editPassED.getText().toString().isEmpty()) {
+                    editPassED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editPassED.setError(null);
+                }
+                // kiem tra truong editPass
+                if (editPassAccAgainED.getText().toString().isEmpty()) {
+                    editPassAccAgainED.setError("Không thể bỏ trống!");
+                    isValid = false;
+                } else {
+                    editPassAccAgainED.setError(null);
+                }
 
-                    // Kiểm tra radio button "rdGenderTeacher"
+                // Kiểm tra radio button "rdGenderTeacher"
 
 
-                    if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
-                        editPassAccAgainED.setError("Mật khẩu không khớp");
-                        isValid = false;
-                    } else {
-                        editPassAccAgainED.setError(null);
-                    }
+                if (!editPassAccAgainED.getText().toString().equals(editPassED.getText().toString())) {
+                    editPassAccAgainED.setError("Mật khẩu không khớp");
+                    isValid = false;
+                } else {
+                    editPassAccAgainED.setError(null);
+                }
 
-                    // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
-                    if (isValid) {
-                        //saveStudent();
+                // Nếu tất cả điều kiện hợp lệ, gọi hàm saveTeacher()
+                if (isValid) {
+                    //saveStudent();
 //                        Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
 
 
-                        db.collection("taiKhoan")
-                                .whereEqualTo("TK_TenTaiKhoan", editCodeUserED.getText().toString().trim())
-                                .get()
-                                .addOnSuccessListener(querySnapshot1 -> {
-                                    if (!querySnapshot1.isEmpty()) {
-                                        DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
-                                        Map<String, Object> updates = new HashMap<>();
-                                        updates.put("TK_id", editCodeUserED.getText().toString().trim());
-                                        updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
-                                        updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
-                                        updates.put("TK_TenTaiKhoan",editCodeUserED.getText().toString().trim());
-                                        updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
-                                        docRef.update(updates)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
+                    db.collection("taiKhoan")
+                            .whereEqualTo("TK_TenTaiKhoan", account.getTkTenTK())
+                            .get()
+                            .addOnSuccessListener(querySnapshot1 -> {
+                                if (!querySnapshot1.isEmpty()) {
+                                    DocumentReference docRef = querySnapshot1.getDocuments().get(0).getReference();
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("TK_id", editCodeUserED.getText().toString().trim());
+                                    updates.put("TK_HoTen", editNameUserED.getText().toString().trim());
+                                    updates.put("TK_NgaySinh", txtDateED.getText().toString().trim());
+                                    updates.put("TK_TenTaiKhoan",editCodeUserED.getText().toString().trim());
+                                    updates.put("TK_MatKhau", editPassAccAgainED.getText().toString().trim());
+                                    docRef.update(updates)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thành công!", Toast.LENGTH_LONG).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(context, "Cập nhật tài khoản thất bại, Vui lòng kiểm tra lại!", Toast.LENGTH_LONG).show();
 
-                                                });
-                                    } else {
-                                        Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
+                                            });
+                                } else {
+                                    Toast.makeText(context, "Không tìm thấy tài khoản để cập nhật", Toast.LENGTH_LONG).show();
 
-                                    }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Lỗi khi truy vấn Firestore
-                                });
-                    }
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                // Lỗi khi truy vấn Firestore
+                            });
+
+                    editClassED.setError(null);
+
                 }
-
             }
+
+
+
+//            int selectedPosi = rdPosition.getCheckedRadioButtonId();
+//            if(selectedPosi != -1) {
+//                RadioButton seRadio = dialog.findViewById(selectedPosi);
+//
+//               // updates.put("GV_ChucVu",seRadio.getText().toString() );
+//                Toast.makeText(context, "hellcv "+seRadio.getText().toString(), Toast.LENGTH_LONG).show();
+//
+//            }
+
+
+          //  FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
         });
 
 
@@ -979,6 +1101,9 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
         dialog.show();
     }
+
+
+
 
     private void getListSemester(Spinner spinner, String nienKhoa) {
         // Lấy tham chiếu đến collection "hocKy"
@@ -1033,6 +1158,8 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                     }
                 });
     }
+
+
 
     private void openDatePicker() {
         datePickerDialog.show();

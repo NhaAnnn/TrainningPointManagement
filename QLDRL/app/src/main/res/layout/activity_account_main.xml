@@ -228,6 +228,8 @@
                     app:srcCompat="@drawable/ic_chevron_right_24" />
             </LinearLayout>
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -255,6 +257,34 @@
                     app:srcCompat="@drawable/ic_chevron_right_24" />
 
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutMistakeEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/general_border_radius"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/textView31g"
+                    android:layout_width="347dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="85"
+                    android:text="Tùy chỉnh vi phạm"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/imgTd"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="10"
+                    app:srcCompat="@drawable/ic_chevron_right_24" />
             </LinearLayout>
 
             <LinearLayout

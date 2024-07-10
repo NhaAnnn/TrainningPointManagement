@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.Homes.MainHome;
 import com.example.qldrl.Login.Login;
+import com.example.qldrl.Mistake.AddMistake;
+import com.example.qldrl.Mistake.mistake_detail_edit;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +30,7 @@ public class account_main extends AppCompatActivity {
     private Button btnListAcc, btnLogOut;
     private Account account;
     private String tkID;
-    private LinearLayout layoutChagePass;
+    private LinearLayout layoutChagePass, layoutMistakeEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class account_main extends AppCompatActivity {
         btnListAcc = findViewById(R.id.btnListAcc);
         btnLogOut = findViewById(R.id.btnLogOut);
         layoutChagePass = findViewById(R.id.layoutChangePass);
+        layoutMistakeEdit = findViewById(R.id.layoutMistakeEdit);
 
         Intent intent = getIntent();
         account = (Account) intent.getSerializableExtra("account");
@@ -80,6 +83,11 @@ public class account_main extends AppCompatActivity {
                 intent1.putExtra("account", account);
                 startActivity(intent1);
             }
+        });
+
+        layoutMistakeEdit.setOnClickListener( v -> {
+            Intent intent1 = new Intent(account_main.this, mistake_detail_edit.class);
+            startActivity(intent1);
         });
     }
 

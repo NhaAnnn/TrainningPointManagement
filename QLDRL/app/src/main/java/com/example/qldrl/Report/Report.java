@@ -3,6 +3,7 @@ package com.example.qldrl.Report;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,13 +24,18 @@ import android.widget.Toast;
 
 import com.example.qldrl.General.Account;
 import com.example.qldrl.R;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
@@ -39,12 +45,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Report extends AppCompatActivity {
 
     private Workbook workbook;
-    private CardView cardListAcc, cardListMistakeAll, cardListMistakeClass;
 
     private Account account;
 
@@ -53,9 +59,9 @@ public class Report extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        cardListAcc = findViewById(R.id.cardListAcc);
-        cardListMistakeAll = findViewById(R.id.cardListMistakeAll);
-        cardListMistakeClass = findViewById(R.id.cardListMistakeClass);
+        CardView cardListAcc = findViewById(R.id.cardListAcc);
+        CardView cardListMistakeAll = findViewById(R.id.cardListMistakeAll);
+        CardView cardListMistakeClass = findViewById(R.id.cardListMistakeClass);
 
         Intent intent = getIntent();
         account = (Account) intent.getSerializableExtra("account");
@@ -71,7 +77,7 @@ public class Report extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String lhId = document.getString("LH_id");
                                 // Xử lý lhId ở đây
-                                openDinalogDownLoadListMistakeClass(Gravity.CENTER, lhId);
+                                openDinalogDownLoadListMistakeClass(lhId);
                             }
                         } else {
                             Log.d("GiaoVien", "Error getting documents: ", task.getException());
@@ -81,17 +87,13 @@ public class Report extends AppCompatActivity {
 
         });
 
-        cardListMistakeAll.setOnClickListener( v -> {
-            openDinalogDownLoadListMistakeAll(Gravity.CENTER);
-        });
+        cardListMistakeAll.setOnClickListener(v -> openDinalogDownLoadListMistakeAll());
 
-        cardListAcc.setOnClickListener(v -> {
-            openDinalogDownLoadListAcc(Gravity.CENTER);
-        });
+        cardListAcc.setOnClickListener(v -> openDinalogDownLoadListAcc());
 
     }
 
-    private void openDinalogDownLoadListAcc(int gravity) {
+    private void openDinalogDownLoadListAcc() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_down_load_list_acc);
@@ -105,7 +107,7 @@ public class Report extends AppCompatActivity {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams windowAttribute = window.getAttributes();
-        windowAttribute.gravity = gravity;
+        windowAttribute.gravity = Gravity.CENTER;
         window.setAttributes(windowAttribute);
 
         dialog.setCancelable(true);
@@ -127,32 +129,27 @@ public class Report extends AppCompatActivity {
         btnExportFile.setOnClickListener( v -> {
             if(!rdBoard.isChecked() && !rdStud.isChecked() && !rdTeach.isChecked()) {
                 layoutErrorType.setVisibility(View.VISIBLE);
-                rdGTypeAcc.setOnCheckedChangeListener((group, checkedId) -> {
-                    layoutErrorType.setVisibility(View.GONE);
-
-                });
+                rdGTypeAcc.setOnCheckedChangeListener((group, checkedId) -> layoutErrorType.setVisibility(View.GONE));
             } else {
                 if(rdStud.isChecked()) {
-                    studentAccs(txtNameFile, btnDownLoad);
+                    studentAccs(txtNameFile, btnDownLoad, dialog);
                 } else if(rdTeach.isChecked()) {
-                    TeachAccs(txtNameFile, btnDownLoad);
+                    TeachAccs(txtNameFile, btnDownLoad, dialog);
                 } else {
-                    boardAccs(txtNameFile,btnDownLoad);
+                    boardAccs(txtNameFile,btnDownLoad, dialog);
                 }
             }
         });
 
 
 
-        btnCancel.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
 
 
-    public void studentAccs(TextView txtNameFile, Button btnDownLoad) {
+    public void studentAccs(TextView txtNameFile, Button btnDownLoad, Dialog dialog) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("hocSinh")
@@ -187,7 +184,7 @@ public class Report extends AppCompatActivity {
                                         if (!dataByClass.containsKey(LH_id)) {
                                             dataByClass.put(LH_id, new ArrayList<>());
                                         }
-                                        dataByClass.get(LH_id).add(studentData);
+                                        Objects.requireNonNull(dataByClass.get(LH_id)).add(studentData);
                                     }
                                 })
                                 .addOnFailureListener(e -> {
@@ -201,6 +198,7 @@ public class Report extends AppCompatActivity {
 
                     btnDownLoad.setOnClickListener(v -> {
                         saveExcelFileToDownloadsClass(fileName, dataByClass);
+                        dialog.dismiss();
                     });
                 })
                 .addOnFailureListener(e -> {
@@ -208,7 +206,7 @@ public class Report extends AppCompatActivity {
                 });
     }
 
-    public void TeachAccs(TextView txtNameFile, Button btnDownLoad) {
+    public void TeachAccs(TextView txtNameFile, Button btnDownLoad, Dialog dialog) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("giaoVien")
@@ -221,7 +219,6 @@ public class Report extends AppCompatActivity {
                         String GV_HoTen = document.getString("GV_HoTen");
                         String GV_GioiTinh = document.getString("GV_GioiTinh");
                         String GV_NgaySinh = document.getString("GV_NgaySinh");
-                        String LH_id = document.getString("LH_id");
                         String TK_id = document.getString("TK_id");
 
                         db.collection("taiKhoan")
@@ -251,6 +248,7 @@ public class Report extends AppCompatActivity {
 
                                     btnDownLoad.setOnClickListener(v -> {
                                         saveExcelFileToDownloads(fileName, data);
+                                        dialog.dismiss();
                                     });
 
                                 })
@@ -265,7 +263,7 @@ public class Report extends AppCompatActivity {
                     // Handle error
                 });
     }
-    public void boardAccs(TextView txtNameFile, Button btnDownLoad) {
+    public void boardAccs(TextView txtNameFile, Button btnDownLoad, Dialog dialog) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("taiKhoan").whereEqualTo("TK_ChucVu", "Ban giám hiệu")
@@ -299,6 +297,7 @@ public class Report extends AppCompatActivity {
 
                     btnDownLoad.setOnClickListener(v -> {
                         saveExcelFileToDownloads(fileName, data);
+                        dialog.dismiss();
                     });
 
 
@@ -312,54 +311,84 @@ public class Report extends AppCompatActivity {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Ban Giam Hieu (Admin)");
 
+        // Tạo tiêu đề
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("TK_id");
-        headerRow.createCell(1).setCellValue("TK_HoTen");
-        headerRow.createCell(2).setCellValue("TK_NgaySinh");
-        headerRow.createCell(3).setCellValue("TK_TenTaiKhoan");
-        headerRow.createCell(4).setCellValue("TK_MatKhau");
+        Cell headerCell = headerRow.createCell(0);
+        headerCell.setCellValue("Danh sách tài khoản Admin (Ban giám hiệu)");
+        headerCell.setCellStyle(getBoldCenteredCellStyle(workbook));
 
+        // Gộp các cột từ 0 đến 5 trong dòng 0 (dòng tiêu đề)
+        CellRangeAddress mergedRegion = new CellRangeAddress(0, 0, 0, 5);
+        sheet.addMergedRegion(mergedRegion);
 
-        // Populate the data rows
-        int rowNum = 1;
+        // Tạo tiêu đề các cột
+        Row dataRow = sheet.createRow(3);
+        dataRow.createCell(0).setCellValue("Mã BGH");
+        dataRow.createCell(1).setCellValue("Họ Tên Chủ Tài Khoản");
+        dataRow.createCell(2).setCellValue("Ngày Sinh Chủ Tài Khoản");
+        dataRow.createCell(3).setCellValue("Tên Tài Khoản (Tên đăng nhập)");
+        dataRow.createCell(4).setCellValue("Mật khẩu");
+
+        // Thêm dữ liệu vào bảng
+        int rowNum = 4;
         for (Map<String, Object> studentInfo : data) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue((String) studentInfo.get("TK_id"));
-            row.createCell(1).setCellValue((String) studentInfo.get("TK_HoTen"));
-            row.createCell(2).setCellValue((String) studentInfo.get("TK_NgaySinh"));
-            row.createCell(3).setCellValue((String) studentInfo.get("TK_TenTaiKhoan"));
-            row.createCell(4).setCellValue((String) studentInfo.get("TK_MatKhau"));
-
-
+            Cell cell;
+            cell = row.createCell(0);
+            cell.setCellValue((String) studentInfo.get("TK_id"));
+            cell = row.createCell(1);
+            cell.setCellValue((String) studentInfo.get("TK_HoTen"));
+            cell = row.createCell(2);
+            cell.setCellValue((String) studentInfo.get("TK_NgaySinh"));
+            cell = row.createCell(3);
+            cell.setCellValue((String) studentInfo.get("TK_TenTaiKhoan"));
+            cell = row.createCell(4);
+            cell.setCellValue((String) studentInfo.get("TK_MatKhau"));
         }
 
-        //  Auto-size the columns
-        sheet.setColumnWidth(0, 5000); // HS_id
-        sheet.setColumnWidth(1, 10000); // HS_HoTen
-        sheet.setColumnWidth(2, 5000); // HS_GioiTinh
-        sheet.setColumnWidth(3, 10000); // HS_NgaySinh
-        sheet.setColumnWidth(4, 5000); // violationCount
+        // Điều chỉnh độ rộng các cột
+        sheet.setColumnWidth(0, 5000); // Mã Tài Khoản
+        sheet.setColumnWidth(1, 5000); // Họ Tên Chủ Tài Khoản
+        sheet.setColumnWidth(2, 5000); // Ngày Sinh Chủ Tài Khoản
+        sheet.setColumnWidth(3, 5000); // Tên Tài Khoản (Tên đăng nhập)
+        sheet.setColumnWidth(4, 5000); // Mật khẩu
 
+        // Vẽ đường viền ô
+        setBorders(sheet, 0, rowNum - 1, 0, 4);
 
-        // Return the created workbook, don't save it here
+        // Trả về workbook đã tạo, không lưu vào file ở đây
         this.workbook = workbook;
     }
+
+
+
 
     private void createExcelFileListAccTeach(String fileName, List<Map<String, Object>> data) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Giao Vien");
 
-        Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("GV_id");
-        headerRow.createCell(1).setCellValue("GV_HoTen");
-        headerRow.createCell(2).setCellValue("GV_GioiTinh");
-        headerRow.createCell(3).setCellValue("GV_NgaySinh");
-        headerRow.createCell(4).setCellValue("TK_TenTaiKhoan");
-        headerRow.createCell(5).setCellValue("TK_MatKhau");
+        // Tạo tiêu đề
+        Row headerRow1 = sheet.createRow(0);
+        Cell headerCell = headerRow1.createCell(0);
+        headerCell.setCellValue("Danh sách tài khoản Giáp Viên");
+        headerCell.setCellStyle(getBoldCenteredCellStyle(workbook));
+
+        // Gộp các cột từ 0 đến 5 trong dòng 0 (dòng tiêu đề)
+        CellRangeAddress mergedRegion = new CellRangeAddress(0, 0, 0, 6);
+        sheet.addMergedRegion(mergedRegion);
+
+
+        Row headerRow = sheet.createRow(3);
+        headerRow.createCell(0).setCellValue("Mã GV");
+        headerRow.createCell(1).setCellValue("Họ và Tên");
+        headerRow.createCell(2).setCellValue("Giới Tính");
+        headerRow.createCell(3).setCellValue("Ngày Sinh");
+        headerRow.createCell(4).setCellValue("Tên Tài Khoản (Tên đăng nhập)");
+        headerRow.createCell(5).setCellValue("Mật Khẩu");
 
 
         // Populate the data rows
-        int rowNum = 1;
+        int rowNum = 4;
         for (Map<String, Object> studentInfo : data) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue((String) studentInfo.get("GV_id"));
@@ -374,17 +403,19 @@ public class Report extends AppCompatActivity {
 
         //  Auto-size the columns
         sheet.setColumnWidth(0, 5000); // HS_id
-        sheet.setColumnWidth(1, 10000); // HS_HoTen
+        sheet.setColumnWidth(1, 5000); // HS_HoTen
         sheet.setColumnWidth(2, 5000); // HS_GioiTinh
-        sheet.setColumnWidth(3, 10000); // HS_NgaySinh
+        sheet.setColumnWidth(3, 5000); // HS_NgaySinh
         sheet.setColumnWidth(4, 5000); // violationCount
-        sheet.setColumnWidth(5, 10000); // violationNames
+        sheet.setColumnWidth(5, 5000); // violationNames
 
+
+        setBorders(sheet, 0, rowNum - 1, 0, 5);
         // Return the created workbook, don't save it here
         this.workbook = workbook;
     }
 
-    private void openDinalogDownLoadListMistakeAll(int gravity) {
+    private void openDinalogDownLoadListMistakeAll() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_down_load_file);
@@ -398,7 +429,7 @@ public class Report extends AppCompatActivity {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams windowAttribute = window.getAttributes();
-        windowAttribute.gravity = gravity;
+        windowAttribute.gravity = Gravity.CENTER;
         window.setAttributes(windowAttribute);
 
         dialog.setCancelable(true);
@@ -415,16 +446,13 @@ public class Report extends AppCompatActivity {
         LinearLayout layoutErrorTermReport = dialog.findViewById(R.id.layoutErrorTermReport);
 
         btnExport.setOnClickListener( v -> {
-            if(rdT1.isChecked() == false && rdT2.isChecked() == false) {
+            if(!rdT1.isChecked() && !rdT2.isChecked()) {
                 layoutErrorTermReport.setVisibility(View.VISIBLE);
-                rdGTermReport.setOnCheckedChangeListener((group, checkedId) -> {
-                    layoutErrorTermReport.setVisibility(View.GONE);
-
-                });
+                rdGTermReport.setOnCheckedChangeListener((group, checkedId) -> layoutErrorTermReport.setVisibility(View.GONE));
             } else {
                // MsAll(rdT1,txtNameFile,btnDownLoad);
                 // count hanh kiem
-                if(rdT1.isChecked() == true) {
+                if(rdT1.isChecked()) {
                     MistakeAllClass(txtNameFile,btnDownLoad,"Học kỳ 1");
                 }
                 else {
@@ -435,15 +463,13 @@ public class Report extends AppCompatActivity {
         });
 
 
-        btnCancel.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
 
 
-    private void openDinalogDownLoadListMistakeClass(int gravity, String LHid) {
+    private void openDinalogDownLoadListMistakeClass(String LHid) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_down_load_file);
@@ -457,12 +483,11 @@ public class Report extends AppCompatActivity {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams windowAttribute = window.getAttributes();
-        windowAttribute.gravity = gravity;
+        windowAttribute.gravity = Gravity.CENTER;
         window.setAttributes(windowAttribute);
 
         dialog.setCancelable(true);
 
-        String HocKy ;
 
         Button btnCancel = dialog.findViewById(R.id.btnExitDownLoad);
         Button btnDownLoad = dialog.findViewById(R.id.btnDownloadFile);
@@ -475,11 +500,8 @@ public class Report extends AppCompatActivity {
         RadioButton rdT2 = dialog.findViewById(R.id.rdT2);
         LinearLayout layoutErrorTermReport = dialog.findViewById(R.id.layoutErrorTermReport);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        btnCancel.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
 
 
         btnExport.setOnClickListener( v -> {
@@ -503,41 +525,51 @@ public class Report extends AppCompatActivity {
 
     private void createExcelFile(String fileName, List<Map<String, Object>> data) {
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Học Sinh");
+        Sheet sheet = workbook.createSheet("Vi Phạm");
 
-        Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("HS_id");
-        headerRow.createCell(1).setCellValue("HS_HoTen");
-        headerRow.createCell(2).setCellValue("HS_GioiTinh");
-        headerRow.createCell(3).setCellValue("HS_NgaySinh");
-        headerRow.createCell(4).setCellValue("violationCount");
-        headerRow.createCell(5).setCellValue("violationNames");
-        headerRow.createCell(6).setCellValue("HKM_DiemRenLuyen");
-        headerRow.createCell(7).setCellValue("HKM_HanhKiem");
+
+        // Tạo tiêu đề
+        Row headerRow1 = sheet.createRow(0);
+        Cell headerCell = headerRow1.createCell(0);
+        headerCell.setCellValue("Danh sách điểm rèn luyện");
+        headerCell.setCellStyle(getBoldCenteredCellStyle(workbook));
+
+        Row headerRow = sheet.createRow(3);
+        headerRow.createCell(0).setCellValue("Mã HS");
+        headerRow.createCell(1).setCellValue("Họ và Tên");
+        headerRow.createCell(2).setCellValue("Giới Tính");
+        headerRow.createCell(3).setCellValue("Ngày Sinh");
+        headerRow.createCell(4).setCellValue("Điểm Rèn Luyện");
+        headerRow.createCell(5).setCellValue("Hạnh Kiểm");
+        headerRow.createCell(6).setCellValue("Số Lần Vi Phạm");
+        headerRow.createCell(7).setCellValue("Tên Vi Phạm");
+
 
         // Populate the data rows
-        int rowNum = 1;
+        int rowNum = 4;
         for (Map<String, Object> studentInfo : data) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue((String) studentInfo.get("HS_id"));
             row.createCell(1).setCellValue((String) studentInfo.get("HS_HoTen"));
             row.createCell(2).setCellValue((String) studentInfo.get("HS_GioiTinh"));
             row.createCell(3).setCellValue((String) studentInfo.get("HS_NgaySinh"));
-            row.createCell(4).setCellValue((int) studentInfo.get("violationCount"));
-            row.createCell(5).setCellValue(String.join(", ", (List<String>) studentInfo.get("violationNames")));
-            row.createCell(6).setCellValue((String) studentInfo.get("HKM_DiemRenLuyen"));
-            row.createCell(7).setCellValue((String) studentInfo.get("HKM_HanhKiem"));
+            row.createCell(4).setCellValue((String) studentInfo.get("HKM_DiemRenLuyen"));
+            row.createCell(5).setCellValue((String) studentInfo.get("HKM_HanhKiem"));
+            row.createCell(6).setCellValue((int) studentInfo.get("violationCount"));
+            row.createCell(7).setCellValue(String.join(", ", (List<String>) studentInfo.get("violationNames")));
+
         }
 
         //  Auto-size the columns
         sheet.setColumnWidth(0, 5000); // HS_id
-        sheet.setColumnWidth(1, 10000); // HS_HoTen
-        sheet.setColumnWidth(2, 5000); // HS_GioiTinh
-        sheet.setColumnWidth(3, 10000); // HS_NgaySinh
-        sheet.setColumnWidth(4, 5000); // violationCount
-        sheet.setColumnWidth(5, 10000); // violationNames
-        sheet.setColumnWidth(6, 5000); // HKM_DiemRenLuyen
-        sheet.setColumnWidth(7, 5000); // HKM_HanhKiem
+        sheet.setColumnWidth(1, 6000); // HS_HoTen
+        sheet.setColumnWidth(2, 6000); // HS_GioiTinh
+        sheet.setColumnWidth(3, 6000); // HS_NgaySinh
+        sheet.setColumnWidth(4, 6000); // violationCount
+        sheet.setColumnWidth(5, 6000); // violationNames
+        sheet.setColumnWidth(6, 6000); // HKM_DiemRenLuyen
+        sheet.setColumnWidth(7, 6000); // HKM_HanhKiem
+        setBorders(sheet, 0, rowNum - 1, 0, 7);
         // Return the created workbook, don't save it here
         this.workbook = workbook;
     }
@@ -545,20 +577,27 @@ public class Report extends AppCompatActivity {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Lớp");
 
+        // Tạo tiêu đề
+        Row headerRow1 = sheet.createRow(0);
+        Cell headerCell = headerRow1.createCell(0);
+        headerCell.setCellValue("Danh sách Thông kê hạnh kiểm các lớp");
+        headerCell.setCellStyle(getBoldCenteredCellStyle(workbook));
+
+
         // Tạo header
-        Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("LH_id");
-        headerRow.createCell(1).setCellValue("LH_TenLop");
-        headerRow.createCell(2).setCellValue("NK_NienKhoa");
-        headerRow.createCell(3).setCellValue("SoLuongHS");
-        headerRow.createCell(4).setCellValue("SoLuotViPham");
-        headerRow.createCell(5).setCellValue("SoHKMTot");
-        headerRow.createCell(6).setCellValue("SoHKMKha");
-        headerRow.createCell(7).setCellValue("SoHKMTrungBinh");
-        headerRow.createCell(8).setCellValue("SoHKMYeu");
+        Row headerRow = sheet.createRow(3);
+        headerRow.createCell(0).setCellValue("Mã Lớp");
+        headerRow.createCell(1).setCellValue("Tên Lớp");
+        headerRow.createCell(2).setCellValue("Niên Khóa");
+        headerRow.createCell(3).setCellValue("Sĩ Số");
+        headerRow.createCell(4).setCellValue("Số Lượt Vi Phạm");
+        headerRow.createCell(5).setCellValue("SL Hạnh Kiểm Tốt");
+        headerRow.createCell(6).setCellValue("SL Hạnh Kiểm Khá");
+        headerRow.createCell(7).setCellValue("SL Hạnh Kiểm TB");
+        headerRow.createCell(8).setCellValue("SL Hạnh Kiểm Yếu");
 
         // Thêm dữ liệu vào sheet
-        int rowNum = 1;
+        int rowNum = 4;
         for (Map<String, Object> row : data) {
             Row dataRow = sheet.createRow(rowNum++);
             dataRow.createCell(0).setCellValue((String) row.get("LH_id"));
@@ -582,11 +621,14 @@ public class Report extends AppCompatActivity {
         sheet.setColumnWidth(6, 5000); // HKM_DiemRenLuyen
         sheet.setColumnWidth(7, 5000); // HKM_HanhKiem
         sheet.setColumnWidth(8, 5000); // HKM_HanhKiem
+
+        setBorders(sheet, 0, rowNum - 1, 0, 8);
         // Return the created workbook, don't save it here
         this.workbook = workbook;
     }
 
-    public  void MistakeAllClass( TextView txtNameFile, Button btnDownLoad, String HK) {
+    @SuppressLint("SetTextI18n")
+    public  void MistakeAllClass(TextView txtNameFile, Button btnDownLoad, String HK) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Retrieve data from the "lop" collection
@@ -664,11 +706,11 @@ public class Report extends AppCompatActivity {
                                                                         classData.put("SoHKMKha", soHKMKha.get() + "");
                                                                         classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
                                                                         classData.put("SoHKMYeu", soHKMYeu.get() + "");
-
-                                                                        txtNameFile.setText("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx");
-                                                                        createExcelFileAllClass("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx", dataFromFirestore);
+                                                                        String fileName = "Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx";
+                                                                        txtNameFile.setText(fileName);
+                                                                        createExcelFileAllClass(fileName, dataFromFirestore);
                                                                         btnDownLoad.setOnClickListener(v1 -> {
-                                                                            saveExcelFileToDownloads("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx", dataFromFirestore);
+                                                                            saveExcelFileToDownloads(fileName, dataFromFirestore);
                                                                         });
                                                                     }
                                                                 });
@@ -691,11 +733,11 @@ public class Report extends AppCompatActivity {
                                         classData.put("SoHKMKha", soHKMKha.get() + "");
                                         classData.put("SoHKMTrungBinh", soHKMTrungBinh.get() + "");
                                         classData.put("SoHKMYeu", soHKMYeu.get() + "");
-
-                                        txtNameFile.setText("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx");
-                                        createExcelFileAllClass("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx", dataFromFirestore);
+                                        String fileName = "Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx";
+                                        txtNameFile.setText(fileName);
+                                        createExcelFileAllClass(fileName, dataFromFirestore);
                                         btnDownLoad.setOnClickListener(v1 -> {
-                                            saveExcelFileToDownloads("Danh_sach_thong_ke_HK"+HK.substring(HK.length()-1)+".xlsx", dataFromFirestore);
+                                            saveExcelFileToDownloads(fileName, dataFromFirestore);
                                         });
 
 
@@ -858,47 +900,7 @@ public class Report extends AppCompatActivity {
                     // Xử lý lỗi
                 });
     }
-    private void createExcelFile1(String fileName, List<Map<String, Object>> data) {
 
-            // Create a new workbook
-            Workbook workbook = new XSSFWorkbook();
-
-            // Create a new sheet
-            Sheet sheet = workbook.createSheet("Student Data");
-
-            // Create the header row
-            Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("HS_id");
-            headerRow.createCell(1).setCellValue("HS_HoTen");
-            headerRow.createCell(2).setCellValue("HS_GioiTinh");
-            headerRow.createCell(3).setCellValue("HS_NgaySinh");
-            headerRow.createCell(4).setCellValue("violationCount");
-            headerRow.createCell(5).setCellValue("violationNames");
-            headerRow.createCell(6).setCellValue("HKM_DiemRenLuyen");
-            headerRow.createCell(7).setCellValue("HKM_HanhKiem");
-
-            // Populate the data rows
-            int rowNum = 1;
-            for (Map<String, Object> studentInfo : data) {
-                Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue((String) studentInfo.get("HS_id"));
-                row.createCell(1).setCellValue((String) studentInfo.get("HS_HoTen"));
-                row.createCell(2).setCellValue((String) studentInfo.get("HS_GioiTinh"));
-                row.createCell(3).setCellValue((String) studentInfo.get("HS_NgaySinh"));
-                row.createCell(4).setCellValue((int) studentInfo.get("violationCount"));
-                row.createCell(5).setCellValue(String.join(", ", (List<String>) studentInfo.get("violationNames")));
-                row.createCell(6).setCellValue((String) studentInfo.get("HKM_DiemRenLuyen"));
-                row.createCell(7).setCellValue((String) studentInfo.get("HKM_HanhKiem"));
-            }
-
-            // Auto-size the columns
-            for (int i = 0; i < 8; i++) {
-                sheet.autoSizeColumn(i);
-            }
-
-            this.workbook = workbook;
-
-    }
 
     private void saveExcelFileToDownloads(String fileName, List<Map<String, Object>> data) {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
@@ -914,54 +916,7 @@ public class Report extends AppCompatActivity {
         }
     }
 
-
-
-    public static void createExcelFileListAcc12(String fileName, Map<String, List<Map<String, Object>>> dataByClass) {
-        try {
-            Workbook workbook = new XSSFWorkbook();
-
-            // Create a sheet for each class
-            for (Map.Entry<String, List<Map<String, Object>>> entry : dataByClass.entrySet()) {
-                String className = entry.getKey();
-                List<Map<String, Object>> students = entry.getValue();
-
-                Sheet sheet = workbook.createSheet(className);
-
-                // Create header row
-                Row headerRow = sheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Tên đăng nhập");
-                headerRow.createCell(1).setCellValue("Mật khẩu");
-                headerRow.createCell(2).setCellValue("Họ và tên");
-                headerRow.createCell(3).setCellValue("Giới tính");
-                headerRow.createCell(4).setCellValue("Ngày sinh");
-
-                // Add student data to the sheet
-                int rowIndex = 1;
-                for (Map<String, Object> student : students) {
-                    Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue(student.get("TK_TenTaiKhoan").toString());
-                    row.createCell(1).setCellValue(student.get("TK_MatKhau").toString());
-                    row.createCell(2).setCellValue(student.get("HS_HoTen").toString());
-                    row.createCell(3).setCellValue(student.get("HS_GioiTinh").toString());
-                    row.createCell(4).setCellValue(student.get("HS_NgaySinh").toString());
-                }
-            }
-
-            // Save the workbook to a file
-            File file = new File(Environment.getExternalStorageDirectory(), fileName);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            workbook.write(outputStream);
-            outputStream.close();
-            workbook.close();
-
-            // Update the UI with the file name
-            // ...
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void saveExcelFileToDownloadsClass(String fileName, Map<String, List<Map<String, Object>>> dataByClass) {
+    public  void saveExcelFileToDownloadsClass(String fileName, Map<String, List<Map<String, Object>>> dataByClass) {
         try {
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
             FileOutputStream outputStream = new FileOutputStream(file);
@@ -974,25 +929,38 @@ public class Report extends AppCompatActivity {
                 List<Map<String, Object>> students = entry.getValue();
 
                 Sheet sheet = workbook.createSheet(className);
-
+                // Tạo tiêu đề
+                Row headerRow1= sheet.createRow(0);
+                Cell headerCell = headerRow1.createCell(0);
+                headerCell.setCellValue("Danh sách tài khoản Học Sinh");
+                headerCell.setCellStyle(getBoldCenteredCellStyle(workbook));
                 // Create header row
-                Row headerRow = sheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Tên đăng nhập");
-                headerRow.createCell(1).setCellValue("Mật khẩu");
-                headerRow.createCell(2).setCellValue("Họ và tên");
-                headerRow.createCell(3).setCellValue("Giới tính");
-                headerRow.createCell(4).setCellValue("Ngày sinh");
+                Row headerRow = sheet.createRow(3);
+                headerRow.createCell(0).setCellValue("Mã HS");
+                headerRow.createCell(1).setCellValue("Họ và tên");
+                headerRow.createCell(2).setCellValue("Giới tính");
+                headerRow.createCell(3).setCellValue("Ngày sinh");
+                headerRow.createCell(4).setCellValue("Tên đăng nhập");
+                headerRow.createCell(5).setCellValue("Mật khẩu");
 
                 // Add student data to the sheet
-                int rowIndex = 1;
+                int rowIndex = 4;
                 for (Map<String, Object> student : students) {
                     Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue(student.get("TK_TenTaiKhoan").toString());
-                    row.createCell(1).setCellValue(student.get("TK_MatKhau").toString());
-                    row.createCell(2).setCellValue(student.get("HS_HoTen").toString());
-                    row.createCell(3).setCellValue(student.get("HS_GioiTinh").toString());
-                    row.createCell(4).setCellValue(student.get("HS_NgaySinh").toString());
+                    row.createCell(0).setCellValue(student.get("HS_id").toString());
+                    row.createCell(1).setCellValue(student.get("HS_HoTen").toString());
+                    row.createCell(2).setCellValue(student.get("HS_GioiTinh").toString());
+                    row.createCell(3).setCellValue(student.get("HS_NgaySinh").toString());
+                    row.createCell(4).setCellValue(student.get("TK_TenTaiKhoan").toString());
+                    row.createCell(5).setCellValue(student.get("TK_MatKhau").toString());
                 }
+                // Điều chỉnh độ rộng các cột
+                sheet.setColumnWidth(0, 5000); // Mã Tài Khoản
+                sheet.setColumnWidth(1, 5000); // Họ Tên Chủ Tài Khoản
+                sheet.setColumnWidth(2, 5000); // Ngày Sinh Chủ Tài Khoản
+                sheet.setColumnWidth(3, 5000); // Tên Tài Khoản (Tên đăng nhập)
+                sheet.setColumnWidth(4, 5000); // Mật khẩu
+                setBorders(sheet, 0, rowIndex - 1, 0, 5);
             }
 
             workbook.write(outputStream);
@@ -1005,5 +973,35 @@ public class Report extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private CellStyle getBoldCenteredCellStyle(Workbook workbook) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        Font font = workbook.createFont();
+        font.setBold(true);
+        cellStyle.setFont(font);
+        return cellStyle;
+    }
 
+    private void setBorders(Sheet sheet, int startRow, int endRow, int startCol, int endCol) {
+        for (int i = startRow; i <= endRow; i++) {
+            Row row = sheet.getRow(i);
+            if (row != null) {
+                for (int j = startCol; j <= endCol; j++) {
+                    Cell cell = row.getCell(j);
+                    if (cell != null) {
+                        cell.setCellStyle(getBorderedCellStyle(sheet.getWorkbook()));
+                    }
+                }
+            }
+        }
+    }
+
+    private CellStyle getBorderedCellStyle(Workbook workbook) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        return cellStyle;
+    }
 }

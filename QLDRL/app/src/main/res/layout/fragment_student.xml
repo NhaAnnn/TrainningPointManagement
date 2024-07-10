@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
@@ -85,7 +85,8 @@
                     android:id="@+id/spYearStudent"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/general_border" />
             </LinearLayout>
 
             <LinearLayout
@@ -262,7 +263,7 @@
                         android:id="@+id/rdf4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-
+                        android:checked="true"
                         android:text="Học sinh" />
 
                 </RadioGroup>
@@ -315,7 +316,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="4dp"
-                    android:text="TextView"
+                    android:hint="Ví dụ: HS2103561"
+                    android:text=""
                     android:textSize="16sp" />
 
             </LinearLayout>

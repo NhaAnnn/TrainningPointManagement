@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Qldrl">
         <activity
+            android:name=".Mistake.AddMistake"
+            android:exported="false" />
+        <activity
+            android:name=".Mistake.mistake_detail_edit"
+            android:exported="false" />
+        <activity
             android:name=".Report.Report"
             android:exported="false" />
         <activity
@@ -92,9 +98,14 @@
             android:name=".Mistake.Mistake_Personal"
             android:exported="false" />
 
-
-        <provider android:name="androidx.core.content.FileProvider" android:authorities="com.example.qldrl.fileprovider" android:exported="false" android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.qldrl.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
