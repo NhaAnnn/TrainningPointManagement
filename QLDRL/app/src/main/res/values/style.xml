@@ -4,7 +4,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent"></item>
     </style>
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">#FF000000</item>

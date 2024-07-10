@@ -82,14 +82,14 @@
                 android:weightSum="100">
 
                 <ImageView
-                    android:id="@+id/imageView24"
+                    android:id="@+id/imageVievw24"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"
                     android:src="@mipmap/iconerror" />
 
                 <TextView
-                    android:id="@+id/textView45"
+                    android:id="@+id/textvView45"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
