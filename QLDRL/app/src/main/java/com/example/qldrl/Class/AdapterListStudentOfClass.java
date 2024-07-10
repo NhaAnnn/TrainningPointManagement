@@ -48,7 +48,7 @@ public class AdapterListStudentOfClass extends RecyclerView.Adapter<AdapterListS
         holder.txtIdStudent.setText(list.getId());
         holder.txtNameStudent.setText(list.getName());
         holder.txtPositionStudent.setText(list.getPosition());
-        holder.po = position;
+        holder.po =  holder.getAdapterPosition();
         holder.btnStudentDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

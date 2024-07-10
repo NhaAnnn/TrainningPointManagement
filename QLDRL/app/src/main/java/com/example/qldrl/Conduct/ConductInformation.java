@@ -35,8 +35,6 @@ public class ConductInformation extends AppCompatActivity {
     private String idStudent, idMistake, idAccount, idMistakeType, semester ,timeMistake; //Luot Vi Pham
     private List<ConductInformation> conductInformationList = new ArrayList<>();;
     private Account account;
-    private String trainning = new String(), conduct = new String(), idHS = new String();
-    private ListStudentOfConduct listStudentOfConduct;
     TextView txtTrainingPointStudent;
     TextView txtConductStudent;
     TextView txtSemester;
@@ -118,47 +116,32 @@ public class ConductInformation extends AppCompatActivity {
         ImageView btnReturn = findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(v -> onBackPressed());
     }
-    public void getIdHS(String s){
-        idHS = s;
-    }
-    public void getPoint(String s){
-        trainning = s;
-    }
-    public void getConduct(String s){
-        conduct = s;
-    }
     public void getIdAndConduct(String hk){
        FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("hocSinh").whereEqualTo("TK_id",account.getTkID())
-               .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                   @Override
-                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                       if(task.isSuccessful()){
-                           for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                               String id = queryDocumentSnapshot.getString("HS_id");
+               .get().addOnCompleteListener(task -> {
+                   if(task.isSuccessful()){
+                       for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                           String id = queryDocumentSnapshot.getString("HS_id");
 
-                               Query query = db.collection("hanhKiem").whereEqualTo("HS_id", id).whereEqualTo("HK_HocKy",hk);
-                               query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                   @Override
-                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                       if (task.isSuccessful()) {
-                                           for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
-                                               String idConduct = (String) queryDocumentSnapshot.getString("HKM_id");
-                                               String idStudent = (String) queryDocumentSnapshot.getString("HS_id");
-                                               String trainingPoint = (String) queryDocumentSnapshot.getString("HKM_DiemRenLuyen");
-                                               String conduct = (String) queryDocumentSnapshot.getString("HKM_HanhKiem");
-                                               String term = (String) queryDocumentSnapshot.getString("HK_HocKi");
-                                               txtSemester.setText(hk);
-                                               txtTrainingPointStudent.setText(trainingPoint);
-                                               txtConductStudent.setText(conduct);
+                           Query query = db.collection("hanhKiem").whereEqualTo("HS_id", id).whereEqualTo("HK_HocKy",hk);
+                           query.get().addOnCompleteListener(task1 -> {
+                               if (task1.isSuccessful()) {
+                                   for (QueryDocumentSnapshot queryDocumentSnapshot1 : task1.getResult()) {
+                                       String idConduct = (String) queryDocumentSnapshot1.getString("HKM_id");
+                                       String idStudent = (String) queryDocumentSnapshot1.getString("HS_id");
+                                       String trainingPoint = (String) queryDocumentSnapshot1.getString("HKM_DiemRenLuyen");
+                                       String conduct = (String) queryDocumentSnapshot1.getString("HKM_HanhKiem");
+                                       String term = (String) queryDocumentSnapshot1.getString("HK_HocKi");
+                                       txtSemester.setText(hk);
+                                       txtTrainingPointStudent.setText(trainingPoint);
+                                       txtConductStudent.setText(conduct);
 
-                                               getDataMistake(idStudent,hk);
-                                           }
-
-                                       }
+                                       getDataMistake(idStudent,hk);
                                    }
-                               });
-                           }
+
+                               }
+                           });
                        }
                    }
                });
@@ -166,23 +149,20 @@ public class ConductInformation extends AppCompatActivity {
     public void getDataMistake(String StudentId, String semester){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("luotViPham").whereEqualTo("HS_id",StudentId).whereEqualTo("HK_HocKy",semester)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        List<ConductInformation> list = new ArrayList<>();
-                        for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                .get().addOnCompleteListener(task -> {
+                    List<ConductInformation> list = new ArrayList<>();
+                    for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
 
-                            String idS = (String) queryDocumentSnapshot.getString("HS_id");
-                            String idM = (String) queryDocumentSnapshot.getString("VP_id");
-                            String idA = (String) queryDocumentSnapshot.getString("TK_id");
-                            String idMT = (String) queryDocumentSnapshot.getString("LVPM_id");
-                            String sem = (String) queryDocumentSnapshot.getString("HK_HocKy");
-                            String time = (String) queryDocumentSnapshot.getString("LTVP_ThoiGian");
-                            ConductInformation data = new ConductInformation(idS, idM, idA, idMT, sem, time);
-                            list.add(data);
-                        }
-                        updateData(list);
+                        String idS = (String) queryDocumentSnapshot.getString("HS_id");
+                        String idM = (String) queryDocumentSnapshot.getString("VP_id");
+                        String idA = (String) queryDocumentSnapshot.getString("TK_id");
+                        String idMT = (String) queryDocumentSnapshot.getString("LVPM_id");
+                        String sem = (String) queryDocumentSnapshot.getString("HK_HocKy");
+                        String time = (String) queryDocumentSnapshot.getString("LTVP_ThoiGian");
+                        ConductInformation data = new ConductInformation(idS, idM, idA, idMT, sem, time);
+                        list.add(data);
                     }
+                    updateData(list);
                 });
     }
     public void updateData(List<ConductInformation> List){
