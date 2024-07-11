@@ -7,12 +7,7 @@
     android:orientation="vertical"
     tools:context=".Mistake.mistake_detail">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -36,10 +31,47 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="TextView"
+            android:text="Các Vi Phạm"
             android:textSize="22sp" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layoutAddMis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="50"
+            android:background="@drawable/general_boder_search"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="10"
+                android:src="@drawable/baseline_add_24" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="90"
+                android:text="Thêm Vi Phạm"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycDetails"

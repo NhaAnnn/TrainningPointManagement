@@ -756,10 +756,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
 
                                     }
 
-                                    Object selectItem = spYearED.getSelectedItem();
-                                    String namHoc = selectItem.toString();
-
-                                    updates.put("LH_id", editClassED.getText().toString()+namHoc);
+                                    updates.put("LH_id",editClassED.getText().toString()+lhNK[0] );
 
                                     docRef.update(updates)
                                             .addOnSuccessListener(aVoid -> {

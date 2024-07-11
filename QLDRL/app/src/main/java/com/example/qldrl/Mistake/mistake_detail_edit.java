@@ -23,13 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class mistake_detail_edit extends AppCompatActivity {
-    private AdapterMistake adapterMistake;
+    public static AdapterMistakeDetailED adapterMistakeDetailED;
     private TextView txtVCC, txtVTT, txtVHT, txtVNT;
-    private RecyclerView recycCC, recycTT, recycHT, recycNT, recycDetail;
+    private RecyclerView  recycDetail;
     private int clickCount = 0;
     private TextView txtNamePersonl;
     private ImageView imgBackDetail;
-    private LinearLayout layoutCC;
+    private LinearLayout layoutAddMis;
     String namePersonl;
     private Account account;
     private Student student;
@@ -38,7 +38,7 @@ public class mistake_detail_edit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mistake_detail_edit);
 
-
+        layoutAddMis = findViewById(R.id.layoutAddMis);
         txtNamePersonl = findViewById(R.id.txtNamePersonl);
         imgBackDetail = findViewById(R.id.imgBackDetail);
         imgBackDetail.setOnClickListener(v -> onBackPressed());
@@ -52,8 +52,11 @@ public class mistake_detail_edit extends AppCompatActivity {
 
         //Toast.makeText(this, account.getTkID()+"11111",Toast.LENGTH_LONG).show();
 
+        layoutAddMis.setOnClickListener( v -> {
+            Intent intent1 = new Intent(this, AddMistake.class);
+            startActivity(intent1);
+        });
 
-        txtNamePersonl.setText(namePersonl);
 
 
         getLoaiVP(recycDetail);
@@ -85,8 +88,8 @@ public class mistake_detail_edit extends AppCompatActivity {
                     // Xử lý vpTenViPhams ở đây
                     Log.d("LOOOOOOO", String.valueOf(loaiVP.size()));
 
-                    AdapterMistakeDetail adapterMistakeDetail = new AdapterMistakeDetail(loaiVP, mistake_detail_edit.this, namePersonl, account, student);
-                    recycDetail.setAdapter(adapterMistakeDetail);
+                   adapterMistakeDetailED = new AdapterMistakeDetailED(loaiVP, mistake_detail_edit.this, namePersonl, account, student);
+                    recycDetail.setAdapter(adapterMistakeDetailED);
                     recycDetail.setLayoutManager(new GridLayoutManager(this, 1));
                 })
                 .addOnFailureListener(e -> {

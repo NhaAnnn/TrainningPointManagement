@@ -72,7 +72,7 @@
                     android:background="@drawable/general_boder_search" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.SearchView
+            <SearchView
                 android:id="@+id/searchClass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

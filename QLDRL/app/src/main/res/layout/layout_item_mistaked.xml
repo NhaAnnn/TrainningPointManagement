@@ -25,17 +25,26 @@
 
             <ImageView
                 android:id="@+id/imgMistakeDetail"
-                android:layout_width="49dp"
-                android:layout_height="23dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 app:srcCompat="@drawable/ic_expand_more_24" />
 
             <TextView
                 android:id="@+id/txtNameMistakeDetail"
-                android:layout_width="299dp"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgDeleteType"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/baseline_delete_outline_24"
+                android:visibility="gone" />
 
         </LinearLayout>
 
