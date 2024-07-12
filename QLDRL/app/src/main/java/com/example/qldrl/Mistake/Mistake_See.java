@@ -24,7 +24,7 @@ import java.util.List;
 public class Mistake_See extends AppCompatActivity {
     private RecyclerView recycMistakeSee;
     private TextView txtNamePersonlMistake;
-    private AdapterMistakeSee adapterMistakeSee;
+    public static AdapterMistakeSee adapterMistakeSee;
     private Student student;
     private Account account;
     private ImageView imgBackMistakeSee;

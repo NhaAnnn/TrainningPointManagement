@@ -284,7 +284,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "helllo", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(context, "helllo", Toast.LENGTH_LONG).show();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 // Tạo truy vấn để tìm document có TK_id = "111"
@@ -330,7 +330,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                             // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
                         }
                     });
-                    Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
+               //     Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
 
                 } else if(account.getTkChucVu().toLowerCase().equals("học sinh") || account.getTkChucVu().toLowerCase().equals("ban cán sự") ) {
                     Query query1 = db.collection("hocSinh")
@@ -355,7 +355,7 @@ public class AdapterAccount extends RecyclerView.Adapter<AdapterAccount.MyViewHo
                     });
 
 
-                    Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(context, "Xóa p thành công!", Toast.LENGTH_SHORT).show();
 
                     Query query2 = db.collection("hanhKiem")
                             .whereEqualTo("HS_id", account.getTkID());

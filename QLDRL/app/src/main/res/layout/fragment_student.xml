@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
@@ -63,7 +63,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: 10a1"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Trần Thị Xuân Mai"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: HS2103561"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -345,7 +345,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -372,7 +372,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 

@@ -71,7 +71,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: 10a1"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -121,7 +121,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Trần Thị Xuân Mai"
-                    android:inputType="text" />
+                    android:inputType="text|textMultiLine" />
             </LinearLayout>
 
 
@@ -350,7 +350,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword" />
+                    android:inputType="text|textMultiLine" />
             </LinearLayout>
 
             <LinearLayout
@@ -376,7 +376,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword" />
+                    android:inputType="text|textMultiLine" />
             </LinearLayout>
 
             <LinearLayout

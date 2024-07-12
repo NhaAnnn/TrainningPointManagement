@@ -3,6 +3,7 @@ package com.example.qldrl.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +29,8 @@ public class Login extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText editNameCount, editPasswd;
     private TextView txtForgetPass, txtErrorPass, txtErrorNameAccount;
-    private ImageView btnLogin, imgTest, imgErroNameAccount, imgErroPass;
+    private ImageView  imgTest, imgErroNameAccount, imgErroPass;
+    private Button btnLogin;
     private ConstraintLayout layoutTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +44,10 @@ public class Login extends AppCompatActivity {
         editNameCount = findViewById(R.id.editNameCount);
         btnLogin = findViewById(R.id.imgBtnLogin);
         txtForgetPass = findViewById(R.id.txtForgetPass);
-        imgErroPass = findViewById(R.id.imgErroPass);
-        imgErroNameAccount = findViewById(R.id.imgErroNameAccount);
-        txtErrorPass = findViewById(R.id.txtErrorPass);
-        txtErrorNameAccount = findViewById(R.id.txtErrorNameAcount);
+//        imgErroPass = findViewById(R.id.imgErroPass);
+//        imgErroNameAccount = findViewById(R.id.imgErroNameAccount);
+//        txtErrorPass = findViewById(R.id.txtErrorPass);
+//        txtErrorNameAccount = findViewById(R.id.txtErrorNameAcount);
 
         // Dang nhap
         logIn();

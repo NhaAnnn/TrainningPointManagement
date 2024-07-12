@@ -62,7 +62,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Trần Thị Xuân Mai"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: GV2103561"
-                    android:inputType="text"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -257,8 +257,8 @@
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:hint="Ví dụ: GV2103561"
                     android:padding="4dp"
-                    android:text="TextView"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -286,7 +286,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -313,7 +313,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="textPassword"
+                    android:inputType="text|textMultiLine"
                     android:textSize="16sp" />
             </LinearLayout>
 

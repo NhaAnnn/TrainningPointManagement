@@ -100,7 +100,7 @@ public class mistake_edit extends AppCompatActivity {
 
         txtNameMistake.setText(mistakeName);
         txtNamePersonl.setText(namePersonl);
-        Toast.makeText(this,student.getHsID(),Toast.LENGTH_LONG).show();
+     //   Toast.makeText(this,student.getHsID(),Toast.LENGTH_LONG).show();
 
       //  Toast.makeText(this, "hloo HK"+hkyd,Toast.LENGTH_LONG).show();
         getIDLVPVP();
@@ -361,7 +361,7 @@ public class mistake_edit extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     count.set(queryDocumentSnapshots.size());
-                   int luotViPham = count.get();
+                   int luotViPham = count.get() + 1;
                     DocumentReference docRef = db.collection("luotViPham").document("LTVP"+luotViPham);
                     String  hkyd ="";
                     int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();

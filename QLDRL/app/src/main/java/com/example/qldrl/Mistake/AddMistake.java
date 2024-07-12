@@ -149,6 +149,10 @@ public class AddMistake extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         Toast.makeText(AddMistake.this, "Tạo Loại Vi Phạm Mới Thành Công!", Toast.LENGTH_LONG).show();
+                                                        mistake_detail_edit.adapterMistakeDetailED.notifyDataSetChanged();
+                                                        AdapterMistakeDetailED.adapterMistakeED.notifyDataSetChanged();
+                                                        dialog.dismiss();
+
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -160,7 +164,6 @@ public class AddMistake extends AppCompatActivity {
                                                 });
 
 
-                                        AdapterMistakeDetailED.adapterMistakeED.notifyDataSetChanged();
                                     }
                                 }
                             } else {
@@ -169,7 +172,6 @@ public class AddMistake extends AppCompatActivity {
                         }
                     });
 
-            dialog.dismiss();
 
         });
         dialog.show();

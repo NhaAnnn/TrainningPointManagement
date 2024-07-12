@@ -57,7 +57,7 @@ public class AdapterMistake extends RecyclerView.Adapter<AdapterMistake.mistakeV
                     intent.putExtra("account", account);
                     intent.putExtra("student", student);
                     context.startActivity(intent);
-                    Toast.makeText(context,namePersonl, Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(context,namePersonl, Toast.LENGTH_SHORT).show();
                 }
             });
 

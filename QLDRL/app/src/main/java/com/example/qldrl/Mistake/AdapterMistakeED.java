@@ -174,38 +174,7 @@ public class AdapterMistakeED extends RecyclerView.Adapter<AdapterMistakeED.mist
         btnExitAddMistake.setOnClickListener(v -> dialog.dismiss());
 
         btnDeleteMis.setOnClickListener(v -> {
-        //    Toast.makeText(context, "helllo", Toast.LENGTH_LONG).show();
-            FirebaseFirestore db1 = FirebaseFirestore.getInstance();
-
-            // Tạo truy vấn để tìm document có TK_id = "111"
-            Query query = db1.collection("viPham")
-                    .whereEqualTo("VP_id", mistake.getVpID());
-
-            // Thực hiện truy vấn và lấy snapshot
-            query.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    QuerySnapshot snapshot = task.getResult();
-                    if (!snapshot.isEmpty()) {
-                        // Xóa document
-                        for (DocumentSnapshot document : snapshot.getDocuments()) {
-                            document.getReference().delete();
-                        }
-                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
-                    } else {
-                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
-                    }
-                } else {
-                    // System.out.println("Lỗi khi thực hiện truy vấn: " + task.getException());
-                }
-            });
-
-
-            Toast.makeText(context, "Xóa tài vi phạm thành công!", Toast.LENGTH_SHORT).show();
-            listMistake.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, listMistake.size());
-            dialog.dismiss();
-
+            openDinalogDelete(Gravity.CENTER, mistake, position);
         });
 
         btnAddMistake.setOnClickListener( v -> {
@@ -305,5 +274,79 @@ public class AdapterMistakeED extends RecyclerView.Adapter<AdapterMistakeED.mist
                         Log.e("FirestoreError", "Lỗi khi lấy dữ liệu từ Firestore: " + e.getMessage());
                     }
                 });
+    }
+
+    private void openDinalogDelete(int gravity, Mistake mistake, int position) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_account_dinalog_delete);
+
+        Window window = dialog.getWindow();
+        if(window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribute = window.getAttributes();
+        windowAttribute.gravity = gravity;
+        window.setAttributes(windowAttribute);
+
+        dialog.setCancelable(true);
+
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+        Button btnDelete = dialog.findViewById(R.id.btnDelete);
+        TextView txtDialogXoa = dialog.findViewById(R.id.txtDialogXoa);
+        TextView txtNameDialog = dialog.findViewById(R.id.txtNameDialog);
+        txtNameDialog.setText("Xóa Vi Phạm");
+        txtDialogXoa.setText("Bạn có chắc muốn  vi phạm?");
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            //  Toast.makeText(context, "helllo", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(context, "helllo", Toast.LENGTH_LONG).show();
+            FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+
+            // Tạo truy vấn để tìm document có TK_id = "111"
+            Query query = db1.collection("viPham")
+                    .whereEqualTo("VP_id", mistake.getVpID());
+
+            // Thực hiện truy vấn và lấy snapshot
+            query.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshot = task.getResult();
+                    if (!snapshot.isEmpty()) {
+                        // Xóa document
+                        for (DocumentSnapshot document : snapshot.getDocuments()) {
+                            document.getReference().delete();
+                        }
+                        // System.out.println("Đã xóa document có TK_id = 111 thành công!");
+                        Toast.makeText(context, "Xóa tài vi phạm thành công!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        // System.out.println("Không tìm thấy document nào có TK_id = 111.");
+                        Toast.makeText(context, "Lỗi không tìm thấy vi phạm!", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    Toast.makeText(context, "Lỗi truy vấn!", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+            listMistake.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, listMistake.size());
+            dialog.dismiss();
+
+        });
+        dialog.show();
     }
 }

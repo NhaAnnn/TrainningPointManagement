@@ -102,34 +102,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_margin="10dp"
-                        app:cardElevation="10dp">
+                        app:cardBackgroundColor="#F6F8FA"
+                        app:cardElevation="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:weightSum="2">
 
-                            <ImageView
-                                android:id="@+id/imageView15"
-                                android:layout_width="85dp"
-                                android:layout_height="82dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="10dp"
-                                android:layout_weight="20"
-                                android:background="@drawable/main_home_top_anounce"
-                                android:src="@drawable/ic_updat" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:background="#38B6FF"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/textView25"
-                                android:layout_width="272dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="80"
-                                android:text="Cập Nhật Vi Phạm"
-                                android:textSize="30sp"
-                                android:textStyle="bold" />
+                                <ImageView
+                                    android:id="@+id/imageView15"
+                                    android:layout_width="85dp"
+                                    android:layout_height="82dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/ic_updat" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView25"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:text="Cập Nhật Vi Phạm"
+                                    android:textColor="#0F67B1"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -140,33 +157,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_margin="10dp"
-                        app:cardElevation="10dp">
+                        app:cardBackgroundColor="#F6F8FA"
+                        app:cardElevation="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:weightSum="2">
 
-                            <ImageView
-                                android:id="@+id/imageView17"
-                                android:layout_width="69dp"
-                                android:layout_height="66dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="10dp"
-                                android:layout_weight="20"
-                                android:src="@drawable/ic_view" />
-
-                            <TextView
-                                android:id="@+id/textView26"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="80"
-                                android:text="Hạnh Kiểm"
-                                android:textSize="30sp"
-                                android:textStyle="bold" />
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:background="#38B6FF"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageView17"
+                                    android:layout_width="85dp"
+                                    android:layout_height="82dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="20"
+                                    android:src="@drawable/ic_view" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView26"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="80"
+                                    android:text="Hạnh Kiểm"
+                                    android:textColor="#0F67B1"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -178,33 +213,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_margin="10dp"
-                        app:cardElevation="10dp">
+                        app:cardBackgroundColor="#F6F8FA"
+                        app:cardElevation="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:weightSum="2">
 
-                            <ImageView
-                                android:id="@+id/imageView26"
-                                android:layout_width="53dp"
-                                android:layout_height="68dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="10dp"
-                                android:layout_weight="20"
-                                android:src="@drawable/ic_classrom" />
-
-                            <TextView
-                                android:id="@+id/textView39"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="80"
-                                android:text="Lớp Học"
-                                android:textSize="30sp"
-                                android:textStyle="bold" />
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:background="#38B6FF"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageView26"
+                                    android:layout_width="85dp"
+                                    android:layout_height="82dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="20"
+                                    android:src="@drawable/ic_classrom" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView39"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="80"
+                                    android:text="Lớp Học"
+                                    android:textColor="#0F67B1"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -215,33 +269,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_margin="10dp"
-                        app:cardElevation="10dp">
+                        app:cardBackgroundColor="#F6F8FA"
+                        app:cardElevation="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:weightSum="2">
 
-                            <ImageView
-                                android:id="@+id/imageView27"
-                                android:layout_width="53dp"
-                                android:layout_height="68dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="10dp"
-                                android:layout_weight="20"
-                                android:src="@drawable/ic_baseline_description_white_48" />
-
-                            <TextView
-                                android:id="@+id/textView51"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="80"
-                                android:text="Báo Cáo"
-                                android:textSize="30sp"
-                                android:textStyle="bold" />
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:background="#38B6FF"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageView27"
+                                    android:layout_width="85dp"
+                                    android:layout_height="82dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="20"
+                                    android:src="@drawable/ic_baseline_description_white_48" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView51"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="80"
+                                    android:text="Báo Cáo"
+                                    android:textColor="#0F67B1"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>

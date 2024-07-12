@@ -54,7 +54,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
     Mistakes mistakes;
     Student student;
     String date, hanhKiem = "", subject;
-    int hk, diemTru;
+    int sttsub, diemTru;
     RadioButton rdTerm2, rdTerm1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +80,65 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         account = (Account) intent.getSerializableExtra("account");
         mistakes = (Mistakes) intent.getSerializableExtra("mistake");
         student = (Student) intent.getSerializableExtra("student");
+        List<Category> subjectList = getListSubject();
 
-        setSpSubject();
+        String tgvp = mistakes.getLtvpThoiGian();
+        int firstSpaceIndex = tgvp.indexOf("-");
+        String subject = tgvp.substring(0, firstSpaceIndex);
+        //  Toast.makeText(MistakeUpdateMistake.this, "size"+subjectList.size(),Toast.LENGTH_LONG).show();
+        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, subjectList);
+        spSubject.setAdapter(adapterCategory);
+        spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //  Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
+                // subject = adapterCategory.getItem(position).getNameCategory();
+                // Tìm vị trí của nienKhoa trong danh sách
+                int selectedPosition = -1;
+                for (int i = 0; i < subjectList.size(); i++) {
+                    if (subjectList.get(i).getNameCategory().equals(subject)) {
+                        selectedPosition = i;
+                        break;
+                    }
+                }
+                // Set giá trị mặc định cho Spinner
+                if (selectedPosition != -1) {
+                    spSubject.setSelection(selectedPosition);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         setDataMistakeUpdate();
+        final String[] lhNK = new String[1];
+
+        spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
+                Category selectedCategory = (Category) parent.getItemAtPosition(position);
+                // Sử dụng selectedCategory object thay vì cast nó thành String
+                String categoryName = selectedCategory.getNameCategory();
+                //  Toast.makeText(context, "g"+categoryName, Toast.LENGTH_LONG).show();
+                lhNK[0] = categoryName;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnExitUpdateMistake.setOnClickListener(v -> {
             finish();
         });
 
         btnUpdateMistake.setOnClickListener(v -> {
-            update();
+            update(lhNK[0]);
         });
 
 
@@ -132,15 +181,15 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         String tgvp = mistakes.getLtvpThoiGian();
         int firstSpaceIndex = tgvp.indexOf("-");
         String subject = tgvp.substring(0, firstSpaceIndex);
-        setSpSubject(subject);
+        //setSpSubject(subject);
 
-        Toast.makeText(this, subject,Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, subject,Toast.LENGTH_LONG).show();
 
         String ngay = tgvp.substring(firstSpaceIndex+1);
         txtVDate.setText(ngay);
 
 
-        Toast.makeText(this, "luot vi oham id: "+ mistakes.ltvpID, Toast.LENGTH_LONG).show();
+    //    Toast.makeText(this, "luot vi oham id: "+ mistakes.ltvpID, Toast.LENGTH_LONG).show();
         if(mistakes.getLtvpHK().toLowerCase().equals("học kỳ 1")) {
             rdTerm1.setChecked(true);
         } else {
@@ -175,35 +224,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
 
     }
     private void setSpSubject(String sj) {
-        List<Category> subjectList = getListSubject();
-        Toast.makeText(MistakeUpdateMistake.this, "size"+subjectList.size(),Toast.LENGTH_LONG).show();
-        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, subjectList);
-        spSubject.setAdapter(adapterCategory);
-        spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-              //  Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
-               // subject = adapterCategory.getItem(position).getNameCategory();
-                // Tìm vị trí của nienKhoa trong danh sách
-                int selectedPosition = -1;
-                for (int i = 0; i < subjectList.size(); i++) {
-                    if (subjectList.get(i).getNameCategory().equals(sj)) {
-                        selectedPosition = i;
-                        break;
-                    }
-                }
-                // Set giá trị mặc định cho Spinner
-                if (selectedPosition != -1) {
-                    spSubject.setSelection(selectedPosition);
-                }
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
 
@@ -237,7 +258,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
         date = currentDateString;
     }
 
-    public void update() {
+    public void update(String subject1) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Query query = db.collection("luotViPham").whereEqualTo("LTVP_id", mistakes.getLtvpID());
@@ -259,7 +280,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                                 }
 
                                 Map<String, Object> updates = new HashMap<>();
-                                updates.put("LTVP_ThoiGian", subject+"-"+time);
+                                updates.put("LTVP_ThoiGian", subject1+"-"+time);
                                 updates.put("HK_HocKy", hocky.trim());
 
                                 document.getReference().update(updates)
@@ -267,6 +288,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(MistakeUpdateMistake.this, "sucess", Toast.LENGTH_LONG).show();
+                                                Mistake_See.adapterMistakeSee.notifyDataSetChanged();
                                                 finish();
                                             }
                                         })
@@ -287,20 +309,7 @@ public class MistakeUpdateMistake extends AppCompatActivity {
     }
 
     private void setSpSubject() {
-        adapterCategory = new AdapterCategory(this, R.layout.layout_item_selected, getListSubject());
-        spSubject.setAdapter(adapterCategory);
-        spSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(mistake_edit.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
-                subject = adapterCategory.getItem(position).getNameCategory();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
 

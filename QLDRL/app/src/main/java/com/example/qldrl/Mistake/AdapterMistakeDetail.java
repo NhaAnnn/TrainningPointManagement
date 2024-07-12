@@ -56,7 +56,12 @@ public class AdapterMistakeDetail extends RecyclerView.Adapter<AdapterMistakeDet
     public void onBindViewHolder(@NonNull mistakeViewHoder holder, int position) {
         try {
             MistakeType mistake = listMistake.get(position); // sử dụng listID chẵn hạn
-            holder.txtNameMistakeDetail.setText(mistake.getLvpTen());
+            if(position < 10) {
+                holder.txtNameMistakeDetail.setText("0"+(position+1)+"_"+mistake.getLvpTen());
+
+            } else {
+                holder.txtNameMistakeDetail.setText((position+1)+"_"+mistake.getLvpTen());
+            }
 
            holder.layoutDetailss.setOnTouchListener((v, event) -> {
                if (event.getAction() == MotionEvent.ACTION_DOWN) {

@@ -48,7 +48,7 @@ public class Mistake_Personal extends AppCompatActivity {
         classID = intent.getStringExtra("classID");
         account = (Account) intent.getSerializableExtra("account");
 
-        Toast.makeText(this, account.getTkID()+"333",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, account.getTkID()+"333",Toast.LENGTH_LONG).show();
 
 
         txtVEditMistakeClass = findViewById(R.id.txtVEditMistakeClass);

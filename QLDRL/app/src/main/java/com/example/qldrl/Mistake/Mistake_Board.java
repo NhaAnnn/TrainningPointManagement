@@ -186,7 +186,7 @@ public class Mistake_Board extends AppCompatActivity {
 
     private void updataRecyc(List<ClassRom> classRomLists) {
         classRomList.addAll(classRomLists);
-        Toast.makeText(this, "size lop"+classRomLists.size(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "size lop"+classRomLists.size(), Toast.LENGTH_SHORT).show();
         adapterClassRom = new AdapterClassRom(classRomList, Mistake_Board.this, account); //truyen vao tuy tung list
         recyclVClass.setAdapter(adapterClassRom);
         recyclVClass.setLayoutManager(new GridLayoutManager(Mistake_Board.this, 1));
@@ -267,7 +267,7 @@ public class Mistake_Board extends AppCompatActivity {
                         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                Toast.makeText(Mistake_Board.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(Mistake_Board.this, adapterCategory.getItem(position).getNameCategory(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
