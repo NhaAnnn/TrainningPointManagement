@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="1dp"
 
-    android:background="@drawable/card_border">
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,16 +72,17 @@
                     android:text="Được cập nhật bởi:"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_weight="0.1"/>
-
+                    android:layout_weight="0"/>
                 <TextView
-                    android:id="@+id/txtNameUpdate"
+                    android:id="@+id/txtMount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=".........."
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="40dp"
+                    android:text="Thời gian:"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -90,23 +92,22 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:weightSum="2">
+
                 <TextView
-                    android:id="@+id/txtMount"
+                    android:id="@+id/txtNameUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thời gian:"
-                    android:textStyle="bold"
+                    android:text=".........."
                     android:textColor="@color/black"
-                    android:layout_weight="0.5"/>
-
+                    android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/txtTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1.5" />
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>

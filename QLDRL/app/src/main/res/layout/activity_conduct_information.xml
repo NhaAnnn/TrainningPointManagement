@@ -84,8 +84,8 @@
                     android:id="@+id/cardView"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-
-
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -276,6 +276,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@color/white"
+                android:backgroundTint="@color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

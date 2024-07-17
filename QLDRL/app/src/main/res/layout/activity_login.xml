@@ -78,8 +78,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Quên mật khẩu"
+            android:backgroundTint="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
