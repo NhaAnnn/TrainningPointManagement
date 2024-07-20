@@ -95,7 +95,6 @@ public class DialogCreateFileClass extends Fragment {
                         Uri fileUri = result.getData().getData();
                         String fileName = getFileName(fileUri);
                         srcFile.setText( fileName);
-                        //     Toast.makeText(getContext(), getFilePath(getContext(), fileUri), Toast.LENGTH_LONG).show();
                         selectedFileUri = fileUri;
                     }
                 }
@@ -106,7 +105,6 @@ public class DialogCreateFileClass extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         // Inflate the layout for this fragment
         createFileClass =  inflater.inflate(R.layout.fragment_dialog_create_file_class, container, false);
 
@@ -114,7 +112,6 @@ public class DialogCreateFileClass extends Fragment {
         saveButton = createFileClass.findViewById(R.id.saveButton);
         btnChooseFile = createFileClass.findViewById(R.id.btnChooseFile);
         cancelButton = createFileClass.findViewById(R.id.cancelButton);
-
 
 
         btnChooseFile.setOnClickListener(v -> {
@@ -125,11 +122,15 @@ public class DialogCreateFileClass extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 uploadExcelDataToFirestore(selectedFileUri);
+                ProgressBarFragment progressBarFragment = new ProgressBarFragment();
+
                 if (ListClass.dialog != null) {
                     EventBus.getDefault().post(new FileClassUpdatedEvent(listClasses));
                     ListClass.dialog.dismiss();
                 }
+
             }
         });
 
@@ -221,6 +222,7 @@ public class DialogCreateFileClass extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
                 // Hiển thị thông báo lỗi
+
                 Toast.makeText(getContext(), "Có lỗi xảy ra khi tải dữ liệu lên Firebase.", Toast.LENGTH_SHORT).show();
             }
         } else {

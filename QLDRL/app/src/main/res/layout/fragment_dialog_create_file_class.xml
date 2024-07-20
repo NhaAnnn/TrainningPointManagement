@@ -72,9 +72,9 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:backgroundTint="#76ABAE"
-            android:text="Chọn File" >
+            android:text="Chọn File"
+            android:textColor="@color/white"/>
 
-        </Button>
 
     </LinearLayout>
 
@@ -92,6 +92,7 @@
             android:layout_margin="30dp"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_weight="1"/>
 
         <Button
@@ -103,7 +104,9 @@
             android:text="Thoát"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_weight="1"/>
     </LinearLayout>
     </LinearLayout>
+
 </FrameLayout>
