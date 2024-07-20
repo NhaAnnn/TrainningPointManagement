@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +87,7 @@ public class DialogCreateFileClass extends Fragment {
     private Button btnChooseFile, saveButton, cancelButton;
     private List<ListClass> listClasses;
     private View createFileClass;
+    private ProgressBar progressBar;
 
     public void initFileChooserLauncher(){
         openDocumentLauncher = registerForActivityResult(
@@ -112,7 +114,7 @@ public class DialogCreateFileClass extends Fragment {
         saveButton = createFileClass.findViewById(R.id.saveButton);
         btnChooseFile = createFileClass.findViewById(R.id.btnChooseFile);
         cancelButton = createFileClass.findViewById(R.id.cancelButton);
-
+        progressBar = createFileClass.findViewById(R.id.progressBar);
 
         btnChooseFile.setOnClickListener(v -> {
             openFileChooser();
@@ -122,19 +124,18 @@ public class DialogCreateFileClass extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                uploadExcelDataToFirestore(selectedFileUri);
-                ProgressBarFragment progressBarFragment = new ProgressBarFragment();
-
-                if (ListClass.dialog != null) {
-                    EventBus.getDefault().post(new FileClassUpdatedEvent(listClasses));
-                    ListClass.dialog.dismiss();
+                if (selectedFileUri != null) {
+                    showProgressBar();
+                    uploadExcelDataToFirestore(selectedFileUri);
                 }
+
+
 
             }
         });
 
         cancelButton.setOnClickListener(v -> {
+//            showProgressBar();
             if (ListClass.dialog != null) {
                 ListClass.dialog.dismiss();
             }
@@ -171,13 +172,22 @@ public class DialogCreateFileClass extends Fragment {
         return result;
     }
 
+    public void showProgressBar(){
+        srcFile.setVisibility(View.INVISIBLE);
+        saveButton.setVisibility(View.INVISIBLE);
+        btnChooseFile.setVisibility(View.INVISIBLE);
+        cancelButton.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
     public void uploadExcelDataToFirestore(Uri selectedFileUri){
         if (selectedFileUri != null) {
             try {
+
                 InputStream inputStream = requireContext().getContentResolver().openInputStream(selectedFileUri);
                 Workbook workbook = new XSSFWorkbook(inputStream);
                 Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
                 listClasses = new ArrayList<>();
+
                 // Duyệt qua các hàng trong sheet và đẩy dữ liệu lên Firebase
                 for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                     Row row = sheet.getRow(i);
@@ -225,9 +235,14 @@ public class DialogCreateFileClass extends Fragment {
 
                 Toast.makeText(getContext(), "Có lỗi xảy ra khi tải dữ liệu lên Firebase.", Toast.LENGTH_SHORT).show();
             }
+            if (ListClass.dialog != null) {
+                EventBus.getDefault().post(new FileClassUpdatedEvent(listClasses));
+                ListClass.dialog.dismiss();
+            }
         } else {
             Toast.makeText(getContext(), "Vui lòng chọn file Excel trước khi tải dữ liệu lên Firebase.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }
