@@ -131,6 +131,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/blue"
             android:text="Lưu"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -142,6 +143,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/red"
             android:text="Thoát"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>

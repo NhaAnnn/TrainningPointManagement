@@ -255,13 +255,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
-                android:text="Học sinh"></RadioButton>
+                android:text="Học sinh"
+                android:textColor="@color/black"/>
 
             <RadioButton
                 android:id="@+id/radioPo2"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="Ban cán sự"></RadioButton>
+                android:text="Ban cán sự"
+                android:textColor="@color/black"/>
         </RadioGroup>
 
 
@@ -280,6 +282,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/blue"
             android:text="Lưu Chức Vụ"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
     </LinearLayout>

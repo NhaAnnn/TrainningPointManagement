@@ -132,7 +132,8 @@
             android:backgroundTint="@color/blue"
             android:text="Lưu"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/cancelButton"
@@ -143,6 +144,7 @@
             android:backgroundTint="@color/red"
             android:text="Thoát"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </LinearLayout>
