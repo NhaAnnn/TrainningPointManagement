@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
 
 import com.example.qldrl.R;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,23 +118,19 @@ public class DialogCreateFileClass extends Fragment {
         btnChooseFile = createFileClass.findViewById(R.id.btnChooseFile);
         cancelButton = createFileClass.findViewById(R.id.cancelButton);
         progressBar = createFileClass.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         btnChooseFile.setOnClickListener(v -> {
             openFileChooser();
         });
         initFileChooserLauncher();
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedFileUri != null) {
-                    showProgressBar();
-                    uploadExcelDataToFirestore(selectedFileUri);
-                }
+        saveButton.setOnClickListener(v -> {
+            if (selectedFileUri != null) {
 
-
-
+                uploadExcelDataToFirestore(selectedFileUri);
             }
+
         });
 
         cancelButton.setOnClickListener(v -> {
@@ -181,6 +180,7 @@ public class DialogCreateFileClass extends Fragment {
     }
     public void uploadExcelDataToFirestore(Uri selectedFileUri){
         if (selectedFileUri != null) {
+            showProgressBar();
             try {
 
                 InputStream inputStream = requireContext().getContentResolver().openInputStream(selectedFileUri);

@@ -14,7 +14,7 @@
         android:orientation="vertical">
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center">
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-       android:layout_gravity="center">
+        android:layout_gravity="center">
 
 
         <TextView
@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="false"
-        android:visibility="gone"
+
         android:layout_gravity="center"/>
 
 </FrameLayout>
