@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Tải lên DS Tài khoản"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
         </LinearLayout>
@@ -49,6 +50,7 @@
                 android:layout_margin="4dp"
                 android:layout_weight="2"
                 android:padding="10dp"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <Button
@@ -58,7 +60,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="0"
                 android:backgroundTint="#76ABAE"
-                android:text="Chọn File" />
+                android:text="Chọn File"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -75,7 +78,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="#38B6FF"
-                android:text="Tải lên" />
+                android:text="Tải lên"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnExitBoard"
@@ -84,7 +88,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="#FF0000"
-                android:text="Thoát" />
+                android:text="Thoát"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

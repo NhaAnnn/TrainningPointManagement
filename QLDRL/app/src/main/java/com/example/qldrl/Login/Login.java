@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.qldrl.General.Account;
-import com.example.qldrl.Homes.MainHome;
 import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;

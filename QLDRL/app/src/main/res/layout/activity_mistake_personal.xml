@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -67,6 +68,7 @@
             android:gravity="center"
             android:padding="2dp"
             android:text="Mã HS"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -79,6 +81,7 @@
             android:gravity="center"
             android:padding="2dp"
             android:text="Họ và Tên"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -91,6 +94,7 @@
             android:gravity="center"
             android:padding="2dp"
             android:text="Số lần vi phạm"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -103,6 +107,7 @@
             android:gravity="center"
             android:padding="2dp"
             android:text="Vi phạm"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -115,6 +120,7 @@
             android:gravity="center"
             android:padding="2dp"
             android:text="Cập nhật"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 

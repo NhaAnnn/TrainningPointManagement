@@ -40,9 +40,9 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Thông tin tài khoản"
+                    android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Họ và Tên:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -67,6 +68,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -83,6 +85,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Tên Tài Khoản:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -93,6 +96,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -109,6 +113,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Lớp:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -119,6 +124,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -135,6 +141,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Giới Tính:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -145,6 +152,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -161,6 +169,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Ngày Sinh:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -171,6 +180,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -187,6 +197,7 @@
                         android:layout_weight="30"
                         android:padding="5dp"
                         android:text="Chức Vụ:"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -196,6 +207,7 @@
                         android:layout_weight="70"
                         android:padding="5dp"
                         android:text="TextView"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -219,6 +231,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="85"
                     android:text="Điều khoản sử dụng"
+                    android:textColor="@color/black"
                     android:textSize="22sp" />
 
                 <ImageView
@@ -248,6 +261,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="85"
                     android:text="Chính sách quyền riêng tư"
+                    android:textColor="@color/black"
                     android:textSize="22sp" />
 
                 <ImageView
@@ -278,6 +292,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="85"
                     android:text="Tùy chỉnh vi phạm"
+                    android:textColor="@color/black"
                     android:textSize="22sp" />
 
                 <ImageView
@@ -306,6 +321,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="85"
                     android:text="Đổi mật khẩu"
+                    android:textColor="@color/black"
                     android:textSize="22sp" />
 
                 <ImageView
@@ -332,6 +348,7 @@
                     android:backgroundTint="#38B6FF"
                     android:padding="5dp"
                     android:text="DS tài khoản"
+                    android:textColor="@color/white"
                     android:visibility="visible" />
 
                 <Button
@@ -342,7 +359,8 @@
                     android:layout_weight="50"
                     android:backgroundTint="#FF0000"
                     android:padding="5dp"
-                    android:text="Đăng xuất" />
+                    android:text="Đăng xuất"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

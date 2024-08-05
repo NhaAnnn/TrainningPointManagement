@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -31,7 +30,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterSpinner;
-import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,7 +92,7 @@ public class ListClass extends AppCompatActivity implements Serializable {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String id = (String) document.getString("LH_id");
 
-                            if(account.getTkChucVu().toLowerCase().trim().equals(MainHome.gv)){
+                            if(account.getTkChucVu().toLowerCase().trim().equals(MainHome_Edited.gv)){
                                 getDataClassForTeacher(id);
                             }else {
                                 getData();

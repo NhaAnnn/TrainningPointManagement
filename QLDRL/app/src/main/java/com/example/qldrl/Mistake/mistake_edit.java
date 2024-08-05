@@ -44,6 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class mistake_edit extends AppCompatActivity {
@@ -86,7 +87,7 @@ public class mistake_edit extends AppCompatActivity {
         btnExitEditMistake = findViewById(R.id.btnExitEditMistake);
 
         btnExitEditMistake.setOnClickListener(v -> {
-            finish();
+           onBackPressed();
         });
 
 
@@ -139,6 +140,7 @@ public class mistake_edit extends AppCompatActivity {
     }
     public void date(){
         Calendar calendar = Calendar.getInstance();
+
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, dayOfMonth) -> {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
@@ -151,13 +153,15 @@ public class mistake_edit extends AppCompatActivity {
         };
 
         imgCalen.setOnClickListener(v -> {
-            new DatePickerDialog(this, dateSetListener,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.MyCalender,
+                    dateSetListener,
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    calendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
         });
 
-        // Cập nhật TextViews với ngày và thứ hiện tại
+// Cập nhật TextViews với ngày và thứ hiện tại
         String currentDayOfWeekString = new SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.getTime());
         String currentDateString = currentDayOfWeekString + " " + new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.getTime());
         txtDate.setText(currentDateString);
@@ -360,9 +364,11 @@ public class mistake_edit extends AppCompatActivity {
         luotViPhamRef
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
+                    String randomString = generateRandomString(4);
+
                     count.set(queryDocumentSnapshots.size());
                    int luotViPham = count.get() + 1;
-                    DocumentReference docRef = db.collection("luotViPham").document("LTVP"+luotViPham);
+                    DocumentReference docRef = db.collection("luotViPham").document("LTVP"+VPid+luotViPham+randomString);
                     String  hkyd ="";
                     int selectedRadioButtonId = rdGTerm.getCheckedRadioButtonId();
                     if (selectedRadioButtonId != -1) {
@@ -376,12 +382,14 @@ public class mistake_edit extends AppCompatActivity {
                         }
                     }
 // Tạo một Map để lưu trữ dữ liệu
+                    //chuoi ngau nghien tranh bi trung
+
                     Map<String, Object> data = new HashMap<>();
                     data.put("HS_id", student.getHsID());
                     data.put("VP_id", VPid);
                     data.put("TK_id", account.getTkID());
                     data.put("LTVP_ThoiGian", subject+"-" +date);
-                    data.put("LTVP_id", "LTVP"+luotViPham);
+                    data.put("LTVP_id", "LTVP"+VPid+luotViPham+randomString);
                     data.put("HK_HocKy", hkyd);
 
 // Lưu dữ liệu vào Firestore
@@ -408,6 +416,16 @@ public class mistake_edit extends AppCompatActivity {
         drlhk = drl;
     }
 
+    private static String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
+    }
 
     private  void getIDLVPVP() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

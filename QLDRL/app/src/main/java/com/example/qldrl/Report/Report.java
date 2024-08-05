@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -53,11 +54,16 @@ public class Report extends AppCompatActivity {
     private Workbook workbook;
 
     private Account account;
+    private ImageView imgBackReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        imgBackReport = findViewById(R.id.imgBackReport);
+
+        imgBackReport.setOnClickListener(v -> onBackPressed());
 
         CardView cardListAcc = findViewById(R.id.cardListAcc);
         CardView cardListMistakeAll = findViewById(R.id.cardListMistakeAll);

@@ -40,6 +40,7 @@
                     android:layout_gravity="center"
                     android:padding="3dp"
                     android:text="Lớp:"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -49,7 +50,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="4dp"
                     android:gravity="left"
-                    android:padding="3dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -65,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:padding="3dp"
                     android:text="Niên khóa:"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -74,7 +77,8 @@
 
                     android:layout_marginStart="10dp"
                     android:gravity="left"
-                    android:padding="3dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -93,6 +97,7 @@
 
                     android:padding="3dp"
                     android:text="Sĩ số:"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -103,7 +108,8 @@
 
                     android:layout_marginStart="10dp"
                     android:gravity="left"
-                    android:padding="3dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -121,6 +127,7 @@
                     android:layout_gravity="center"
                     android:padding="3dp"
                     android:text="GVCN:"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -129,7 +136,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:gravity="left"
-                    android:padding="3dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -146,6 +154,7 @@
                     android:layout_gravity="center"
                     android:padding="3dp"
                     android:text="Vi phạm:"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -155,7 +164,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:gravity="left"
-                    android:padding="3dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
         </LinearLayout>

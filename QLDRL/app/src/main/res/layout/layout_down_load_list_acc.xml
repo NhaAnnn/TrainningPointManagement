@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Tải xuống danh sách tài khoản"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
         </LinearLayout>
@@ -52,6 +53,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:text="Chọn loại Tài Khoản"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -65,19 +67,22 @@
                     android:id="@+id/rdBoard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ban giám hiệu" />
+                    android:text="Ban giám hiệu"
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rdTeach"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Giáo viên" />
+                    android:text="Giáo viên"
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rdStud"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Học sinh" />
+                    android:text="Học sinh"
+                    android:textColor="@color/black" />
             </RadioGroup>
         </LinearLayout>
 
@@ -124,6 +129,7 @@
                 android:layout_weight="2"
                 android:background="@drawable/general_border"
                 android:padding="10dp"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <Button
@@ -135,7 +141,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_weight="0"
                 android:backgroundTint="#76ABAE"
-                android:text="Xuất File" />
+                android:text="Xuất File"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -153,7 +160,8 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="#38B6FF"
-                android:text="Tải xuống" />
+                android:text="Tải xuống"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnExitDownLoad"
@@ -163,7 +171,8 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="#FF0000"
-                android:text="Thoát" />
+                android:text="Thoát"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

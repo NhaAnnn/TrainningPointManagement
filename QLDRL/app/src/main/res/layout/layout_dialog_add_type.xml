@@ -34,6 +34,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:text="Thêm Loại Vi Phạm"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="Mã:"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:layout_weight="0" />
@@ -60,7 +62,8 @@
                 android:layout_weight="2"
                 android:ems="10"
                 android:hint="Ví dụ: TT"
-                android:inputType="text|textMultiLine" />
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="Tên Loại:"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:layout_weight="0" />
@@ -86,7 +90,8 @@
                 android:layout_weight="2"
                 android:ems="10"
                 android:hint="Ví dụ: Tác phong"
-                android:inputType="text|textMultiLine" />
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +106,8 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/blue"
-                android:text="Thêm" />
+                android:text="Thêm"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnExitAddType"
@@ -110,7 +116,8 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/red"
-                android:text="Thoát" />
+                android:text="Thoát"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

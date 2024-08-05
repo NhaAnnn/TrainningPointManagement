@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Tên vi phạm:"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Môn học:"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -84,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Thời gian vi phạm:"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -102,7 +106,8 @@
                 android:layout_weight="1"
                 android:gravity="center|left"
                 android:padding="10dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/imgCalend"
@@ -128,6 +133,7 @@
                 android:layout_gravity="center"
                 android:padding="4dp"
                 android:text="Học kỳ:"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -142,13 +148,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:text="Học kỳ 1" />
+                    android:text="Học kỳ 1"
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="108dp"
                     android:layout_height="match_parent"
-                    android:text="Học kỳ 2" />
+                    android:text="Học kỳ 2"
+                    android:textColor="@color/black" />
 
             </RadioGroup>
         </LinearLayout>
@@ -193,6 +201,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#38B6FF"
                 android:text="Lưu"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <Button
@@ -203,6 +212,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#FF0000"
                 android:text="Thoát"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 

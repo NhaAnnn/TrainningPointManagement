@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Tạo 1 tài khoản giáo viên"
+                    android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="normal|bold" />
             </LinearLayout>
@@ -54,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lớp:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -64,6 +66,7 @@
                     android:ems="10"
                     android:hint="Ví dụ: 10a1"
                     android:inputType="text|textMultiLine"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -79,6 +82,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Năm học:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <Spinner
@@ -102,6 +106,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Tên người dùng:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -111,7 +116,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Trần Thị Xuân Mai"
-                    android:inputType="text|textMultiLine" />
+                    android:inputType="text|textMultiLine"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
 
@@ -128,6 +134,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Mã giáo viên:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -137,7 +144,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: GV2103561"
-                    android:inputType="text|textMultiLine" />
+                    android:inputType="text|textMultiLine"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -155,6 +163,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Ngày sinh:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -190,6 +199,7 @@
                     android:layout_gravity="center"
                     android:padding="4dp"
                     android:text="Giới tính:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <RadioGroup
@@ -202,13 +212,15 @@
                         android:id="@+id/radioButton4"
                         android:layout_width="115dp"
                         android:layout_height="match_parent"
-                        android:text="Nam" />
+                        android:text="Nam"
+                        android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/radioButton3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nữ" />
+                        android:text="Nữ"
+                        android:textColor="@color/black" />
 
                 </RadioGroup>
             </LinearLayout>
@@ -252,6 +264,7 @@
                     android:layout_gravity="center"
                     android:padding="4dp"
                     android:text="Chức vụ:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <RadioGroup
@@ -265,7 +278,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:checked="true"
-                        android:text="Giáo viên" />
+                        android:text="Giáo viên"
+                        android:textColor="@color/black" />
 
                 </RadioGroup>
             </LinearLayout>
@@ -284,6 +298,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Tên tài khoản:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -294,6 +309,7 @@
                     android:layout_weight="1"
                     android:hint="Ví dụ: GV2103561"
                     android:padding="4dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -312,6 +328,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Mật khẩu:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -321,7 +338,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="text|textMultiLine" />
+                    android:inputType="text|textMultiLine"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -338,6 +356,7 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     android:text="Nhập lại mật khẩu:"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -347,7 +366,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Ví dụ: Ttxm0123@"
-                    android:inputType="text|textMultiLine" />
+                    android:inputType="text|textMultiLine"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -363,7 +383,8 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#38B6FF"
-                    android:text="Tạo" />
+                    android:text="Tạo"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnExitFragTeacher"
@@ -372,7 +393,8 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FF0000"
-                    android:text="Thoát" />
+                    android:text="Thoát"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

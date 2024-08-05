@@ -2,18 +2,14 @@ package com.example.qldrl.Conduct;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.qldrl.General.AdapterSpinner;
 import com.example.qldrl.Class.ListClass;
 import com.example.qldrl.General.Account;
-import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -80,7 +76,7 @@ public class ListConduct extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String id = (String) document.getString("LH_id");
 
-                            if(account.getTkChucVu().toLowerCase().trim().equals(MainHome.gv)){
+                            if(account.getTkChucVu().toLowerCase().trim().equals(MainHome_Edited.gv)){
                                 getDataClassForTeacher(id);
                             }else {
                                 getDataClass();

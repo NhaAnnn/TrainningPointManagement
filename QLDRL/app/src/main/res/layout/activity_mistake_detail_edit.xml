@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Các Vi Phạm"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -68,6 +69,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="90"
                 android:text="Thêm Vi Phạm"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
 

@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/imgCalendar"
         android:padding="10dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/black" />
 
     <ImageView
         android:id="@+id/imgCalendar"

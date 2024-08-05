@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterCategory;
 import com.example.qldrl.General.Category;
-import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -97,7 +96,7 @@ public class Mistake_Board extends AppCompatActivity {
 
 //        sp(getListCategory(), spCategory);
 //        sp(getListYear(), spYear);
-        if (account.getTkChucVu().toLowerCase().equals(MainHome.gv) || account.getTkChucVu().toLowerCase().equals(MainHome.bcs)) {
+        if (account.getTkChucVu().toLowerCase().equals(MainHome_Edited.gv) || account.getTkChucVu().toLowerCase().equals(MainHome_Edited.bcs)) {
             List<ClassRom> classRomList = new ArrayList<>();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 

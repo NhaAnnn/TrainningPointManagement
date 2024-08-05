@@ -7,26 +7,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.qldrl.Class.ListClass;
 import com.example.qldrl.General.Account;
 import com.example.qldrl.General.AdapterSpinner;
-import com.example.qldrl.Homes.MainHome;
+import com.example.qldrl.Homes.MainHome_Edited;
 import com.example.qldrl.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +66,8 @@ public class ConductInformation extends AppCompatActivity {
         txtTrainingPointStudent = findViewById(R.id.txtTrainingPointStudent);
         txtConductStudent = findViewById(R.id.txtConductStudent);
 
-        if(account.getTkChucVu().toLowerCase().trim().equals(MainHome.bcs)
-                || account.getTkChucVu().toLowerCase().trim().equals(MainHome.hs)){
+        if(account.getTkChucVu().toLowerCase().trim().equals(MainHome_Edited.bcs)
+                || account.getTkChucVu().toLowerCase().trim().equals(MainHome_Edited.hs)){
 
             spinnerSemester.setVisibility(View.VISIBLE);
             AdapterSpinner adapterSpinner = new AdapterSpinner(spinnerSemester);
